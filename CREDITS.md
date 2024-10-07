@@ -23,6 +23,11 @@ Author: [Marek Belski and contributors](https://github.com/Maaack/Godot-Game-Tem
 Source: [github: Godot-Game-Template](https://github.com/Maaack/Godot-Game-Template)  
 License: [MIT License](LICENSE.txt)  
 
+### Godot-Jolt
+Mikael Hermansson [@mihe](https://github.com/mihe)
+Jorrit Rouwe [@jrouwe](https://github.com/jrouwe)
+Source: [github: godot-jolt](https://github.com/godot-jolt/godot-jolt/tree/master)
+
 ### Terrain3D
 Source: [github: Terrain3D](https://github.com/TokisanGames/Terrain3D)
 
