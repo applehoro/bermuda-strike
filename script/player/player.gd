@@ -1,9 +1,7 @@
 # author: applehoro
 # script purpose:
 # - handle player movement
-# - handle visual effects, also switch them on and off depending on settings (later should be moved to separate script for gui nodes)
-# - handle GUI (later should be moved in separate script)
-
+# - handle visual effects, also switch them on and off depending on settings
 
 extends CharacterBody3D
 
@@ -26,19 +24,25 @@ var glide_vel = 180.0;
 var camera_roll = 0.0;
 var camera_roll_max = 30.0;
 
+var is_over_water = false;
+var is_underwater = false;
+var water_depth = 0.0;
+
 func _ready() -> void:
 	Global.node_player = self;
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED;
 	update_settings();
 	Global.connect( "on_update_settings", self.update_settings );
-	get_viewport().connect( "size_changed", self.update_settings );
+	Inventory.connect( "on_death", self.die );
 
 func update_settings():
-	$yaw/pitch/cam/outline.visible = Global.settings[ "outline" ];
-	$gui/lens_flare.visible = Global.settings[ "lens_flare" ];
-	$gui/crosshair.position = get_viewport().get_visible_rect().size/2.0;
-	$yaw/pitch/cam.far = Global.settings[ "render_distance" ];
-	$yaw/pitch/cam.fov = Global.settings[ "fov" ];
+	$yaw/pitch/camera/outline.visible = Global.settings[ "outline" ];
+	$yaw/pitch/camera.far = Global.settings[ "render_distance" ];
+	$yaw/pitch/camera.fov = Global.settings[ "fov" ];
+
+func die():
+	Global.node_player = null;
+	queue_free();
 
 func _exit_tree() -> void:
 	Global.node_player = null;
@@ -62,30 +66,15 @@ func _process( delta: float ) -> void:
 	# camera roll
 	camera_roll *= 1.0 - delta*2.0;
 	camera_roll = clamp( camera_roll, deg_to_rad( -camera_roll_max ), deg_to_rad( camera_roll_max ) );
-	$yaw/pitch/cam.rotation.z = camera_roll;
+	$yaw/pitch/camera.rotation.z = camera_roll;
 	
 	# visual effects
-	$yaw/smoke_trail.emitting = motion.length() > 0.5 && Global.settings[ "smoke_trails" ] && !$water_check.is_underwater;
-	
-	if( ( $water_check.is_over_water || $water_check.is_underwater ) && Global.settings[ "special_effects" ] ):
-		$gui/water_horizon.visible = true;
-		$gui/water_horizon.color.a = ease( max( 1.2 - abs( $water_check.depth ), 0.0 ), 0.25 );
-		if( $water_check.is_underwater ):
-			$gui/water_distortion.visible = true;
-		else:
-			$gui/water_distortion.visible = false;
-	else:
-		$gui/water_horizon.visible = false;
-		$gui/water_distortion.visible = false;
-	
-	$gui/speed_lines.visible = motion_type == MOTION_TYPE_GLIDE && Input.is_action_pressed( "overdrive" ) && Global.settings[ "special_effects" ];
-	
-	# gui
-	$gui/fps.text = "FPS: " + str( Engine.get_frames_per_second() );
-	$gui/overheat.text = "Overheat: " + str( int( overdrive_heat*100.0 ) ) + "%";
-	$gui/velocity.text = str( snappedf( velocity.length(), 1.0 ) ) + " m/s";
+	$yaw/smoke_trail.emitting = motion.length() > 0.5 && Global.settings[ "smoke_trails" ] && !is_underwater;
 
 func _physics_process( delta: float ) -> void:
+	is_over_water = $water_check.is_over_water;
+	is_underwater = $water_check.is_underwater;
+	water_depth = $water_check.depth;
 	
 	# update control
 	var control = Vector3();
@@ -116,7 +105,7 @@ func _physics_process( delta: float ) -> void:
 	
 	# damping
 	motion *= 1.0 - delta*8.0;
-	if( $water_check.is_underwater ):
+	if( is_underwater ):
 		motion *= 1.0 - delta*8.0;
 	
 	match( motion_type ):
@@ -149,9 +138,9 @@ func _physics_process( delta: float ) -> void:
 	velocity += motion*delta*8.0;
 	
 	# water physics
-	if( $water_check.is_underwater ):
-		velocity.y += ( 8.0 + 4.0*abs( $water_check.depth ) )*delta;
-	elif( $water_check.is_over_water && $water_check.depth > -3 ):
+	if( is_underwater ):
+		velocity.y += ( 8.0 + 4.0*abs( water_depth ) )*delta;
+	elif( is_over_water && water_depth > -3 ):
 		velocity.y += 8.0*delta;
 	
 	move_and_slide();

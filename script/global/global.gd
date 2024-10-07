@@ -2,8 +2,6 @@
 # script purposes:
 # - store references to some nodes (player and world)
 # - store game settings and send signal on their change
-# - store objects loaded to memory (for now preloaded, but later should be change to dynamic loading at start of gameplay)
-# - spawn objects at specific world coordinates as childs of wolrd node
 # - hande 3d raycasting by code
 
 
@@ -27,13 +25,7 @@ var settings = {
 };
 signal on_update_settings();
 
-var pre = {
-	"bullet": preload( "res://objects/proj/bullet.tscn" ),
-	
-	"hit_mark": preload( "res://objects/effects/hit_mark.tscn" ),
-	
-	"water_splash": preload( "res://objects/effects/water_splash.tscn" ),
-};
+@export_flags_3d_physics var water_layer = 0b00000000_00000000_00000000_00000010;
 
 func _ready() -> void:
 	update_settings();
@@ -54,14 +46,6 @@ func raycast_3d_area( from, to, exclude = [], mask = 0xFFFFFFFF ):
 	query.collide_with_areas = true;
 	query.collide_with_bodies = false;
 	return space_state.intersect_ray( query );
-
-# spawning
-func spawn( id, pos, rot ):
-	var c = pre[ id ].instantiate();
-	node_world.add_child( c );
-	c.global_position = pos;
-	c.global_rotation = rot;
-	return c;
 
 # settings
 func update_settings():

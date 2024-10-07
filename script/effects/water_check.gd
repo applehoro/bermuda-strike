@@ -2,7 +2,7 @@
 
 # script purposes:
 # - interact with water areas
-# - hande visual water effects
+# - handle visual water effects
 
 extends Node3D
 
@@ -20,15 +20,11 @@ func update_settings():
 	if( Global.settings[ "water_effects" ] ):
 		$splash.visible = true;
 		$rings.visible = true;
-#		$raycast.enabled = true;
-#		set_process( true );
 	else:
 		$splash.visible = false;
 		$splash.emitting = false;
 		$rings.visible = false;
 		$rings.emitting = false;
-#		$raycast.enabled = false;
-#		set_process( false );
 
 func _process( delta: float ) -> void:
 	is_over_water = false;

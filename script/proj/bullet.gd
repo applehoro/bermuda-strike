@@ -20,9 +20,9 @@ func _physics_process(delta: float) -> void:
 	var np = global_position - global_basis.z*velocity*delta;
 	
 	# water splashes
-	var rw = Global.raycast_3d_area( global_position, np, [], 0b00000000_00000000_00000000_00000010 );
+	var rw = Global.raycast_3d_area( global_position, np, [], Global.water_layer );
 	if( rw ):
-		Global.spawn( "water_splash", rw[ "position" ], Vector3() );
+		Spawner.spawn( "water_splash", rw[ "position" ], Vector3() );
 	
 	# hit something
 	var r = Global.raycast_3d( global_position, np, exclude, 1 );
@@ -31,7 +31,7 @@ func _physics_process(delta: float) -> void:
 		if( obj.has_method( "damage" ) ):
 			var d = randf_range( damage.x, damage.y );
 			obj.damage( d );
-		Global.spawn( "hit_mark", r[ "position" ], Vector3() );
+		Spawner.spawn( "hit_mark", r[ "position" ], Vector3() );
 		die();
 	else:
 		global_position -= global_basis.z*velocity*delta;

@@ -1,15 +1,14 @@
-[gd_scene load_steps=51 format=3 uid="uid://b142sd861jpb0"]
+[gd_scene load_steps=44 format=3 uid="uid://b142sd861jpb0"]
 
 [ext_resource type="Script" path="res://script/player/player.gd" id="1_4t0x4"]
 [ext_resource type="Shader" path="res://shaders/outline_2.gdshader" id="2_hkm1e"]
-[ext_resource type="Script" path="res://script/player/player_test_gun.gd" id="3_suorm"]
+[ext_resource type="Script" path="res://script/player/player_weapon.gd" id="3_8crra"]
 [ext_resource type="Material" uid="uid://buqddq0srhe84" path="res://materials/smoke.material" id="3_tajs7"]
-[ext_resource type="PackedScene" uid="uid://dq8bhkppkpcf8" path="res://models/weapons/smg/junk_smg/junk_smg-001.glb" id="4_mjn5h"]
 [ext_resource type="FontFile" uid="uid://di23wbbbnrqmu" path="res://fonts/ChemyRetro_v01.ttf" id="6_dx3k2"]
-[ext_resource type="Texture2D" uid="uid://dkupvqwrkuefx" path="res://textures/effects/test_muzzle_flash.png" id="6_m7jvh"]
 [ext_resource type="Script" path="res://script/effects/water_check.gd" id="7_p8ui4"]
 [ext_resource type="Texture2D" uid="uid://cu63f3b8sb1n3" path="res://textures/effects/water_splash.png" id="8_b27oc"]
 [ext_resource type="Texture2D" uid="uid://d0hhb6a0det0b" path="res://textures/effects/water_ring.png" id="9_t3q4k"]
+[ext_resource type="Script" path="res://script/player/player_gui.gd" id="10_5pu4h"]
 [ext_resource type="Texture2D" uid="uid://c1y0vfjqhacs6" path="res://textures/gui/crosshair.png" id="10_21b0i"]
 [ext_resource type="Shader" path="res://shaders/distort_2.gdshader" id="11_fu2vn"]
 [ext_resource type="Shader" path="res://shaders/lens_flare.gdshader" id="12_5rfpw"]
@@ -29,110 +28,6 @@ shader_parameter/smoothing_max = 0.1
 material = SubResource("ShaderMaterial_hmu8i")
 flip_faces = true
 size = Vector2(2, 2)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nagdt"]
-transparency = 1
-blend_mode = 1
-shading_mode = 0
-albedo_texture = ExtResource("6_m7jvh")
-disable_receive_shadows = true
-
-[sub_resource type="QuadMesh" id="QuadMesh_4yvp4"]
-material = SubResource("StandardMaterial3D_nagdt")
-size = Vector2(0.3, 0.3)
-
-[sub_resource type="Animation" id="Animation_c7vya"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("pos/muzzle/flash:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("pos/muzzle/light:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-
-[sub_resource type="Animation" id="Animation_fvonp"]
-resource_name = "idle"
-length = 0.1
-loop_mode = 1
-step = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("pos/muzzle/flash:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("pos/muzzle/light:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-
-[sub_resource type="Animation" id="Animation_h143l"]
-resource_name = "shoot"
-length = 0.02
-step = 0.01
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("pos/muzzle/flash:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.02),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("pos/muzzle/light:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.02),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_xc3ou"]
-_data = {
-"RESET": SubResource("Animation_c7vya"),
-"idle": SubResource("Animation_fvonp"),
-"shoot": SubResource("Animation_h143l")
-}
 
 [sub_resource type="Gradient" id="Gradient_my7a2"]
 offsets = PackedFloat32Array(0, 0.0888889, 0.738889, 1)
@@ -178,7 +73,7 @@ point_count = 2
 curve = SubResource("Curve_e8qsg")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_qvtb2"]
-emission_shape_scale = Vector3(1.3, 0.1, 1.3)
+emission_shape_scale = Vector3(1.8, 0.1, 1.8)
 emission_shape = 6
 emission_ring_axis = Vector3(0, 1, 0)
 emission_ring_height = 1.0
@@ -199,7 +94,8 @@ gravity = Vector3(0, -4, 0)
 damping_min = 1.0
 damping_max = 1.0
 attractor_interaction_enabled = false
-scale_max = 1.6
+scale_min = 1.6
+scale_max = 2.5
 scale_curve = SubResource("CurveTexture_8aow4")
 color = Color(1, 1, 1, 0.407843)
 color_ramp = SubResource("GradientTexture1D_3g1q3")
@@ -321,53 +217,19 @@ shape = SubResource("CapsuleShape3D_75dfv")
 
 [node name="pitch" type="Node3D" parent="yaw"]
 
-[node name="cam" type="Camera3D" parent="yaw/pitch"]
+[node name="camera" type="Camera3D" parent="yaw/pitch"]
 current = true
 fov = 80.0
 near = 0.005
 
-[node name="outline" type="MeshInstance3D" parent="yaw/pitch/cam"]
+[node name="outline" type="MeshInstance3D" parent="yaw/pitch/camera"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.01)
 cast_shadow = 0
 extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_ce76p")
 
 [node name="weapon" type="Node3D" parent="yaw/pitch"]
-
-[node name="test_gun" type="Node3D" parent="yaw/pitch/weapon"]
-script = ExtResource("3_suorm")
-node_muzzle = NodePath("pos/muzzle")
-
-[node name="pos" type="Marker3D" parent="yaw/pitch/weapon/test_gun"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0493625, -0.0982567, -0.08321)
-
-[node name="model" parent="yaw/pitch/weapon/test_gun/pos" instance=ExtResource("4_mjn5h")]
-transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, -0.1)
-
-[node name="muzzle" type="Marker3D" parent="yaw/pitch/weapon/test_gun/pos"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.018365, -0.392241)
-
-[node name="flash" type="MeshInstance3D" parent="yaw/pitch/weapon/test_gun/pos/muzzle"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0157411, 0.0828786)
-visible = false
-transparency = 0.1
-cast_shadow = 0
-gi_mode = 0
-mesh = SubResource("QuadMesh_4yvp4")
-
-[node name="light" type="OmniLight3D" parent="yaw/pitch/weapon/test_gun/pos/muzzle"]
-visible = false
-light_color = Color(1, 0.65, 0, 1)
-light_energy = 2.0
-shadow_enabled = true
-omni_range = 6.0
-
-[node name="anim" type="AnimationPlayer" parent="yaw/pitch/weapon/test_gun"]
-libraries = {
-"": SubResource("AnimationLibrary_xc3ou")
-}
-autoplay = "idle"
-next/shoot = &"idle"
+script = ExtResource("3_8crra")
 
 [node name="smoke_trail" type="GPUParticles3D" parent="yaw"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0.5)
@@ -413,6 +275,7 @@ process_material = SubResource("ParticleProcessMaterial_0s0xq")
 draw_pass_1 = SubResource("QuadMesh_irqfv")
 
 [node name="gui" type="CanvasLayer" parent="."]
+script = ExtResource("10_5pu4h")
 
 [node name="fps" type="Label" parent="gui"]
 offset_left = 16.0
@@ -435,10 +298,10 @@ text = "FPS: 0"
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 24.0
-offset_top = -45.0
-offset_right = 114.0
-offset_bottom = -20.0
+offset_left = 20.0
+offset_top = -86.0
+offset_right = 197.0
+offset_bottom = -61.0
 grow_vertical = 0
 size_flags_horizontal = 0
 size_flags_vertical = 0
@@ -456,10 +319,10 @@ text = "Overheat: 0%"
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 16.0
-offset_top = -77.0
-offset_right = 193.0
-offset_bottom = -52.0
+offset_left = 12.0
+offset_top = -118.0
+offset_right = 189.0
+offset_bottom = -93.0
 grow_vertical = 0
 size_flags_horizontal = 0
 size_flags_vertical = 0
@@ -472,6 +335,77 @@ theme_override_constants/outline_size = 8
 theme_override_fonts/font = ExtResource("6_dx3k2")
 theme_override_font_sizes/font_size = 24
 text = "0 km/h"
+
+[node name="health" type="Label" parent="gui"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 14.0
+offset_top = -48.0
+offset_right = 191.0
+offset_bottom = -15.0
+grow_vertical = 0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 4
+theme_override_constants/shadow_offset_y = 4
+theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("6_dx3k2")
+theme_override_font_sizes/font_size = 32
+text = "+100"
+
+[node name="ammo_magazine" type="Label" parent="gui"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -212.0
+offset_top = -78.0
+offset_right = -35.0
+offset_bottom = -45.0
+grow_horizontal = 0
+grow_vertical = 0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 4
+theme_override_constants/shadow_offset_y = 4
+theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("6_dx3k2")
+theme_override_font_sizes/font_size = 32
+text = "0/0"
+horizontal_alignment = 2
+
+[node name="ammo_inventory" type="Label" parent="gui"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -223.0
+offset_top = -40.0
+offset_right = -46.0
+offset_bottom = -7.0
+grow_horizontal = 0
+grow_vertical = 0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 4
+theme_override_constants/shadow_offset_y = 4
+theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("6_dx3k2")
+theme_override_font_sizes/font_size = 24
+text = "0"
+horizontal_alignment = 2
 
 [node name="water_distortion" type="ColorRect" parent="gui"]
 z_index = -1
