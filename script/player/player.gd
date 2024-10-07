@@ -18,8 +18,10 @@ var control_glide = 0.5;
 var overdrive_boost = 1.0;
 var overdrive_heat = 0.0;
 
-var hover_vel = 32.0;
+var hover_vel = 64.0;
 var glide_vel = 180.0;
+
+var physics_push_velocity = Vector3();
 
 var camera_roll = 0.0;
 var camera_roll_max = 30.0;
@@ -60,6 +62,9 @@ func set_look_pos( v ):
 	look_pos.y = clamp( look_pos.y, -PI/2, PI/2 );
 	$yaw.rotation.y = look_pos.x;
 	$yaw/pitch.rotation.x = look_pos.y;
+
+func physics_push( v ):
+	physics_push_velocity += v;
 
 func _process( delta: float ) -> void:
 	
@@ -134,8 +139,11 @@ func _physics_process( delta: float ) -> void:
 			camera_roll -= control.x*delta*0.3;
 	
 	# apply motion to velocity
-	velocity *= 1.0 - delta*4.0;
-	velocity += motion*delta*8.0;
+	velocity *= 1.0 - delta*8.0;
+	velocity += motion*delta*16.0;
+	
+	physics_push_velocity *= 1.0 - delta*4.0;
+	velocity += physics_push_velocity*delta;
 	
 	# water physics
 	if( is_underwater ):

@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://cxs7rowa8sg6m"]
+[gd_scene load_steps=21 format=3 uid="uid://cxs7rowa8sg6m"]
 
 [ext_resource type="Script" path="res://script/global/world.gd" id="1_vsdrq"]
 [ext_resource type="Material" uid="uid://id4e5vebw5am" path="res://addons/water/materials/water.material" id="2_0rtqo"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://addons/maaacks_game_template/extras/scripts/pause_menu_controller.gd" id="7_po7c8"]
 [ext_resource type="PackedScene" uid="uid://dblwnwcrjevy5" path="res://scenes/menus/pause_menu.tscn" id="8_xlyfs"]
 [ext_resource type="PackedScene" uid="uid://b142sd861jpb0" path="res://objects/player/player.tscn" id="10_4juid"]
+[ext_resource type="PackedScene" uid="uid://d2keeg5miou64" path="res://objects/physics/soft_pusher.tscn" id="10_q3r4t"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_1chws"]
 panorama = ExtResource("2_7tsv3")
@@ -96,7 +97,7 @@ subdivide_width = 128
 subdivide_depth = 128
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_foa1o"]
-size = Vector3(4000, 40, 4000)
+size = Vector3(4096, 40, 4096)
 
 [node name="game" type="Node3D"]
 
@@ -107,14 +108,14 @@ script = ExtResource("1_vsdrq")
 environment = SubResource("Environment_6u4s1")
 camera_attributes = SubResource("CameraAttributesPractical_oljg3")
 
+[node name="player" parent="world" instance=ExtResource("10_4juid")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 151.948, 0)
+
 [node name="test_island" type="Terrain3D" parent="world"]
 storage = ExtResource("5_r24jl")
 material = SubResource("Terrain3DMaterial_eroi0")
 assets = ExtResource("6_2rdks")
 render_cast_shadows = 0
-
-[node name="player" parent="world" instance=ExtResource("10_4juid")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 151.948, 0)
 
 [node name="sun" type="DirectionalLight3D" parent="world"]
 transform = Transform3D(0.809591, 0.368028, -0.457294, 0, 0.779043, 0.626971, 0.586994, -0.50759, 0.630706, 0, 100, 0)
@@ -137,6 +138,31 @@ script = ExtResource("7_iu5gd")
 
 [node name="col" type="CollisionShape3D" parent="world/water/area"]
 shape = SubResource("BoxShape3D_foa1o")
+
+[node name="soft_pusher_top" parent="." instance=ExtResource("10_q3r4t")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 200, 0)
+size = Vector3(4096, 4096, 2048)
+force = 2.0
+
+[node name="soft_pusher_lt" parent="." instance=ExtResource("10_q3r4t")]
+transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, -2000, 200, 0)
+size = Vector3(4096, 4096, 2048)
+force = 1.0
+
+[node name="soft_pusher_rt" parent="." instance=ExtResource("10_q3r4t")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 2000, 200, 0)
+size = Vector3(4096, 4096, 2048)
+force = 1.0
+
+[node name="soft_pusher_fw" parent="." instance=ExtResource("10_q3r4t")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 200, 2000)
+size = Vector3(4096, 4096, 2048)
+force = 1.0
+
+[node name="soft_pusher_bw" parent="." instance=ExtResource("10_q3r4t")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 200, -2000)
+size = Vector3(4096, 4096, 2048)
+force = 1.0
 
 [node name="menu" type="Node" parent="."]
 script = ExtResource("7_po7c8")

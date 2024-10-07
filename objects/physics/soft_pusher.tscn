@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://d2keeg5miou64"]
+
+[ext_resource type="Script" path="res://script/physics/soft_pusher.gd" id="1_5iykd"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ny3bp"]
+resource_local_to_scene = true
+size = Vector3(1024, 1024, 2048)
+
+[node name="soft_pusher" type="Node3D"]
+script = ExtResource("1_5iykd")
+size = Vector3(5, 5, 5)
+
+[node name="area" type="Area3D" parent="."]
+monitorable = false
+
+[node name="col" type="CollisionShape3D" parent="area"]
+shape = SubResource("BoxShape3D_ny3bp")
