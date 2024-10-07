@@ -1,0 +1,144 @@
+[gd_scene load_steps=20 format=3 uid="uid://cxs7rowa8sg6m"]
+
+[ext_resource type="Script" path="res://script/global/world.gd" id="1_vsdrq"]
+[ext_resource type="Material" uid="uid://id4e5vebw5am" path="res://addons/water/materials/water.material" id="2_0rtqo"]
+[ext_resource type="Texture2D" uid="uid://bjxklvx6scls7" path="res://textures/sky/sky_1.jpg" id="2_7tsv3"]
+[ext_resource type="Terrain3DStorage" uid="uid://cq88u1yweft4u" path="res://terrain/test_terrain.res" id="5_r24jl"]
+[ext_resource type="Terrain3DAssets" uid="uid://bsdbe4fgjl4x7" path="res://terrain/test_terrain_assets.res" id="6_2rdks"]
+[ext_resource type="Script" path="res://script/env/water_area.gd" id="7_iu5gd"]
+[ext_resource type="Script" path="res://addons/maaacks_game_template/extras/scripts/pause_menu_controller.gd" id="7_po7c8"]
+[ext_resource type="PackedScene" uid="uid://dblwnwcrjevy5" path="res://scenes/menus/pause_menu.tscn" id="8_xlyfs"]
+[ext_resource type="PackedScene" uid="uid://b142sd861jpb0" path="res://objects/player/player.tscn" id="10_4juid"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_1chws"]
+panorama = ExtResource("2_7tsv3")
+
+[sub_resource type="Sky" id="Sky_kdu5i"]
+sky_material = SubResource("PanoramaSkyMaterial_1chws")
+
+[sub_resource type="Environment" id="Environment_6u4s1"]
+background_mode = 2
+sky = SubResource("Sky_kdu5i")
+ambient_light_source = 3
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_sky_contribution = 0.9
+tonemap_mode = 3
+fog_mode = 1
+fog_light_energy = 0.05
+fog_sun_scatter = 0.3
+fog_density = 1.0
+fog_sky_affect = 0.1
+fog_height = 10.0
+fog_height_density = 0.1
+fog_depth_curve = 0.466516
+fog_depth_begin = 2000.0
+fog_depth_end = 3500.0
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.02
+volumetric_fog_albedo = Color(0.475967, 0.579295, 0.877459, 1)
+volumetric_fog_emission = Color(0.128425, 0.12782, 0.269936, 1)
+volumetric_fog_gi_inject = 0.0
+volumetric_fog_anisotropy = 0.5
+volumetric_fog_length = 25.0
+volumetric_fog_detail_spread = 2.0
+volumetric_fog_ambient_inject = 1.0
+volumetric_fog_temporal_reprojection_enabled = false
+adjustment_enabled = true
+adjustment_contrast = 1.1
+adjustment_saturation = 1.3
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_oljg3"]
+exposure_multiplier = 0.9
+dof_blur_far_distance = 4000.0
+dof_blur_far_transition = 3000.0
+dof_blur_amount = 0.15
+
+[sub_resource type="Gradient" id="Gradient_uvsic"]
+offsets = PackedFloat32Array(0.2, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_3lnvg"]
+noise_type = 2
+frequency = 0.03
+cellular_jitter = 3.0
+cellular_return_type = 0
+domain_warp_enabled = true
+domain_warp_type = 1
+domain_warp_amplitude = 50.0
+domain_warp_fractal_type = 2
+domain_warp_fractal_lacunarity = 1.5
+domain_warp_fractal_gain = 1.0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_kc63w"]
+seamless = true
+color_ramp = SubResource("Gradient_uvsic")
+noise = SubResource("FastNoiseLite_3lnvg")
+
+[sub_resource type="Terrain3DMaterial" id="Terrain3DMaterial_eroi0"]
+_shader_parameters = {
+"blend_sharpness": 0.87,
+"height_blending": true,
+"macro_variation1": Color(1, 1, 1, 1),
+"macro_variation2": Color(1, 1, 1, 1),
+"noise1_angle": 0.0,
+"noise1_offset": Vector2(0.5, 0.5),
+"noise1_scale": 0.04,
+"noise2_scale": 0.076,
+"noise3_scale": 0.225,
+"noise_texture": SubResource("NoiseTexture2D_kc63w"),
+"vertex_normals_distance": 128.0
+}
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_desx8"]
+lightmap_size_hint = Vector2i(50002, 50002)
+material = ExtResource("2_0rtqo")
+size = Vector2(10000, 10000)
+subdivide_width = 128
+subdivide_depth = 128
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_foa1o"]
+size = Vector3(4000, 40, 4000)
+
+[node name="game" type="Node3D"]
+
+[node name="world" type="Node3D" parent="."]
+script = ExtResource("1_vsdrq")
+
+[node name="env" type="WorldEnvironment" parent="world"]
+environment = SubResource("Environment_6u4s1")
+camera_attributes = SubResource("CameraAttributesPractical_oljg3")
+
+[node name="test_island" type="Terrain3D" parent="world"]
+storage = ExtResource("5_r24jl")
+material = SubResource("Terrain3DMaterial_eroi0")
+assets = ExtResource("6_2rdks")
+render_cast_shadows = 0
+
+[node name="player" parent="world" instance=ExtResource("10_4juid")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 151.948, 0)
+
+[node name="sun" type="DirectionalLight3D" parent="world"]
+transform = Transform3D(0.809591, 0.368028, -0.457294, 0, 0.779043, 0.626971, 0.586994, -0.50759, 0.630706, 0, 100, 0)
+light_color = Color(1, 0.844, 0.76, 1)
+light_bake_mode = 0
+shadow_enabled = true
+
+[node name="water" type="Node3D" parent="world"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20, 0)
+
+[node name="mesh" type="MeshInstance3D" parent="world/water"]
+mesh = SubResource("PlaneMesh_desx8")
+skeleton = NodePath("../../..")
+
+[node name="area" type="Area3D" parent="world/water"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -20, 0)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("7_iu5gd")
+
+[node name="col" type="CollisionShape3D" parent="world/water/area"]
+shape = SubResource("BoxShape3D_foa1o")
+
+[node name="menu" type="Node" parent="."]
+script = ExtResource("7_po7c8")
+pause_menu_packed = ExtResource("8_xlyfs")

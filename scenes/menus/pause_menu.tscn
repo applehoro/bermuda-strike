@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://dblwnwcrjevy5"]
+
+[ext_resource type="PackedScene" uid="uid://cdwvtbtwmrqbn" path="res://addons/maaacks_game_template/extras/scenes/pause_menu/pause_menu.tscn" id="1_dwtd5"]
+[ext_resource type="Script" path="res://addons/maaacks_game_template/examples/scenes/menus/pause_menu/pause_menu.gd" id="2_768fw"]
+[ext_resource type="PackedScene" uid="uid://dg2lh1svyx22v" path="res://scenes/menus/options.tscn" id="3_y04q3"]
+
+[node name="PauseMenu" instance=ExtResource("1_dwtd5")]
+script = ExtResource("2_768fw")
+options_packed_scene = ExtResource("3_y04q3")
+main_menu_scene = "res://scenes/menus/main_menu.tscn"
+
+[node name="BackgroundColor" parent="." index="1"]
+color = Color(0, 0, 0, 0.258824)

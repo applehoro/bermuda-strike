@@ -1,0 +1,39 @@
+[gd_scene load_steps=3 format=3 uid="uid://cp8a2gpwsxvni"]
+
+[ext_resource type="PackedScene" uid="uid://t2dui8ppm3a4" path="res://addons/maaacks_game_template/base/scenes/credits/credits.tscn" id="1_li1io"]
+[ext_resource type="Script" path="res://addons/maaacks_game_template/examples/scenes/credits/credits.gd" id="2_cuq1d"]
+
+[node name="Credits" instance=ExtResource("1_li1io")]
+script = ExtResource("2_cuq1d")
+attribution_file_path = "res://CREDITS.md"
+
+[node name="CreditsLabel" parent="ScrollContainer/VBoxContainer" index="1"]
+text = "[center]
+[font_size=48]Main[/font_size]
+
+[font_size=32]Run Hanako[/font_size]
+game designer, programmer, artist, musician, and all of in-between.
+
+[font_size=48]Plugins[/font_size]
+
+[font_size=32]Maaacks Game Template[/font_size]
+Marek Belski
+
+[font_size=32]Terrain3D[/font_size]
+Cory Petkovsek & Roope Palmroos
+
+[font_size=32]Godot SSR water[/font_size]
+Marcel Bankmann
+
+[font_size=32]Post Processing[/font_size]
+Korin
+
+[font_size=48]Fonts[/font_size]
+
+[font_size=32]ChemyRetro font[/font_size]
+Jay Batch (WanderingJazz, jaybx73@gmail.com)
+
+
+
+
+[/center]"
