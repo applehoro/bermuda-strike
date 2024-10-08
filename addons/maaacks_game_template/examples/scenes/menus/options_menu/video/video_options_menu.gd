@@ -26,3 +26,6 @@ func _on_aa_control_setting_changed(value: Variant) -> void:
 
 func _on_v_sync_control_setting_changed(value: Variant) -> void:
 	Global.update_settings();
+
+func _on_view_bob_control_setting_changed(value: Variant) -> void:
+	Global.update_settings();

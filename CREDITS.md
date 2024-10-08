@@ -62,6 +62,9 @@ Source: [github: GodotSSRWater](https://github.com/marcelb/GodotSSRWater)
 Korin [@ItsKorin](https://github.com/ItsKorin)
 Source: [github: Godot-Post-Process-Plugin](https://github.com/ItsKorin/Godot-Post-Process-Plugin)
 
+### Debug Draw 3D
+Дмитрий Сальников [@DmitriySalnikov](https://github.com/DmitriySalnikov)
+Source: [github: godot_debug_draw_3d](https://github.com/DmitriySalnikov/godot_debug_draw_3d)
 
 
 ## Shaders

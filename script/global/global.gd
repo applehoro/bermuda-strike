@@ -22,7 +22,9 @@ var settings = {
 	"outline": true,
 	"lens_flare": true,
 	"special_effects": true,
+	"view_bob": 1.0,
 };
+
 signal on_update_settings();
 
 @export_flags_3d_physics var water_layer = 0b00000000_00000000_00000000_00000010;
@@ -61,6 +63,7 @@ func update_settings():
 		"outline": Config.get_config( "VideoSettings", "Outline" ),
 		"lens_flare": Config.get_config( "VideoSettings", "LensFlare" ),
 		"special_effects": Config.get_config( "VideoSettings", "SpecialEffects" ),
+		"view_bob": Config.get_config( "VideoSettings", "ViewBob" ),
 	};
 	
 	if( settings[ "aa" ] ):
@@ -73,5 +76,5 @@ func update_settings():
 	else:
 		DisplayServer.window_set_vsync_mode( DisplayServer.VSYNC_DISABLED );
 	
-	emit_signal( "on_update_settings" );
+	on_update_settings.emit();
 

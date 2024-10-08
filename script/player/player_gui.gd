@@ -10,7 +10,7 @@ func _ready() -> void:
 	Global.connect( "on_update_settings", self.update_settings );
 	get_viewport().connect( "size_changed", self.update_settings );
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if( ( get_parent().is_over_water || get_parent().is_underwater ) && Global.settings[ "special_effects" ] ):
 		$water_horizon.visible = true;
 		$water_horizon.color.a = ease( max( 1.2 - abs( get_parent().water_depth ), 0.0 ), 0.25 );

@@ -15,17 +15,17 @@ signal on_heal( v, t );
 
 func damage( v ):
 	health = max( health - v );
-	emit_signal( "on_damage", v, health );
+	on_damage.emit( v, health );
 	if( health <= 0 ):
 		die();
 
 func die():
-	emit_signal( "on_death" );
+	on_death.emit();
 
 func heal( v ):
 	if( health < max_health ):
 		health = min( health + v, max_health );
-		emit_signal( "on_heal", v, health );
+		on_heal.emit( v, health );
 		return true;
 	return false;
 
@@ -164,7 +164,7 @@ func switch_weapon( t ):
 	if( weapons.has( t ) ):
 		if( weapons[ t ] ):
 			current_weapon_id = t;
-			emit_signal( "on_switch_weapon", t );
+			on_switch_weapon.emit( t );
 			return true;
 	return false;
 

@@ -26,7 +26,7 @@ func update_settings():
 		$rings.visible = false;
 		$rings.emitting = false;
 
-func _process( delta: float ) -> void:
+func _process( _delta: float ) -> void:
 	is_over_water = false;
 	is_underwater = false;
 	if( $raycast.is_colliding() ):

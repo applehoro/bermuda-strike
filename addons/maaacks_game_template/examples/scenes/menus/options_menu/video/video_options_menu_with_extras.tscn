@@ -76,6 +76,13 @@ key = "SpecialEffects"
 section = "VideoSettings"
 default_value = true
 
+[node name="ViewBobControl" parent="VBoxContainer" index="11" instance=ExtResource("2_vkwcm")]
+layout_mode = 2
+option_name = "ViewBob"
+option_section = 3
+key = "ViewBob"
+section = "VideoSettings"
+
 [connection signal="setting_changed" from="VBoxContainer/AAControl" to="." method="_on_aa_control_setting_changed"]
 [connection signal="setting_changed" from="VBoxContainer/VSyncControl" to="." method="_on_v_sync_control_setting_changed"]
 [connection signal="setting_changed" from="VBoxContainer/RenderDistanceControl" to="." method="_on_render_distance_control_setting_changed"]
@@ -85,3 +92,4 @@ default_value = true
 [connection signal="setting_changed" from="VBoxContainer/OutlineControl" to="." method="_on_outline_control_setting_changed"]
 [connection signal="setting_changed" from="VBoxContainer/LensFlareControl" to="." method="_on_lens_flare_control_setting_changed"]
 [connection signal="setting_changed" from="VBoxContainer/SpecialEffectsControl" to="." method="_on_special_effects_control_setting_changed"]
+[connection signal="setting_changed" from="VBoxContainer/ViewBobControl" to="." method="_on_view_bob_control_setting_changed"]

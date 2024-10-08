@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://script/player/player.gd" id="1_4t0x4"]
 [ext_resource type="Shader" path="res://shaders/outline_2.gdshader" id="2_hkm1e"]
-[ext_resource type="Script" path="res://script/player/player_weapon.gd" id="3_8crra"]
+[ext_resource type="Script" path="res://script/player/player_weapon_manager.gd" id="3_8crra"]
 [ext_resource type="Material" uid="uid://buqddq0srhe84" path="res://materials/smoke.material" id="3_tajs7"]
 [ext_resource type="FontFile" uid="uid://di23wbbbnrqmu" path="res://fonts/ChemyRetro_v01.ttf" id="6_dx3k2"]
 [ext_resource type="Script" path="res://script/effects/water_check.gd" id="7_p8ui4"]
@@ -228,7 +228,7 @@ cast_shadow = 0
 extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_ce76p")
 
-[node name="weapon" type="Node3D" parent="yaw/pitch"]
+[node name="weapon_manager" type="Node3D" parent="yaw/pitch"]
 script = ExtResource("3_8crra")
 
 [node name="smoke_trail" type="GPUParticles3D" parent="yaw"]

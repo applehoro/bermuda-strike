@@ -71,7 +71,7 @@ func _process( delta: float ) -> void:
 	# camera roll
 	camera_roll *= 1.0 - delta*2.0;
 	camera_roll = clamp( camera_roll, deg_to_rad( -camera_roll_max ), deg_to_rad( camera_roll_max ) );
-	$yaw/pitch/camera.rotation.z = camera_roll;
+	$yaw/pitch/camera.rotation.z = camera_roll*Global.settings[ "view_bob" ];
 	
 	# visual effects
 	$yaw/smoke_trail.emitting = motion.length() > 0.5 && Global.settings[ "smoke_trails" ] && !is_underwater;
@@ -102,7 +102,7 @@ func _physics_process( delta: float ) -> void:
 		else:
 			motion_type = MOTION_TYPE_HOVER;
 	
-	if( Input.is_action_pressed( "overdrive" ) ):
+	if( Input.is_action_pressed( "overdrive" ) && motion_type == MOTION_TYPE_GLIDE ):
 		overdrive_heat = min( overdrive_heat + delta/20.0, 1.0 );
 	else:
 		overdrive_heat = max( overdrive_heat - delta/30.0, 0.0 );
