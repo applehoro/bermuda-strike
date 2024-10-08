@@ -11,6 +11,7 @@ var assets = {
 	"hit_mark": preload( "res://objects/effects/hit_mark.tscn" ),
 	
 	"water_splash": preload( "res://objects/effects/water_splash.tscn" ),
+	"dust_burst": preload( "res://objects/effects/dust_burst.tscn" ),
 };
 
 # spawning

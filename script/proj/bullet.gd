@@ -31,6 +31,8 @@ func _physics_process(delta: float) -> void:
 		if( obj.has_method( "damage" ) ):
 			var d = randf_range( damage.x, damage.y );
 			obj.damage( d );
+		if( obj.has_method( "mark_damage" ) ):
+			obj.mark_damage( r[ "position" ] );
 		Spawner.spawn( "hit_mark", r[ "position" ], Vector3() );
 		die();
 	else:

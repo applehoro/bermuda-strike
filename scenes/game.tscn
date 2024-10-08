@@ -1,10 +1,11 @@
-[gd_scene load_steps=21 format=3 uid="uid://cxs7rowa8sg6m"]
+[gd_scene load_steps=22 format=3 uid="uid://cxs7rowa8sg6m"]
 
 [ext_resource type="Script" path="res://script/global/world.gd" id="1_vsdrq"]
 [ext_resource type="Material" uid="uid://id4e5vebw5am" path="res://addons/water/materials/water.material" id="2_0rtqo"]
 [ext_resource type="Texture2D" uid="uid://bjxklvx6scls7" path="res://textures/sky/sky_1.jpg" id="2_7tsv3"]
 [ext_resource type="Terrain3DStorage" uid="uid://cq88u1yweft4u" path="res://terrain/test_terrain.res" id="5_r24jl"]
 [ext_resource type="Terrain3DAssets" uid="uid://bsdbe4fgjl4x7" path="res://terrain/test_terrain_assets.res" id="6_2rdks"]
+[ext_resource type="Script" path="res://script/env/terrain.gd" id="6_hexti"]
 [ext_resource type="Script" path="res://script/env/water_area.gd" id="7_iu5gd"]
 [ext_resource type="Script" path="res://addons/maaacks_game_template/extras/scripts/pause_menu_controller.gd" id="7_po7c8"]
 [ext_resource type="PackedScene" uid="uid://dblwnwcrjevy5" path="res://scenes/menus/pause_menu.tscn" id="8_xlyfs"]
@@ -104,62 +105,65 @@ size = Vector3(4096, 40, 4096)
 [node name="world" type="Node3D" parent="."]
 script = ExtResource("1_vsdrq")
 
-[node name="env" type="WorldEnvironment" parent="world"]
+[node name="level" type="Node3D" parent="world"]
+
+[node name="env" type="WorldEnvironment" parent="world/level"]
 environment = SubResource("Environment_6u4s1")
 camera_attributes = SubResource("CameraAttributesPractical_oljg3")
 
-[node name="player" parent="world" instance=ExtResource("10_4juid")]
+[node name="player" parent="world/level" instance=ExtResource("10_4juid")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 151.948, 0)
 
-[node name="test_island" type="Terrain3D" parent="world"]
+[node name="test_island" type="Terrain3D" parent="world/level"]
 storage = ExtResource("5_r24jl")
 material = SubResource("Terrain3DMaterial_eroi0")
 assets = ExtResource("6_2rdks")
 render_cast_shadows = 0
+script = ExtResource("6_hexti")
 
-[node name="sun" type="DirectionalLight3D" parent="world"]
+[node name="sun" type="DirectionalLight3D" parent="world/level"]
 transform = Transform3D(0.809591, 0.368028, -0.457294, 0, 0.779043, 0.626971, 0.586994, -0.50759, 0.630706, 0, 100, 0)
 light_color = Color(1, 0.844, 0.76, 1)
 light_bake_mode = 0
 shadow_enabled = true
 
-[node name="water" type="Node3D" parent="world"]
+[node name="water" type="Node3D" parent="world/level"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20, 0)
 
-[node name="mesh" type="MeshInstance3D" parent="world/water"]
+[node name="mesh" type="MeshInstance3D" parent="world/level/water"]
 mesh = SubResource("PlaneMesh_desx8")
-skeleton = NodePath("../../..")
+skeleton = NodePath("../../../..")
 
-[node name="area" type="Area3D" parent="world/water"]
+[node name="area" type="Area3D" parent="world/level/water"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -20, 0)
 collision_layer = 2
 collision_mask = 2
 script = ExtResource("7_iu5gd")
 
-[node name="col" type="CollisionShape3D" parent="world/water/area"]
+[node name="col" type="CollisionShape3D" parent="world/level/water/area"]
 shape = SubResource("BoxShape3D_foa1o")
 
-[node name="soft_pusher_top" parent="." instance=ExtResource("10_q3r4t")]
+[node name="soft_pusher_top" parent="world/level" instance=ExtResource("10_q3r4t")]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 200, 0)
 size = Vector3(4096, 4096, 2048)
 force = 2.0
 
-[node name="soft_pusher_lt" parent="." instance=ExtResource("10_q3r4t")]
+[node name="soft_pusher_lt" parent="world/level" instance=ExtResource("10_q3r4t")]
 transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, -2000, 200, 0)
 size = Vector3(4096, 4096, 2048)
 force = 1.0
 
-[node name="soft_pusher_rt" parent="." instance=ExtResource("10_q3r4t")]
+[node name="soft_pusher_rt" parent="world/level" instance=ExtResource("10_q3r4t")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 2000, 200, 0)
 size = Vector3(4096, 4096, 2048)
 force = 1.0
 
-[node name="soft_pusher_fw" parent="." instance=ExtResource("10_q3r4t")]
+[node name="soft_pusher_fw" parent="world/level" instance=ExtResource("10_q3r4t")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 200, 2000)
 size = Vector3(4096, 4096, 2048)
 force = 1.0
 
-[node name="soft_pusher_bw" parent="." instance=ExtResource("10_q3r4t")]
+[node name="soft_pusher_bw" parent="world/level" instance=ExtResource("10_q3r4t")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 200, -2000)
 size = Vector3(4096, 4096, 2048)
 force = 1.0
