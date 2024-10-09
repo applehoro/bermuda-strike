@@ -7,15 +7,16 @@ extends Node3D
 var node_weapon = null;
 
 var assets = {
-	"smg": preload( "res://objects/player/weapons/test_gun.tscn" ),
-	"smg2": preload( "res://objects/player/weapons/test_gun.tscn" ),
+	"smg": preload( "res://objects/player/weapons/weapon_smg.tscn" ),
+	"machine_gun": preload( "res://objects/player/weapons/weapon_machine_gun.tscn" ),
+	"flak": preload( "res://objects/player/weapons/weapon_flak.tscn" ),
 };
 
 var action_to_weapon = {
 	"weapon_1": "",
 	"weapon_2": "smg",
-	"weapon_3": "smg2",
-	"weapon_4": "",
+	"weapon_3": "flak",
+	"weapon_4": "machine_gun",
 	"weapon_5": "",
 	"weapon_6": "",
 	"weapon_7": "",

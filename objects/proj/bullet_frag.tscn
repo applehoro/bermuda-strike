@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://bttusfa1e0ut7"]
+
+[ext_resource type="Script" path="res://script/proj/projectile_base.gd" id="1_xru84"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uufln"]
+shading_mode = 0
+albedo_color = Color(1, 0.869833, 0.29, 1)
+disable_receive_shadows = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_nbwos"]
+material = SubResource("StandardMaterial3D_uufln")
+size = Vector3(0.5, 0.5, 2)
+
+[node name="bullet_frag" type="Node3D"]
+script = ExtResource("1_xru84")
+velocity = 300.0
+lifetime = 0.8
+damage = Vector2(10, 20)
+dive = 4.0
+
+[node name="mesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_nbwos")

@@ -7,6 +7,12 @@ extends Node
 
 var assets = {
 	"bullet": preload( "res://objects/proj/bullet.tscn" ),
+	"bullet_smg": preload( "res://objects/proj/bullet_smg.tscn" ),
+	"bullet_machine_gun": preload( "res://objects/proj/bullet_machine_gun.tscn" ),
+	"bullet_flak": preload( "res://objects/proj/bullet_flak.tscn" ),
+	"bullet_flak_alt": preload( "res://objects/proj/bullet_flak_alt.tscn" ),
+	"flak_explosion": preload( "res://objects/proj/flak_explosion.tscn" ),
+	"bullet_frag": preload( "res://objects/proj/bullet_frag.tscn" ),
 	
 	"hit_mark": preload( "res://objects/effects/hit_mark.tscn" ),
 	

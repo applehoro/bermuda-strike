@@ -31,8 +31,33 @@ func heal( v ):
 
 var ammo = {
 	"": Vector2i( 0, 0 ),
-	"bullets": Vector2i( 100, 500 ),
+	"bullets_smg": Vector2i( 200, 200 ),
+	"bullets_machine_gun": Vector2i( 400, 400 ),
+	"shells_flak": Vector2i( 80, 80 ),
 };
+
+var magazine = {
+	"": { "ammo": Vector2i( 0, 0 ), "type": "" },
+	"smg": { "ammo": Vector2i( 30, 30 ), "type": "bullets_smg" },
+	"machine_gun": { "ammo": Vector2i( 200, 200 ), "type": "bullets_machine_gun" },
+	"flak": { "ammo": Vector2i( 8, 8 ), "type": "shells_flak" },
+};
+
+var weapons = {
+	"": true,
+	"smg": true,
+	"machine_gun": true,
+	"flak": true,
+};
+
+var weapons_ammo_pickup = {
+	"": { "ammo": 0, "type": "" },
+	"smg": { "ammo": 30, "type": "bullets_smg" },
+	"machine_gun": { "ammo": 30, "type": "bullets_machine_gun" },
+	"flak": { "ammo": 830, "type": "shells_flak" },
+};
+
+var current_weapon_id = "";
 
 func has_ammo( t ):
 	if( ammo.has( t ) ):
@@ -71,11 +96,6 @@ func get_max_ammo( t ):
 	if( ammo.has( t ) ):
 		return ammo[ t ].y;
 	return 0;
-
-var magazine = {
-	"": { "ammo": Vector2i( 0, 0 ), "type": "" },
-	"smg": { "ammo": Vector2i( 30, 30 ), "type": "bullets" },
-};
 
 func magazine_has_ammo( t ):
 	if( magazine.has( t ) ):
@@ -132,16 +152,6 @@ func is_magazine_full( t ):
 		return magazine[ t ][ "ammo" ].x >= magazine[ t ][ "ammo" ].y;
 	return false;
 
-var weapons = {
-	"": true,
-	"smg": true,
-};
-
-var weapons_ammo_pickup = {
-	"": { "ammo": 0, "type": "" },
-	"smg": { "ammo": 30, "type": "bullets" },
-};
-
 func has_weapon( t ):
 	if( weapons.has( t ) ):
 		return weapons[ t ];
@@ -167,8 +177,6 @@ func switch_weapon( t ):
 			on_switch_weapon.emit( t );
 			return true;
 	return false;
-
-var current_weapon_id = "";
 
 func cw_has_ammo():
 	return has_ammo( current_weapon_id );
