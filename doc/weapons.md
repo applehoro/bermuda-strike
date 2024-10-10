@@ -1,11 +1,26 @@
 # Weapon classes
 
-WeaponBase - basic weapon functionality.
-WeaponRanged - ranged weapon, either projectile or raycast.
-WeaponRangedBurst - subclass of ranged weapon, alt. attack shoot quick burst.
-WeaponRangedCharge - subclass of ranged weapon, uses charge mechanic for trigger logic.
-WeaponRangedSniper - subclass of ranged weapon, alt. fire allows to zoom in and out.
-WeaponMeelee - meelee weapon.
+## WeaponBase - basic weapon functionality.
+
+Update: actually, all weapon functionality, probably should be renamed to just Weapon.
+
+Trigger functions for main and alt. attack:
+- Auto
+- Semi-auto
+- Burst
+- Charge
+- Hold
+
+Special functions for alt. attack:
+- Zoom
+- Target lock
+
+Attack types for main and alt. attacks:
+- Spawn projectile
+- Raycast
+- Area
+- Block
+- Custom
 
 # Weapons
 
@@ -14,7 +29,8 @@ WeaponMeelee - meelee weapon.
 Basic meelee weapon.
 About 3 different attack animations, alt. attack blocks enemy meelee attacks.
 
-Class: WeaponMeelee.
+Attack: auto, area.
+Alt. attack: hold, block.
 Starting weapon.
 
 ## 2. SMG
@@ -23,8 +39,8 @@ Basic projectile weapon.
 Quite low damage output and quite slow projectile speed.
 Alt. attack shoot quick burst of 3 projectiles.
 
-Class: WeaponRangedBurst.
-Trigger type: Auto.
+Attack: auto, projectile (bullet).
+Alt. attack: burst (3), projectile (bullet).
 Magazine capacity: 30.
 Max ammo: 200.
 Starting weapon.
@@ -33,8 +49,8 @@ Starting weapon.
 
 Primary attack shoot a bunch or projectiles, like a shotgun. Secondary attack shoot one single projectile that, when hit something or nearby enemy, shoot bunch of short-distance projectiles in all directions.
 
-Class: WeaponRanged.
-Trigger type: Semi-auto.
+Attack: semi-auto, projectile (8 pellets).
+Alt. attack: semi-auto, projectile (flak), uses 4 ammo.
 Magazine capacity: 8.
 Max ammo: 80.
 
@@ -42,8 +58,8 @@ Max ammo: 80.
 
 Shoot long-distance projectile with quite a high rate.
 
-Class: WeaponRanged.
-Trigger type: Auto.
+Attack: auto, projectile (bullet).
+Alt. attack: none.
 Magazine capacity: 200.
 Max ammo: 400.
 
@@ -51,8 +67,8 @@ Max ammo: 400.
 
 Shoot rockets.
 
-Class: WeaponRanged.
-Trigger type: Semi-auto.
+Attack: semi-auto, projectile (rocket).
+Alt. attack: target lock.
 Magazine capacity: 1.
 Max ammo: 30.
 
@@ -60,8 +76,8 @@ Max ammo: 30.
 
 Shoot grenades
 
-Class: WeaponRanged.
-Trigger type: Semi-auto.
+Attack: semi-auto, projectile (grenade).
+Alt. attack: none.
 Magazine capacity: 1.
 Max ammo: 50.
 
@@ -69,8 +85,8 @@ Max ammo: 50.
 
 Shoot raycast with high damage, alt. attack zooms in and out.
 
-Class: WeaponRangedSniper.
-Trigger type: Semi-auto.
+Attack: semi-auto, raycast.
+Alt. attack: zoom.
 Magazine capacity: 5.
 Max ammo: 50.
 
@@ -78,8 +94,8 @@ Max ammo: 50.
 
 Shoot plasma particles with quite a low speed, but high damage.
 
-Class: WeaponRanged.
-Trigger type: Auto.
+Attack: auto, projectile (plasma).
+Alt. attack: semi-auto, (8 plasma).
 Magazine capacity: 50.
 Max ammo: 300.
 
@@ -87,8 +103,8 @@ Max ammo: 300.
 
 Charged weapon, shoot big projectile with low speed that attack nearby enemies when passed by, and also expodes at certain range or when hit something, shooting a lot of little projectiles in all directions. Also, along with it, shoot a lot of little short-life projectiles in quite a big spread.
 
-Class: WeaponRangedCharge.
-Trigger type: Charge.
+Attack: charge, projectile (bfg_ball (spawns a lot of little projectiles when spawned) .
+Alt. attack: none.
 Magazine capacity: 4.
 Max ammo: 20.
 
@@ -96,7 +112,7 @@ Max ammo: 20.
 
 Shoot atomic rocket, like in Shadow Warrior. HUGE explosion radius and HUGE damage. Bosses, probable, need atomic_resistance value to be implemented, so that boss fights can't be easily cheesed.
 
-Class: WeaponRanged.
-Trigger type: Semi-auto.
+Attack: semi-auto, projectile (atomic_rocket).
+Alt. attack: target lock.
 Magazine capacity: 1.
 Max ammo: 1.
