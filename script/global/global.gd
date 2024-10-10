@@ -14,7 +14,7 @@ var settings = {
 	"mouse_sensitivity": 0.005,
 	
 	"vsync": true,
-	"aa": false,
+	"aa": true,
 	"render_distance": 2000.0,
 	"fov": 60.0,
 	"smoke_trails": true,

@@ -9,5 +9,5 @@ func _ready() -> void:
 func activate():
 	for i in range( spawn_num ):
 		var r = Vector3( randf_range( 0.0, PI*2.0 ), randf_range( 0.0, PI*2.0 ), randf_range( 0.0, PI*2.0 ) );
-		Spawner.spawn( spawn_id, global_position, r );
+		Spawner.spawn( spawn_id, global_position + Vector3( 0, 0.5, 0 ), r );
 	queue_free();
