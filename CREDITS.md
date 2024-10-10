@@ -1,6 +1,6 @@
 # Credits
 
-## Jet Girls Game
+## Bermuda Strike
 
 ### Run Hanako
 Game designer, programmer, artist, musician, and all of in-between.

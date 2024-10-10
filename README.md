@@ -1,5 +1,4 @@
-# Jet Girls
-(title is very temporary and will be changed in the future)
+# Bermuda Strike
 
 An areial jet-powered shooter game made in Godot Engine.
 Inspired mainly by Strike Witches anime.
