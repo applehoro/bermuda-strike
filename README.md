@@ -32,7 +32,7 @@ Yes, contributions will be welcomed, but with few caveats.
 
 ## About forks
 
-Important note is that raphics, models, sounds (excluding music), animations, design and level design is licensed under CC BY-SA, so, if you fork the project, you should keep the license for the said project parts, and credit the original creator(s).
+Important note is that graphics, models, sounds (excluding music), animations, design and level design is licensed under CC BY-SA, so, if you fork the project, you should keep the license for the said project parts, and credit the original creator(s).
 Code parts of the project is licensed under MIT, so you can relicense it if you want.
 Music is licensed under CC0, so you can do pretty much anything with it.
 

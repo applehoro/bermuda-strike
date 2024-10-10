@@ -3,7 +3,7 @@
 ## Jet Girls Game
 
 ### Run Hanako
-game designer, programmer, artist, musician, and all of in-between.
+Game designer, programmer, artist, musician, and all of in-between.
 
 
 
