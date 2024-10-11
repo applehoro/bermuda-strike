@@ -174,6 +174,9 @@ func alt_attack():
 		return true;
 	return false;
 
+func _process( _delta: float ) -> void:
+	Inventory.crosshair_scale = 1.0 + spread/spread_range_degrees.y;
+
 func _physics_process( delta: float ) -> void:
 	update_trigger();
 	update_alt_trigger();
@@ -194,9 +197,10 @@ func _physics_process( delta: float ) -> void:
 	
 	# not triggered
 	else:
-		spread = max( spread - spread_decrease*delta, spread_range_degrees.x );
 		if( Input.is_action_just_pressed( "reload" ) ):
 			reload();
+	
+	spread = max( spread - spread_decrease*delta, spread_range_degrees.x );
 
 func equip():
 	get_node( node_anim ).play( anim_name_equip );
@@ -250,7 +254,7 @@ func attack_raycast():
 # handle projectile spawning
 func attack_projectile():
 	for i in range( attack_num ):
-		var c = Spawner.spawn( projectile_id, get_node( node_muzzle ).global_position, get_node( node_muzzle ).global_rotation );
+		var c = Spawner.spawn( projectile_id, get_node( node_muzzle ).global_position, global_rotation );
 		c.add_exclude( Global.node_player );
 		c.global_rotate( c.global_basis.y, randf_range( -deg_to_rad( spread ), deg_to_rad( spread ) ) );
 		c.global_rotate( c.global_basis.x, randf_range( -deg_to_rad( spread ), deg_to_rad( spread ) ) );

@@ -6,6 +6,11 @@
 
 extends Node
 
+var crosshair_scale = 1.0;
+
+func _process( delta: float ) -> void:
+	crosshair_scale = lerp( crosshair_scale, 1.0, delta );
+
 var health = 100.0;
 var max_health = 100.0;
 

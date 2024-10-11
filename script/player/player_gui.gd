@@ -33,6 +33,8 @@ func _process(_delta: float) -> void:
 	$ammo_magazine.visible = Inventory.current_weapon_id != "";
 	$ammo_inventory.text = str( Inventory.cw_get_ammo_for_weapon() );
 	$ammo_inventory.visible = Inventory.current_weapon_id != "";
+	
+	$crosshair.scale = Vector2( 1.0, 1.0 )*Inventory.crosshair_scale;
 
 func update_settings():
 	$lens_flare.visible = Global.settings[ "lens_flare" ];
