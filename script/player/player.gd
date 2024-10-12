@@ -10,6 +10,7 @@ var look_pos = Vector2();
 enum {
 	MOTION_TYPE_HOVER = 0,
 	MOTION_TYPE_GLIDE = 1,
+	MOTION_TYPE_WALK = 2,
 };
 var motion_type = MOTION_TYPE_HOVER;
 
@@ -20,6 +21,9 @@ var overdrive_heat = 0.0;
 
 var hover_vel = 64.0;
 var glide_vel = 180.0;
+var walk_vel = 12.0;
+var gravity_vel = 98.0;
+var jump_vel = 16.0;
 
 var physics_push_velocity = Vector3();
 
@@ -30,12 +34,15 @@ var is_over_water = false;
 var is_underwater = false;
 var water_depth = 0.0;
 
+var gravity_scale = 0.0;
+
 func _ready() -> void:
 	Global.node_player = self;
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED;
 	update_settings();
 	Global.connect( "on_update_settings", self.update_settings );
 	Inventory.connect( "on_death", self.die );
+	$water_check.add_exception( $underwater_check );
 
 func update_settings():
 	$yaw/pitch/camera/outline.visible = Global.settings[ "outline" ];
@@ -66,6 +73,13 @@ func set_look_pos( v ):
 func physics_push( v ):
 	physics_push_velocity += v;
 
+func set_motion_type( v ):
+	motion_type = v;
+	if( motion_type == MOTION_TYPE_WALK ):
+		motion_mode = MOTION_MODE_GROUNDED;
+	else:
+		motion_mode = MOTION_MODE_FLOATING;
+
 func _process( delta: float ) -> void:
 	
 	# camera roll
@@ -74,12 +88,17 @@ func _process( delta: float ) -> void:
 	$yaw/pitch/camera.rotation.z = camera_roll*Global.settings[ "view_bob" ];
 	
 	# visual effects
-	$yaw/smoke_trail.emitting = motion.length() > 0.5 && Global.settings[ "smoke_trails" ] && !is_underwater;
+	$yaw/smoke_trail.emitting = motion.length() > 0.5 && Global.settings[ "smoke_trails" ] && !is_underwater && motion_type != MOTION_TYPE_WALK;
 
 func _physics_process( delta: float ) -> void:
-	is_over_water = $water_check.is_over_water;
-	is_underwater = $water_check.is_underwater;
-	water_depth = $water_check.depth;
+	if( motion_type == MOTION_TYPE_WALK ):
+		is_over_water = false;
+		is_underwater = $underwater_check.is_underwater;
+		water_depth = $underwater_check.depth;
+	else:
+		is_over_water = $water_check.is_over_water;
+		is_underwater = $water_check.is_underwater;
+		water_depth = $water_check.depth;
 	
 	# update control
 	var control = Vector3();
@@ -98,9 +117,15 @@ func _physics_process( delta: float ) -> void:
 	
 	if( Input.is_action_just_pressed( "switch_motion" ) ):
 		if( motion_type == MOTION_TYPE_HOVER ):
-			motion_type = MOTION_TYPE_GLIDE;
+			set_motion_type( MOTION_TYPE_GLIDE );
 		else:
-			motion_type = MOTION_TYPE_HOVER;
+			set_motion_type( MOTION_TYPE_HOVER );
+	
+	if( Input.is_action_just_pressed( "switch_engine" ) ):
+		if( motion_type == MOTION_TYPE_WALK ):
+			set_motion_type( MOTION_TYPE_HOVER );
+		else:
+			set_motion_type( MOTION_TYPE_WALK );
 	
 	if( Input.is_action_pressed( "overdrive" ) && motion_type == MOTION_TYPE_GLIDE ):
 		overdrive_heat = min( overdrive_heat + delta/20.0, 1.0 );
@@ -109,9 +134,25 @@ func _physics_process( delta: float ) -> void:
 	overdrive_boost = 1.0 - overdrive_heat*0.95;
 	
 	# damping
-	motion *= 1.0 - delta*8.0;
-	if( is_underwater ):
+	if( motion_type == MOTION_TYPE_WALK ):
+		motion *= 1.0 - delta*4.0;
+		if( is_underwater ):
+			motion *= 1.0 - delta*5.0;
+	else:
 		motion *= 1.0 - delta*8.0;
+		if( is_underwater ):
+			motion *= 1.0 - delta*8.0;
+	
+	if( motion_type == MOTION_TYPE_WALK ):
+		if( is_underwater ):
+			if( water_depth > 0.0 ):
+				gravity_scale = max( gravity_scale - delta/0.7, -0.01 );
+			else:
+				gravity_scale = min( gravity_scale + delta/0.7, 0.01 );
+		else:
+			gravity_scale = min( gravity_scale + delta/0.7, 1.0 );
+	else:
+		gravity_scale = max( gravity_scale - delta/0.7, 0.0 );
 	
 	match( motion_type ):
 		
@@ -137,6 +178,27 @@ func _physics_process( delta: float ) -> void:
 			motion += $yaw/pitch.global_basis.x*control.x*delta*hover_vel;
 			motion -= $yaw/pitch.global_basis.y*control.z*delta*hover_vel;
 			camera_roll -= control.x*delta*0.3;
+		
+		# walk motion
+		MOTION_TYPE_WALK:
+			motion += $yaw.global_basis.x*control.x*delta*walk_vel;
+			
+			if( is_underwater ):
+				motion += $yaw/pitch.global_basis.z*control.z*delta*walk_vel;
+				if( Input.is_action_pressed( "move_dn" ) ):
+					motion -= $yaw.global_basis.y*walk_vel*delta;
+				if( Input.is_action_pressed( "overdrive" ) ):
+					motion += $yaw.global_basis.y*walk_vel*delta;
+			else:
+				if( is_on_floor() ):
+					motion.y = max( motion.y, 0.0 );
+					if( Input.is_action_just_pressed( "overdrive" ) ):
+						motion.y = jump_vel;
+				motion += $yaw.global_basis.z*control.z*delta*walk_vel;
+			camera_roll -= control.x*delta*0.12;
+	
+	if( !is_on_floor() ):
+		motion.y -= gravity_vel*gravity_scale*delta;
 	
 	# apply motion to velocity
 	velocity *= 1.0 - delta*8.0;

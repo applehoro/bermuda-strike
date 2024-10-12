@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://b142sd861jpb0"]
+[gd_scene load_steps=46 format=3 uid="uid://b142sd861jpb0"]
 
 [ext_resource type="Script" path="res://script/player/player.gd" id="1_4t0x4"]
 [ext_resource type="Shader" path="res://shaders/outline_2.gdshader" id="2_hkm1e"]
@@ -7,6 +7,7 @@
 [ext_resource type="FontFile" uid="uid://di23wbbbnrqmu" path="res://fonts/ChemyRetro_v01.ttf" id="6_dx3k2"]
 [ext_resource type="Script" path="res://script/effects/water_check.gd" id="7_p8ui4"]
 [ext_resource type="Texture2D" uid="uid://cu63f3b8sb1n3" path="res://textures/effects/water_splash.png" id="8_b27oc"]
+[ext_resource type="Script" path="res://script/physics/underwater_check.gd" id="8_c0ph5"]
 [ext_resource type="Texture2D" uid="uid://d0hhb6a0det0b" path="res://textures/effects/water_ring.png" id="9_t3q4k"]
 [ext_resource type="Script" path="res://script/player/player_gui.gd" id="10_5pu4h"]
 [ext_resource type="Texture2D" uid="uid://c1y0vfjqhacs6" path="res://textures/gui/crosshair.png" id="10_21b0i"]
@@ -157,6 +158,9 @@ disable_receive_shadows = true
 material = SubResource("StandardMaterial3D_b8xip")
 orientation = 1
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_f4o6t"]
+radius = 1.5
+
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_kjj4u"]
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_1j4e7"]
@@ -273,6 +277,16 @@ lifetime = 1.6
 explosiveness = 0.05
 process_material = SubResource("ParticleProcessMaterial_0s0xq")
 draw_pass_1 = SubResource("QuadMesh_irqfv")
+
+[node name="underwater_check" type="Area3D" parent="."]
+collision_layer = 2
+collision_mask = 2
+input_ray_pickable = false
+monitorable = false
+script = ExtResource("8_c0ph5")
+
+[node name="col" type="CollisionShape3D" parent="underwater_check"]
+shape = SubResource("SphereShape3D_f4o6t")
 
 [node name="gui" type="CanvasLayer" parent="."]
 script = ExtResource("10_5pu4h")

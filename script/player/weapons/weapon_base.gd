@@ -249,7 +249,9 @@ func attack_raycast():
 			# water splashes
 			var rw = Global.raycast_3d_area( sp, r[ "position" ], exclude, Global.water_layer );
 			if( rw ):
-				Spawner.spawn( "water_splash", rw[ "position" ], Vector3() );
+				if( rw[ "collider" ].has_meta( "is_water" ) ):
+					if( rw[ "collider" ].get_meta( "is_water" ) ):
+						Spawner.spawn( "water_splash", rw[ "position" ], Vector3() );
 
 # handle projectile spawning
 func attack_projectile():

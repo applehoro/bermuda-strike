@@ -10,12 +10,27 @@ var is_over_water = false;
 var is_underwater = false;
 var depth = 0.0;
 
+var enabled = true;
+
 func _ready() -> void:
 	update_settings();
 	Global.connect( "on_update_settings", self.update_settings );
 
-func update_settings():
+func add_exception( obj ):
+	$raycast.add_exception( obj );
 
+func set_enabled( v ):
+	enabled = true;
+	set_process( enabled );
+	
+	if( !enabled ):
+		$splash.emitting = false;
+		$rings.emitting = false;
+		is_underwater = false;
+		is_over_water = false;
+		depth = 0.0;
+
+func update_settings():
 	# enable or disable water effects by settings
 	if( Global.settings[ "water_effects" ] ):
 		$splash.visible = true;

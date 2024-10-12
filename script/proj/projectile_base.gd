@@ -29,7 +29,9 @@ func _physics_process(delta: float) -> void:
 	# water splashes
 	var rw = Global.raycast_3d_area( global_position, np, [], Global.water_layer );
 	if( rw ):
-		Spawner.spawn( "water_splash", rw[ "position" ], Vector3() );
+		if( rw[ "collider" ].has_meta( "is_water" ) ):
+			if( rw[ "collider" ].get_meta( "is_water" ) ):
+				Spawner.spawn( "water_splash", rw[ "position" ], Vector3() );
 	
 	
 	# hit something
