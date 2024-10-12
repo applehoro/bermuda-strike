@@ -22,7 +22,7 @@ var overdrive_heat = 0.0;
 var hover_vel = 64.0;
 var glide_vel = 180.0;
 var walk_vel = 12.0;
-var gravity_vel = 98.0;
+var gravity_vel = 600.0;
 var jump_vel = 16.0;
 
 var physics_push_velocity = Vector3();
@@ -32,9 +32,13 @@ var camera_roll_max = 30.0;
 
 var is_over_water = false;
 var is_underwater = false;
-var water_depth = 0.0;
+var is_over_ground = false;
+var y_offset = 0.0;
 
 var gravity_scale = 0.0;
+
+var heal_cd = 0.0;
+var heal_margin = 50.0;
 
 func _ready() -> void:
 	Global.node_player = self;
@@ -42,16 +46,11 @@ func _ready() -> void:
 	update_settings();
 	Global.connect( "on_update_settings", self.update_settings );
 	Inventory.connect( "on_death", self.die );
-	$water_check.add_exception( $underwater_check );
 
 func update_settings():
 	$yaw/pitch/camera/outline.visible = Global.settings[ "outline" ];
 	$yaw/pitch/camera.far = Global.settings[ "render_distance" ];
 	$yaw/pitch/camera.fov = Global.settings[ "fov" ];
-
-func die():
-	Global.node_player = null;
-	queue_free();
 
 func _exit_tree() -> void:
 	Global.node_player = null;
@@ -75,6 +74,7 @@ func physics_push( v ):
 
 func set_motion_type( v ):
 	motion_type = v;
+	$ground_check.jet_enabled = motion_type != MOTION_TYPE_WALK;
 	if( motion_type == MOTION_TYPE_WALK ):
 		motion_mode = MOTION_MODE_GROUNDED;
 	else:
@@ -91,14 +91,16 @@ func _process( delta: float ) -> void:
 	$yaw/smoke_trail.emitting = motion.length() > 0.5 && Global.settings[ "smoke_trails" ] && !is_underwater && motion_type != MOTION_TYPE_WALK;
 
 func _physics_process( delta: float ) -> void:
-	if( motion_type == MOTION_TYPE_WALK ):
-		is_over_water = false;
-		is_underwater = $underwater_check.is_underwater;
-		water_depth = $underwater_check.depth;
-	else:
-		is_over_water = $water_check.is_over_water;
-		is_underwater = $water_check.is_underwater;
-		water_depth = $water_check.depth;
+	if( heal_cd > 0.0 ):
+		heal_cd -= delta;
+	elif( Inventory.health < heal_margin ):
+		Inventory.heal( 1 );
+		heal_cd = 0.1;
+	
+	is_over_water = $ground_check.is_over_water;
+	is_underwater = $ground_check.is_underwater;
+	is_over_ground = $ground_check.is_over_ground;
+	y_offset = $ground_check.y_offset;
 	
 	# update control
 	var control = Vector3();
@@ -115,6 +117,7 @@ func _physics_process( delta: float ) -> void:
 	if( Input.is_action_pressed( "move_bw" ) ):
 		control.z += 1;
 	
+	# switch motion type
 	if( Input.is_action_just_pressed( "switch_motion" ) ):
 		if( motion_type == MOTION_TYPE_HOVER ):
 			set_motion_type( MOTION_TYPE_GLIDE );
@@ -127,6 +130,7 @@ func _physics_process( delta: float ) -> void:
 		else:
 			set_motion_type( MOTION_TYPE_WALK );
 	
+	# overdrive
 	if( Input.is_action_pressed( "overdrive" ) && motion_type == MOTION_TYPE_GLIDE ):
 		overdrive_heat = min( overdrive_heat + delta/20.0, 1.0 );
 	else:
@@ -143,12 +147,14 @@ func _physics_process( delta: float ) -> void:
 		if( is_underwater ):
 			motion *= 1.0 - delta*8.0;
 	
+	# update gravity scale
 	if( motion_type == MOTION_TYPE_WALK ):
 		if( is_underwater ):
-			if( water_depth > 0.0 ):
+			if( y_offset > 0.0 ):
 				gravity_scale = max( gravity_scale - delta/0.7, -0.01 );
 			else:
 				gravity_scale = min( gravity_scale + delta/0.7, 0.01 );
+		
 		else:
 			gravity_scale = min( gravity_scale + delta/0.7, 1.0 );
 	else:
@@ -182,23 +188,23 @@ func _physics_process( delta: float ) -> void:
 		# walk motion
 		MOTION_TYPE_WALK:
 			motion += $yaw.global_basis.x*control.x*delta*walk_vel;
+			camera_roll -= control.x*delta*0.12;
 			
-			if( is_underwater ):
+			# swimming
+			if( is_underwater || ( is_over_water && y_offset > -3.0 ) ):
 				motion += $yaw/pitch.global_basis.z*control.z*delta*walk_vel;
 				if( Input.is_action_pressed( "move_dn" ) ):
 					motion -= $yaw.global_basis.y*walk_vel*delta;
 				if( Input.is_action_pressed( "overdrive" ) ):
 					motion += $yaw.global_basis.y*walk_vel*delta;
+			
+			# walking on ground
 			else:
+				motion += $yaw.global_basis.z*control.z*delta*walk_vel;
 				if( is_on_floor() ):
 					motion.y = max( motion.y, 0.0 );
 					if( Input.is_action_just_pressed( "overdrive" ) ):
 						motion.y = jump_vel;
-				motion += $yaw.global_basis.z*control.z*delta*walk_vel;
-			camera_roll -= control.x*delta*0.12;
-	
-	if( !is_on_floor() ):
-		motion.y -= gravity_vel*gravity_scale*delta;
 	
 	# apply motion to velocity
 	velocity *= 1.0 - delta*8.0;
@@ -208,9 +214,33 @@ func _physics_process( delta: float ) -> void:
 	velocity += physics_push_velocity*delta;
 	
 	# water physics
-	if( is_underwater ):
-		velocity.y += ( 8.0 + 4.0*abs( water_depth ) )*delta;
-	elif( is_over_water && water_depth > -3 ):
-		velocity.y += 8.0*delta;
+	if( motion_type == MOTION_TYPE_WALK ):
+		
+		# push from under the water
+		if( is_underwater ):
+			velocity.y += ( 0.5 + 0.5*abs( y_offset ) )*delta;
+		elif( is_over_water && y_offset > -3 ):
+			velocity.y += 0.5*delta;
+		
+		# apply gravity if in the air
+		elif( !is_on_floor() ):
+			velocity.y -= gravity_vel*gravity_scale*delta;
+	
+	else:
+		if( is_underwater ):
+			velocity.y += ( 8.0 + 4.0*abs( y_offset ) )*delta;
+		elif( is_over_water && y_offset > -3 ):
+			velocity.y += 8.0*delta;
+		
+		if( motion_type == MOTION_TYPE_HOVER && is_over_ground && y_offset > -4 ):
+			velocity.y += 120.0*delta;
 	
 	move_and_slide();
+
+func damage( d ):
+	Inventory.damage( d );
+	heal_cd = 5.0;
+
+func die():
+	Global.node_player = null;
+	queue_free();

@@ -13,13 +13,10 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	if( ( get_parent().is_over_water || get_parent().is_underwater ) && Global.settings[ "special_effects" ] ):
 		$water_horizon.visible = true;
-		$water_horizon.color.a = ease( max( 1.2 - abs( get_parent().water_depth ), 0.0 ), 0.25 );
+		$water_horizon.color.a = ease( max( 1.2 - abs( get_parent().y_offset ), 0.0 ), 0.25 );
 		$water_distortion.visible = false;
 		if( get_parent().is_underwater ):
-			if( get_parent().motion_type == get_parent().MOTION_TYPE_WALK ):
-				$water_distortion.visible = get_parent().water_depth > 0.0;
-			else:
-				$water_distortion.visible = true;
+			$water_distortion.visible = get_parent().y_offset > 0.0;
 			
 	else:
 		$water_horizon.visible = false;

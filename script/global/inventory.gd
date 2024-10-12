@@ -19,7 +19,7 @@ signal on_death();
 signal on_heal( v, t );
 
 func damage( v ):
-	health = max( health - v );
+	health = max( health - v, 0.0 );
 	on_damage.emit( v, health );
 	if( health <= 0 ):
 		die();

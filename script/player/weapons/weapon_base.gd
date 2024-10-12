@@ -234,7 +234,7 @@ func attack_raycast():
 		var dp = sp + sd*raycast_length;
 
 		# hit something
-		var r = Global.raycast_3d( sp, dp, exclude, raycast_layers );
+		var r = Global.raycast_3d_body( sp, dp, exclude, raycast_layers );
 		if( r ):
 			var obj = r[ "collider" ];
 			if( obj.has_method( "damage" ) ):
@@ -282,7 +282,7 @@ func alt_attack_raycast():
 		var dp = sp + sd*alt_raycast_length;
 
 		# hit something
-		var r = Global.raycast_3d( sp, dp, exclude, alt_raycast_layers );
+		var r = Global.raycast_3d_body( sp, dp, exclude, alt_raycast_layers );
 		if( r ):
 			var obj = r[ "collider" ];
 			if( obj.has_method( "damage" ) ):

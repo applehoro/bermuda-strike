@@ -35,7 +35,7 @@ func _physics_process(delta: float) -> void:
 	
 	
 	# hit something
-	var r = Global.raycast_3d( global_position, np, exclude, 1 );
+	var r = Global.raycast_3d_body( global_position, np, exclude, 1 );
 	if( r ):
 		var obj = r[ "collider" ];
 		if( obj.has_method( "damage" ) ):

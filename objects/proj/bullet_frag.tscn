@@ -14,7 +14,7 @@ size = Vector3(0.5, 0.5, 2)
 [node name="bullet_frag" type="Node3D"]
 script = ExtResource("1_xru84")
 velocity = 300.0
-lifetime = 0.8
+lifetime = 1.5
 damage = Vector2(10, 20)
 dive = 4.0
 

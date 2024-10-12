@@ -4,7 +4,6 @@
 # - store game settings and send signal on their change
 # - hande 3d raycasting by code
 
-
 extends Node
 
 var node_world = null;
@@ -33,11 +32,14 @@ func _ready() -> void:
 	update_settings();
 
 # raycasting
-func raycast_3d( from, to, exclude = [], mask = 0xFFFFFFFF ):
+func raycast_3d_body( from, to, exclude = [], mask = 0xFFFFFFFF ):
 	var space_state = node_world.get_world_3d().direct_space_state;
 	var query = PhysicsRayQueryParameters3D.create( from, to );
 	query.exclude = exclude;
 	query.collision_mask = mask;
+	query.collide_with_areas = false;
+	query.collide_with_bodies = true;
+	query.hit_from_inside = true;
 	return space_state.intersect_ray( query );
 
 func raycast_3d_area( from, to, exclude = [], mask = 0xFFFFFFFF ):
@@ -47,6 +49,17 @@ func raycast_3d_area( from, to, exclude = [], mask = 0xFFFFFFFF ):
 	query.collision_mask = mask;
 	query.collide_with_areas = true;
 	query.collide_with_bodies = false;
+	query.hit_from_inside = true;
+	return space_state.intersect_ray( query );
+
+func raycast_3d_any( from, to, exclude = [], mask = 0xFFFFFFFF ):
+	var space_state = node_world.get_world_3d().direct_space_state;
+	var query = PhysicsRayQueryParameters3D.create( from, to );
+	query.exclude = exclude;
+	query.collision_mask = mask;
+	query.collide_with_areas = true;
+	query.collide_with_bodies = true;
+	query.hit_from_inside = true;
 	return space_state.intersect_ray( query );
 
 # settings
