@@ -15,10 +15,20 @@ extends Node3D
 
 var exclude = [];
 
+var hit_water = false;
+
 func _ready() -> void:
 	#$mesh.scale.z = 0.01;
 	$mesh.position.z = -$mesh.mesh.size.z*2.0;
 	#$mesh.visible = false;
+	call_deferred( "setup" );
+
+func setup():
+	var rw = Global.raycast_3d_area( global_position, global_position - global_basis.z*0.05, [], Global.water_layer );
+	if( rw ):
+		if( rw[ "collider" ].has_meta( "is_water" ) ):
+			if( rw[ "collider" ].get_meta( "is_water" ) ):
+				hit_water = true;
 
 func add_exclude( obj ):
 	exclude.push_back( obj );
@@ -27,11 +37,13 @@ func _physics_process(delta: float) -> void:
 	var np = global_position - global_basis.z*velocity*delta;
 	
 	# water splashes
-	var rw = Global.raycast_3d_area( global_position, np, [], Global.water_layer );
-	if( rw ):
-		if( rw[ "collider" ].has_meta( "is_water" ) ):
-			if( rw[ "collider" ].get_meta( "is_water" ) ):
-				Spawner.spawn( "water_splash", rw[ "position" ], Vector3() );
+	if( !hit_water ):
+		var rw = Global.raycast_3d_area( global_position, np, [], Global.water_layer );
+		if( rw ):
+			if( rw[ "collider" ].has_meta( "is_water" ) ):
+				if( rw[ "collider" ].get_meta( "is_water" ) ):
+					Spawner.spawn( "water_splash", rw[ "position" ], Vector3() );
+					hit_water = true;
 	
 	
 	# hit something

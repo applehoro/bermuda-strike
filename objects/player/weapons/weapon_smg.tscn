@@ -1,7 +1,7 @@
-[gd_scene load_steps=13 format=3 uid="uid://dh2al0us646sh"]
+[gd_scene load_steps=6 format=3 uid="uid://dh2al0us646sh"]
 
 [ext_resource type="Script" path="res://script/player/weapons/weapon_base.gd" id="1_jgojx"]
-[ext_resource type="PackedScene" uid="uid://bsu8f7dvcc6xw" path="res://models/weapons/smg/junk_smg/junk_smg_002.tscn" id="2_hen1k"]
+[ext_resource type="PackedScene" uid="uid://cfp45cmblmn83" path="res://models/weapons/smg/junk_smg/junk_smg.gltf" id="2_ibhbx"]
 [ext_resource type="Texture2D" uid="uid://dkupvqwrkuefx" path="res://textures/effects/test_muzzle_flash.png" id="3_qmxxm"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nagdt"]
@@ -15,373 +15,96 @@ disable_receive_shadows = true
 material = SubResource("StandardMaterial3D_nagdt")
 size = Vector2(0.3, 0.3)
 
-[sub_resource type="Animation" id="Animation_c7vya"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("pos/muzzle/flash:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("pos/muzzle/light:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("pos:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0.0493625, -0.0982567, -0.08321)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("pos:rotation")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_h143l"]
-resource_name = "attack"
-length = 0.1
-step = 0.05
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("pos/muzzle/flash:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.02),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("pos/muzzle/light:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.02),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("pos:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0.0493625, -0.090885, -0.0543882), Vector3(0.0493625, -0.0982567, -0.08321)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("pos:rotation")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0.15406, 0, 0), Vector3(0, 0, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_woyd8"]
-resource_name = "equip"
-length = 0.3
-step = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("pos/muzzle/flash:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("pos/muzzle/light:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("pos:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0.049, -0.5, -0.083), Vector3(0.0493625, -0.0982567, -0.08321)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("pos:rotation")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(-0.615613, 0, 0), Vector3(0, 0, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_fvonp"]
-resource_name = "idle"
-length = 0.1
-loop_mode = 1
-step = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("pos/muzzle/flash:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("pos/muzzle/light:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("pos:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0.0493625, -0.0982567, -0.08321)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("pos:rotation")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_u8y58"]
-resource_name = "reload"
-length = 1.2
-step = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("pos/muzzle/flash:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("pos/muzzle/light:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("pos:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.4, 0.5, 0.7, 0.8, 1.2),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 0,
-"values": [Vector3(0.0493625, -0.0982567, -0.08321), Vector3(0.0493625, -0.0982567, -0.08321), Vector3(0.0493625, -0.155724, -0.08321), Vector3(0.0493625, -0.155724, -0.08321), Vector3(0.0493625, -0.0982567, -0.08321), Vector3(0.0493625, -0.0982567, -0.08321)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("pos:rotation")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.3, 0.9, 1.2),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0.750439, 0, 0), Vector3(0.750439, 0, 0), Vector3(0, 0, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_6kviw"]
-resource_name = "unequip"
-length = 0.3
-step = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("pos/muzzle/flash:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("pos/muzzle/light:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("pos:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0.0493625, -0.0982567, -0.08321), Vector3(0.049, -0.5, -0.083)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("pos:rotation")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(-0.615613, 0, 0)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_xc3ou"]
-_data = {
-"RESET": SubResource("Animation_c7vya"),
-"attack": SubResource("Animation_h143l"),
-"equip": SubResource("Animation_woyd8"),
-"idle": SubResource("Animation_fvonp"),
-"reload": SubResource("Animation_u8y58"),
-"unequip": SubResource("Animation_6kviw")
-}
-
 [node name="weapon_smg" type="Node3D"]
 script = ExtResource("1_jgojx")
+attack_cd = 0.05
+alt_attack_cd = 0.05
 weapon_id = "smg"
 ammo_usage_per_attack = 1
+spread_range_degrees = Vector2(0.5, 8)
 spread_increase = 7.5
 spread_decrease = 30.0
-node_muzzle = NodePath("pos/muzzle")
+node_muzzle = NodePath("junk_smg/bones/Skeleton3D/muzzle_attach/muzzle")
 projectile_id = "bullet_smg"
-node_anim = NodePath("anim")
+node_anim = NodePath("junk_smg/AnimationPlayer")
+anim_queue_attack = ["attack_1"]
+anim_queue_alt_attack = ["attack_1"]
 
-[node name="pos" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0493625, -0.0982567, -0.08321)
+[node name="junk_smg" parent="." instance=ExtResource("2_ibhbx")]
 
-[node name="junk_smg-002" parent="pos" instance=ExtResource("2_hen1k")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.1)
+[node name="Skeleton3D" parent="junk_smg/bones" index="0"]
+bones/1/rotation = Quaternion(0.608139, -0.287059, 0.656193, -0.342308)
+bones/2/rotation = Quaternion(-0.0522299, 2.6429e-09, 0.662393, 0.747333)
+bones/3/rotation = Quaternion(0.0281527, 0.0546878, -0.456552, 0.887568)
+bones/5/rotation = Quaternion(-0.177805, 0.0024829, -0.0119741, 0.98399)
+bones/6/rotation = Quaternion(-0.180126, 0.00223377, -0.0121975, 0.983565)
+bones/7/rotation = Quaternion(-0.130701, 0.000952212, -0.00722234, 0.991395)
+bones/8/rotation = Quaternion(-0.177805, 0.00248294, -0.0119741, 0.98399)
+bones/24/rotation = Quaternion(-0.471132, 0.105884, 0.305463, 0.82068)
+bones/31/rotation = Quaternion(0.515845, -0.478542, 0.555217, -0.443436)
+bones/32/rotation = Quaternion(-0.730911, -0.0809264, 0.260454, 0.625606)
+bones/33/rotation = Quaternion(-0.0470028, -1.39431e-08, -0.596102, 0.801532)
+bones/34/rotation = Quaternion(-0.0609299, 0.239315, 0.403659, 0.880951)
+bones/35/position = Vector3(0.0236459, 0.130368, 0.00319378)
+bones/35/rotation = Quaternion(-0.0236306, 0.00105006, -0.0470128, 0.998614)
+bones/36/rotation = Quaternion(-0.684511, -0.00859758, 0.00869627, 0.7289)
+bones/37/rotation = Quaternion(-0.641125, -0.00795065, 0.00951598, 0.767337)
+bones/39/position = Vector3(-0.000726575, 0.042127, -0.00622127)
+bones/39/rotation = Quaternion(-0.684511, -0.00859759, 0.00869626, 0.7289)
+bones/40/position = Vector3(-0.0025635, 0.118968, 0.0031941)
+bones/41/rotation = Quaternion(-0.723991, -0.012315, 0.00913207, 0.689639)
+bones/43/rotation = Quaternion(-0.537924, -0.0142402, 0.0223057, 0.842578)
+bones/44/position = Vector3(5.72253e-05, 0.039537, -0.00357789)
+bones/44/rotation = Quaternion(-0.723991, -0.012315, 0.00913207, 0.689639)
+bones/45/position = Vector3(-0.0302816, 0.112089, 0.00319444)
+bones/45/rotation = Quaternion(-0.0220849, 0.00229007, 0.0288687, 0.999337)
+bones/46/rotation = Quaternion(-0.624721, -0.0149337, 0.0129292, 0.780598)
+bones/47/rotation = Quaternion(-0.608786, 0.000344387, -0.000448763, 0.793335)
+bones/49/position = Vector3(2.58764e-05, 0.0386225, -0.00112835)
+bones/49/rotation = Quaternion(-0.624721, -0.0149337, 0.0129292, 0.780598)
+bones/50/position = Vector3(-0.0493493, 0.106262, 0.00319475)
+bones/50/rotation = Quaternion(-0.0253544, 0.00349364, 0.0958389, 0.995068)
+bones/52/rotation = Quaternion(-0.501199, 0.00426469, -0.00736269, 0.86529)
+bones/53/rotation = Quaternion(-0.368186, 0.00221176, -0.00558514, 0.929733)
+bones/54/position = Vector3(-1.11086e-05, 0.0346788, 0.00038449)
+bones/54/rotation = Quaternion(-0.564844, -0.0178799, 0.0140923, 0.824884)
+bones/55/position = Vector3(0.0466932, 0.0760127, -0.00735461)
+bones/55/rotation = Quaternion(-0.326874, 0.0829379, -0.266163, 0.903013)
+bones/56/rotation = Quaternion(0.0893318, 0.132468, 0.243558, 0.956636)
+bones/59/rotation = Quaternion(0.0893317, 0.132468, 0.243558, 0.956636)
+bones/62/rotation = Quaternion(-0.704232, -0.063705, -0.0636954, 0.704231)
+bones/63/rotation = Quaternion(-0.707107, 0, 0, 0.707107)
+bones/65/rotation = Quaternion(-0.599949, 0.374248, 0.599949, 0.374248)
+bones/66/rotation = Quaternion(-2.097e-07, 0.744149, -0.668014, 2.33601e-07)
+bones/67/position = Vector3(-0.0528198, 0.277083, 0.000324463)
+bones/67/rotation = Quaternion(-1.05367e-08, 1.05367e-08, 0.707107, 0.707107)
 
-[node name="muzzle" type="Marker3D" parent="pos"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.018365, -0.392241)
+[node name="muzzle_attach" type="BoneAttachment3D" parent="junk_smg/bones/Skeleton3D" index="2"]
+transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0.251887, -0.299599, -0.493479)
+bone_name = "gun_root"
+bone_idx = 63
 
-[node name="flash" type="MeshInstance3D" parent="pos/muzzle"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0157411, 0.0828786)
+[node name="muzzle" type="Marker3D" parent="junk_smg/bones/Skeleton3D/muzzle_attach"]
+transform = Transform3D(1, 0, 0, 0, 0.104288, -0.994547, 0, 0.994547, 0.104288, -0.00231826, 0.697507, 0.00290439)
+
+[node name="flash" type="MeshInstance3D" parent="junk_smg/bones/Skeleton3D/muzzle_attach/muzzle"]
 visible = false
 transparency = 0.1
 cast_shadow = 0
 gi_mode = 0
 mesh = SubResource("QuadMesh_4yvp4")
 
-[node name="light" type="OmniLight3D" parent="pos/muzzle"]
+[node name="light" type="OmniLight3D" parent="junk_smg/bones/Skeleton3D/muzzle_attach/muzzle"]
 visible = false
 light_color = Color(1, 0.65, 0, 1)
 light_energy = 2.0
 shadow_enabled = true
 omni_range = 6.0
 
-[node name="anim" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_xc3ou")
-}
+[node name="AnimationPlayer" parent="junk_smg" index="2"]
 autoplay = "equip"
+next/equip = &"idle"
 
 [node name="test_camera" type="Camera3D" parent="."]
 
-[connection signal="animation_finished" from="anim" to="." method="_on_anim_animation_finished"]
+[editable path="junk_smg"]

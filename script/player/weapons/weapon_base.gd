@@ -215,7 +215,7 @@ func reload():
 	if( Inventory.cw_can_magazine_reload() && !Inventory.cw_is_magazine_full() ):
 			Inventory.cw_magazine_unload();
 			get_node( node_anim ).play( anim_name_reload );
-			cd = get_node( node_anim ).get_current_animation_length();
+			cd = get_node( node_anim ).get_current_animation_length() + 0.1;
 			trigger = false;
 
 # handle raycasting
@@ -312,10 +312,13 @@ func alt_attack_projectile():
 func alt_attack_custom():
 	pass;
 
-func _on_anim_animation_finished(anim_name: StringName) -> void:
+func _on_anim_animation_finished( anim_name: StringName ) -> void:
 	match( anim_name ):
 		anim_name_reload:
 			Inventory.cw_magazine_reload();
 		
 		anim_name_unequip:
 			queue_free();
+		
+		_:
+			get_node( node_anim ).play( anim_name_idle );
