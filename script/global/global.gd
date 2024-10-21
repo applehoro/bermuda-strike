@@ -71,7 +71,7 @@ func update_settings():
 		"vsync": Config.get_config( "VideoSettings", "VSync" ),
 		"aa": Config.get_config( "VideoSettings", "Aa" ),
 		"render_distance": 2000.0 + Config.get_config( "VideoSettings", "RenderDistance" )*8000.0,
-		"fov": 60.0 + Config.get_config( "VideoSettings", "Fov" )*40.0,
+		"fov": 60.0 + Config.get_config( "VideoSettings", "Fov" )*20.0,
 		"smoke_trails": Config.get_config( "VideoSettings", "SmokeTrails" ),
 		"water_effects": Config.get_config( "VideoSettings", "WaterEffects" ),
 		"outline": Config.get_config( "VideoSettings", "Outline" ),

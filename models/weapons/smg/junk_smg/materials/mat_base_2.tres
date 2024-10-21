@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://dqq57ru1xr7pt"]
+
+[ext_resource type="Texture2D" uid="uid://d3jh7vllyf8rb" path="res://models/weapons/smg/junk_smg/textures/text_base_2.png" id="1_7eh6d"]
+
+[resource]
+resource_name = "mat_base_2"
+cull_mode = 2
+albedo_texture = ExtResource("1_7eh6d")
+roughness = 0.95

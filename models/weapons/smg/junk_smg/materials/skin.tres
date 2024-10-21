@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://b3kofs2axntym"]
+
+[ext_resource type="Texture2D" uid="uid://d0sbojct5yb5h" path="res://models/weapons/smg/junk_smg/textures/skin.png" id="1_aqem5"]
+
+[resource]
+resource_name = "skin"
+cull_mode = 2
+albedo_texture = ExtResource("1_aqem5")
+roughness = 0.95
