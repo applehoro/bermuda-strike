@@ -39,7 +39,7 @@ func switch_weapon( t ):
 	if( current_weapon != t ):
 		if( assets.has( t ) ):
 			if( node_weapon != null ):
-				node_weapon.unequip();
+				#node_weapon.unequip();
 				node_weapon.queue_free();
 				node_weapon = null;
 				current_weapon = "";

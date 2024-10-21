@@ -3,6 +3,7 @@
 ## WeaponBase - basic weapon functionality.
 
 Update: actually, all weapon functionality, probably should be renamed to just Weapon.
+Update 2: actually, just one base class, and separate inherited scripts for all the weapons
 
 Trigger functions for main and alt. attack:
 - Auto

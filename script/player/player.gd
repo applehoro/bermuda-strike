@@ -21,9 +21,9 @@ var overdrive_heat = 0.0;
 
 var hover_vel = 64.0;
 var glide_vel = 180.0;
-var walk_vel = 12.0;
-var gravity_vel = 600.0;
-var jump_vel = 16.0;
+var walk_vel = 24.0;
+var gravity_vel = 300.0;
+var jump_vel = 40.0;
 
 var physics_push_velocity = Vector3();
 

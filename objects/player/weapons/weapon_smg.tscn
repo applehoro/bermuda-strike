@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://dh2al0us646sh"]
 
-[ext_resource type="Script" path="res://script/player/weapons/weapon_base.gd" id="1_jgojx"]
+[ext_resource type="Script" path="res://script/player/weapons/weapon_smg.gd" id="1_5cdj7"]
 [ext_resource type="PackedScene" uid="uid://cfp45cmblmn83" path="res://models/weapons/smg/junk_smg/junk_smg.gltf" id="2_ibhbx"]
 [ext_resource type="Texture2D" uid="uid://dkupvqwrkuefx" path="res://textures/effects/test_muzzle_flash.png" id="3_qmxxm"]
 
@@ -16,16 +16,16 @@ material = SubResource("StandardMaterial3D_nagdt")
 size = Vector2(0.3, 0.3)
 
 [node name="weapon_smg" type="Node3D"]
-script = ExtResource("1_jgojx")
-attack_cd = 0.05
-alt_attack_cd = 0.05
+script = ExtResource("1_5cdj7")
+trigger_mechanic = 1
+alt_attack_cd = 0.2
 weapon_id = "smg"
 ammo_usage_per_attack = 1
-spread_range_degrees = Vector2(0.5, 8)
-spread_increase = 7.5
-spread_decrease = 30.0
+ammo_usage_per_alt_attack = 3
+spread_range_degrees = Vector2(1.5, 8)
+spread_increase = 5.0
+spread_alt_increase = 15.0
 node_muzzle = NodePath("junk_smg/bones/Skeleton3D/muzzle_attach/muzzle")
-projectile_id = "bullet_smg"
 node_anim = NodePath("junk_smg/AnimationPlayer")
 anim_queue_attack = ["attack_1"]
 anim_queue_alt_attack = ["attack_1"]
@@ -78,6 +78,12 @@ bones/65/rotation = Quaternion(-0.599949, 0.374248, 0.599949, 0.374248)
 bones/66/rotation = Quaternion(-2.097e-07, 0.744149, -0.668014, 2.33601e-07)
 bones/67/position = Vector3(-0.0528198, 0.277083, 0.000324463)
 bones/67/rotation = Quaternion(-1.05367e-08, 1.05367e-08, 0.707107, 0.707107)
+
+[node name="base" parent="junk_smg/bones/Skeleton3D" index="0"]
+cast_shadow = 0
+
+[node name="Plane" parent="junk_smg/bones/Skeleton3D" index="1"]
+cast_shadow = 0
 
 [node name="muzzle_attach" type="BoneAttachment3D" parent="junk_smg/bones/Skeleton3D" index="2"]
 transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0.251887, -0.299599, -0.493479)

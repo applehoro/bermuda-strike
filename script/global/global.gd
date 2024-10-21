@@ -27,6 +27,7 @@ var settings = {
 signal on_update_settings();
 
 @export_flags_3d_physics var water_layer = 0b00000000_00000000_00000000_00000010;
+@export_flags_3d_physics var all_layers = 0b00000000_00000000_00000000_00000011;
 
 func _ready() -> void:
 	update_settings();

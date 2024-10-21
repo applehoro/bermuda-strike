@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=3 uid="uid://cheagx2s765gl"]
 
-[ext_resource type="Script" path="res://script/player/weapons/weapon_base.gd" id="1_imkwt"]
+[ext_resource type="Script" path="res://script/player/weapons/weapon_base_old.gd" id="1_imkwt"]
 [ext_resource type="PackedScene" uid="uid://dq8bhkppkpcf8" path="res://models/weapons/smg/junk_smg/junk_smg-001.glb" id="2_4nwvy"]
 [ext_resource type="Texture2D" uid="uid://dkupvqwrkuefx" path="res://textures/effects/test_muzzle_flash.png" id="3_frniw"]
 
