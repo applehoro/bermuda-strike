@@ -26,8 +26,10 @@ var spread = 0.0;
 @export_category( "Node Paths" )
 @export var node_muzzle: NodePath;
 @export var node_anim: NodePath;
+@export var node_anim_add: NodePath;
 
 @export_category( "Animations" )
+var state_machine;
 @export var anim_name_equip = "equip";
 @export var anim_name_idle = "idle";
 @export var anim_name_reload = "reload";
@@ -39,6 +41,7 @@ var anim_queue_alt_attack_id = 0;
 func _ready() -> void:
 	if( !get_node( node_anim ).is_connected( "animation_finished", _on_animation_finished ) ):
 		get_node( node_anim ).connect( "animation_finished", _on_animation_finished );
+	#state_machine = get_node( node_anim_tree ).get("parameters/playback")
 
 func _process( _delta: float ) -> void:
 	Inventory.crosshair_scale = 1.0 + spread/spread_range_degrees.y;
@@ -104,6 +107,8 @@ func alt_attack():
 
 func equip():
 	get_node( node_anim ).play( anim_name_equip );
+	get_node( node_anim_add ).play( anim_name_equip );
+	#state_machine.travel( anim_name_equip );
 	cd = get_node( node_anim ).get_current_animation_length();
 	Inventory.switch_weapon( weapon_id );
 
@@ -111,6 +116,8 @@ func reload():
 	if( Inventory.cw_can_magazine_reload() && !Inventory.cw_is_magazine_full() ):
 		Inventory.cw_magazine_unload();
 		get_node( node_anim ).play( anim_name_reload );
+		get_node( node_anim_add ).play( anim_name_reload );
+		#state_machine.travel( anim_name_reload );
 		cd = get_node( node_anim ).get_current_animation_length() + 0.1;
 		trigger = false;
 
@@ -120,7 +127,9 @@ func play_next_attack_anim():
 		anim_queue_attack_id += 1;
 		if( anim_queue_attack_id >= anim_queue_attack.size() ):
 			anim_queue_attack_id = 0;
+		#state_machine.travel( anim_queue_attack[ anim_queue_attack_id ] );
 		get_node( node_anim ).play( anim_queue_attack[ anim_queue_attack_id ] );
+		get_node( node_anim_add ).play( anim_queue_attack[ anim_queue_attack_id ] );
 
 func play_next_alt_attack_anim():
 	get_node( node_anim ).stop();
@@ -128,7 +137,9 @@ func play_next_alt_attack_anim():
 		anim_queue_alt_attack_id += 1;
 		if( anim_queue_alt_attack_id >= anim_queue_alt_attack.size() ):
 			anim_queue_alt_attack_id = 0;
+		#state_machine.travel( anim_queue_alt_attack[ anim_queue_alt_attack_id ] );
 		get_node( node_anim ).play( anim_queue_alt_attack[ anim_queue_alt_attack_id ] );
+		get_node( node_anim_add ).play( anim_queue_alt_attack[ anim_queue_alt_attack_id ] );
 
 func _on_animation_finished( anim_name ):
 	match( anim_name ):
@@ -137,6 +148,7 @@ func _on_animation_finished( anim_name ):
 		
 		_:
 			get_node( node_anim ).play( anim_name_idle );
+			get_node( node_anim_add ).play( anim_name_idle );
 
 func shoot():
 	pass;

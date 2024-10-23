@@ -33,6 +33,7 @@ var camera_roll_max = 30.0;
 var is_over_water = false;
 var is_underwater = false;
 var is_over_ground = false;
+var is_on_ground = false;
 var y_offset = 0.0;
 
 var gravity_scale = 0.0;
@@ -101,6 +102,7 @@ func _physics_process( delta: float ) -> void:
 	is_underwater = $ground_check.is_underwater;
 	is_over_ground = $ground_check.is_over_ground;
 	y_offset = $ground_check.y_offset;
+	is_on_ground = is_on_floor() || ( is_on_ground && abs( y_offset ) < 2.0 );
 	
 	# update control
 	var control = Vector3();
@@ -118,17 +120,12 @@ func _physics_process( delta: float ) -> void:
 		control.z += 1;
 	
 	# switch motion type
-	if( Input.is_action_just_pressed( "switch_motion" ) ):
-		if( motion_type == MOTION_TYPE_HOVER ):
-			set_motion_type( MOTION_TYPE_GLIDE );
-		else:
-			set_motion_type( MOTION_TYPE_HOVER );
-	
-	if( Input.is_action_just_pressed( "switch_engine" ) ):
-		if( motion_type == MOTION_TYPE_WALK ):
-			set_motion_type( MOTION_TYPE_HOVER );
-		else:
-			set_motion_type( MOTION_TYPE_WALK );
+	if( Input.is_action_just_pressed( "jet_mode_glide" ) ):
+		set_motion_type( MOTION_TYPE_GLIDE );
+	if( Input.is_action_just_pressed( "jet_mode_hover" ) ):
+		set_motion_type( MOTION_TYPE_HOVER );
+	if( Input.is_action_just_pressed( "jet_mode_off" ) ):
+		set_motion_type( MOTION_TYPE_WALK);
 	
 	# overdrive
 	if( Input.is_action_pressed( "overdrive" ) && motion_type == MOTION_TYPE_GLIDE ):
@@ -201,7 +198,7 @@ func _physics_process( delta: float ) -> void:
 			# walking on ground
 			else:
 				motion += $yaw.global_basis.z*control.z*delta*walk_vel;
-				if( is_on_floor() ):
+				if( is_on_ground ):
 					motion.y = max( motion.y, 0.0 );
 					if( Input.is_action_just_pressed( "overdrive" ) ):
 						motion.y = jump_vel;
