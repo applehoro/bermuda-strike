@@ -1,0 +1,14 @@
+[gd_resource type="StandardMaterial3D" load_steps=5 format=3 uid="uid://derptl5husv4n"]
+
+[ext_resource type="Texture2D" uid="uid://gaqm5o3yyehq" path="res://textures/concrete/concrete_square_albedo.png" id="1_28fjt"]
+[ext_resource type="Texture2D" uid="uid://cyph0tvamq858" path="res://textures/concrete/concrete_1_height.png" id="2_5ibgk"]
+[ext_resource type="Texture2D" uid="uid://y7eopr6jliws" path="res://textures/concrete/concrete_1_normal.png" id="3_kd5uw"]
+[ext_resource type="Texture2D" uid="uid://dpe5a72rvip86" path="res://textures/concrete/concrete_1_rough.png" id="4_hnw21"]
+
+[resource]
+albedo_texture = ExtResource("1_28fjt")
+roughness_texture = ExtResource("4_hnw21")
+normal_enabled = true
+normal_texture = ExtResource("3_kd5uw")
+heightmap_enabled = true
+heightmap_texture = ExtResource("2_5ibgk")

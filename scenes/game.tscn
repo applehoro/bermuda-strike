@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://cxs7rowa8sg6m"]
+[gd_scene load_steps=23 format=3 uid="uid://cxs7rowa8sg6m"]
 
 [ext_resource type="Script" path="res://script/global/world.gd" id="1_vsdrq"]
 [ext_resource type="Material" uid="uid://id4e5vebw5am" path="res://addons/water/materials/water.material" id="2_0rtqo"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://dblwnwcrjevy5" path="res://scenes/menus/pause_menu.tscn" id="8_xlyfs"]
 [ext_resource type="PackedScene" uid="uid://b142sd861jpb0" path="res://objects/player/player.tscn" id="10_4juid"]
 [ext_resource type="PackedScene" uid="uid://d2keeg5miou64" path="res://objects/physics/soft_pusher.tscn" id="10_q3r4t"]
+[ext_resource type="MeshLibrary" uid="uid://qmqg3a0lkyok" path="res://tilesets/test_tileset/test_tileset.tres" id="10_tkvvn"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_1chws"]
 panorama = ExtResource("2_7tsv3")
@@ -121,6 +122,7 @@ assets = ExtResource("6_2rdks")
 render_cast_shadows = 0
 collision_layer = 3
 collision_mask = 3
+visible = false
 script = ExtResource("6_hexti")
 
 [node name="camera" type="Camera3D" parent="world/level/test_island"]
@@ -171,6 +173,33 @@ force = 1.0
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 200, -2000)
 size = Vector3(4096, 4096, 2048)
 force = 1.0
+
+[node name="test_bunker" type="GridMap" parent="world/level"]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0, 0, 0)
+mesh_library = ExtResource("10_tkvvn")
+cell_size = Vector3(4, 4, 4)
+data = {
+"cells": PackedInt32Array(1048577, 65521, 4, 1048577, 65520, 655364, 1048576, 65520, 1048579, 1048576, 65518, 3, 1048578, 65518, 1441795, 1048578, 65520, 655363, 1048576, 65517, 1048579, 1048576, 65515, 3, 1048578, 65515, 1441795, 1048578, 65517, 655363, 1048579, 65520, 1048579, 1048581, 65520, 655363, 1048579, 65518, 3, 1048581, 65518, 1441795, 1048580, 65520, 655362, 1048576, 65519, 1048578, 1048576, 65516, 1048578, 1048577, 65515, 2, 1048580, 65518, 2, 1048581, 65519, 1441794, 1048578, 65516, 1441794, 1048579, 65519, 1048580, 1048578, 65519, 1441796, 1048577, 65518, 4, 1048577, 65517, 655364)
+}
+metadata/_editor_floor_ = Vector3(0, 16, 0)
+
+[node name="floor" type="GridMap" parent="world/level/test_bunker"]
+mesh_library = ExtResource("10_tkvvn")
+cell_size = Vector3(4, 4, 4)
+collision_layer = 3
+collision_mask = 3
+data = {
+"cells": PackedInt32Array(1048576, 65520, 655360, 1048576, 65519, 655360, 1048576, 65518, 655360, 1048577, 65518, 655360, 1048577, 65519, 655360, 1048577, 65520, 655360, 1048578, 65520, 655360, 1048578, 65519, 655360, 1048578, 65518, 655360, 1048578, 65517, 655360, 1048578, 65516, 655360, 1048577, 65515, 655360, 1048577, 65516, 655360, 1048577, 65517, 655360, 1048578, 65515, 655360, 1048576, 65515, 655360, 1048576, 65516, 655360, 1048576, 65517, 655360, 1048579, 65518, 655360, 1048579, 65519, 655360, 1048579, 65520, 655360, 1048580, 65520, 655360, 1048580, 65519, 655360, 1048580, 65518, 655360, 1048581, 65518, 655360, 1048581, 65519, 655360, 1048581, 65520, 655360, 1048577, 65521, 655360)
+}
+metadata/_editor_floor_ = Vector3(0, 16, 0)
+
+[node name="ceiling" type="GridMap" parent="world/level/test_bunker"]
+mesh_library = ExtResource("10_tkvvn")
+cell_size = Vector3(4, 4, 4)
+data = {
+"cells": PackedInt32Array(1048576, 65520, 655361, 1048576, 65519, 655361, 1048576, 65518, 655361, 1048577, 65518, 655361, 1048577, 65519, 655361, 1048577, 65520, 655361, 1048578, 65518, 655361, 1048578, 65519, 655361, 1048578, 65520, 655361, 1048579, 65519, 655361, 1048579, 65518, 655361, 1048579, 65520, 655361, 1048580, 65520, 655361, 1048580, 65519, 655361, 1048580, 65518, 655361, 1048581, 65518, 655361, 1048581, 65519, 655361, 1048581, 65520, 655361, 1048578, 65517, 655361, 1048578, 65516, 655361, 1048578, 65515, 655361, 1048577, 65515, 655361, 1048576, 65515, 655361, 1048576, 65516, 655361, 1048576, 65517, 655361, 1048577, 65517, 655361, 1048577, 65516, 655361)
+}
+metadata/_editor_floor_ = Vector3(0, 16, 0)
 
 [node name="menu" type="Node" parent="."]
 script = ExtResource("7_po7c8")

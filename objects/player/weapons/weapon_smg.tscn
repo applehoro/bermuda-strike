@@ -35,11 +35,11 @@ _data = {
 "reload": ExtResource("9_kuod7")
 }
 
-[sub_resource type="Animation" id="Animation_ikwje"]
-resource_name = "idle"
-
 [sub_resource type="Animation" id="Animation_te566"]
 resource_name = "equip"
+
+[sub_resource type="Animation" id="Animation_ikwje"]
+resource_name = "idle"
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_xf1rp"]
 _data = {
@@ -68,6 +68,7 @@ anim_queue_attack = ["attack_1"]
 anim_queue_alt_attack = ["attack_burst"]
 
 [node name="junk_smg" parent="." instance=ExtResource("2_ibhbx")]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
 
 [node name="Skeleton3D" parent="junk_smg/bones" index="0"]
 bones/1/rotation = Quaternion(0.62026, -0.248623, 0.678075, -0.306069)
@@ -175,7 +176,6 @@ bones/62/rotation = Quaternion(0.655877, 0.0593314, 0.0677881, -0.749473)
 bones/62/scale = Vector3(1, 1, 1)
 bones/63/position = Vector3(0.251887, -0.299599, -0.410305)
 bones/63/rotation = Quaternion(0.66922, 0, 0, -0.743064)
-bones/63/scale = Vector3(1, 1, 1)
 bones/64/position = Vector3(0, 0.235051, 0.000324477)
 bones/65/rotation = Quaternion(-0.599949, 0.374248, 0.599949, 0.374248)
 bones/65/scale = Vector3(1, 1, 1)
@@ -190,7 +190,7 @@ cast_shadow = 0
 cast_shadow = 0
 
 [node name="muzzle_attach" type="BoneAttachment3D" parent="junk_smg/bones/Skeleton3D" index="2"]
-transform = Transform3D(1, 0, 0, 0, 0.104288, 0.994547, 0, -0.994547, 0.104288, 0.251887, -0.299599, -0.410305)
+transform = Transform3D(1, 0, 0, 0, 0.104289, 0.994547, 0, -0.994547, 0.104289, 0.251887, -0.299599, -0.410305)
 bone_name = "gun_root"
 bone_idx = 63
 

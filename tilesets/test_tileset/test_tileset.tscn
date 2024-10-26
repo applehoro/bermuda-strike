@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://dri0dr1rts034"]
+
+[ext_resource type="PackedScene" uid="uid://dxwy25u3100lj" path="res://models/tileset/test_tileset.gltf" id="1_j6viy"]
+
+[node name="test_tileset" instance=ExtResource("1_j6viy")]
+
+[node name="floor" parent="." index="0"]
+cast_shadow = 2
+
+[node name="ceiling" parent="." index="1"]
+cast_shadow = 2
+
+[node name="wall" parent="." index="2"]
+cast_shadow = 2
+
+[node name="wall_corner" parent="." index="3"]
+cast_shadow = 2
+
+[node name="doorway" parent="." index="4"]
+cast_shadow = 2
