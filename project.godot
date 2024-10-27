@@ -48,6 +48,12 @@ enabled=PackedStringArray("res://addons/maaacks_game_template/plugin.cfg", "res:
 
 import/blender/enabled=false
 
+[global_group]
+
+player=""
+sun=""
+env=""
+
 [input]
 
 move_fw={

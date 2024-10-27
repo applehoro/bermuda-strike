@@ -90,5 +90,11 @@ Marcel Klee - WuotanStudios
 Jay Batch [@WanderingJazz](jaybx73@gmail.com)
 
 
+## AI stuff
+
+### DreamShaper
+Lykon [@Civitai](https://civitai.com/user/Lykon)
+[Civitai.com](https://civitai.com/models/4384/dreamshaper)
+
 
 
