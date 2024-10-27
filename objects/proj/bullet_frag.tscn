@@ -9,7 +9,7 @@ disable_receive_shadows = true
 
 [sub_resource type="BoxMesh" id="BoxMesh_nbwos"]
 material = SubResource("StandardMaterial3D_uufln")
-size = Vector3(0.5, 0.5, 2)
+size = Vector3(0.1, 0.1, 2)
 
 [node name="bullet_frag" type="Node3D"]
 script = ExtResource("1_xru84")

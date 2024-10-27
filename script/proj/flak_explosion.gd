@@ -4,10 +4,16 @@ extends Node3D
 @export var spawn_id = "bullet_frag";
 
 func _ready() -> void:
+	global_position -= global_basis.z*0.1;
 	call_deferred( "activate" );
 
 func activate():
 	for i in range( spawn_num ):
-		var r = Vector3( randf_range( 0.0, PI*2.0 ), randf_range( 0.0, PI*2.0 ), randf_range( 0.0, PI*2.0 ) );
-		Spawner.spawn( spawn_id, global_position + Vector3( 0, 0.5, 0 ), r );
+		var c = Spawner.spawn( spawn_id, global_position + Vector3( 0, 0.5, 0 ), Vector3() );
+		c.global_rotate( c.global_basis.y, randf_range( 0, PI*2.0 ) );
+		c.global_rotate( c.global_basis.x, randf_range( 0, PI*2.0 ) );
+		
+		var nt = c.global_transform.looking_at( c.global_position + Vector3( 0.0, 1.0, 0.0 ), c.global_basis.x );
+		c.global_transform = c.global_transform.interpolate_with( nt, 0.5 );
+		
 	queue_free();

@@ -48,12 +48,17 @@ func _process( _delta: float ) -> void:
 					is_over_water = true;
 		
 		# check for ground
-		if( obj.has_meta( "is_terrain" ) ):
+		elif( obj.has_meta( "is_terrain" ) ):
 			if( obj.get_meta( "is_terrain" ) ):
 				# determine the altitude
 				y_offset = obj.get_surface_y( global_position ) - global_position.y;
 				
 				is_over_ground = true;
+		
+		else:
+			# determine the altitude
+			y_offset = $raycast.get_collision_point().y - global_position.y;
+			is_over_ground = true;
 		
 		# enable water effects if over water
 		if( is_over_water && y_offset > -20.0 ):

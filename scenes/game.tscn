@@ -179,7 +179,7 @@ script = ExtResource("7_po7c8")
 pause_menu_packed = ExtResource("8_xlyfs")
 
 [node name="bunker_entrance" parent="." instance=ExtResource("13_dfb4x")]
-transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -36.715, 65.4939, -45.285)
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -35.9423, 65.4939, -44.3534)
 
 [node name="test" type="GridMap" parent="bunker_entrance"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8)
