@@ -12,6 +12,7 @@ extends Node3D
 @export var dive = 0.04;
 @export var spawn_on_hit = "";
 @export var spawn_on_lifetime_end = "";
+@export var push_vel = 200.0;
 
 var exclude = [];
 
@@ -55,6 +56,8 @@ func _physics_process(delta: float) -> void:
 			obj.damage( d );
 		if( obj.has_method( "mark_damage" ) ):
 			obj.mark_damage( r[ "position" ] );
+		if( obj.has_method( "push" ) ):
+			obj.push( -global_basis.z*push_vel );
 		if( spawn_on_hit != "" ):
 			Spawner.spawn( spawn_on_hit, r[ "position" ], global_rotation );
 		Spawner.spawn( "hit_mark", r[ "position" ], Vector3() );

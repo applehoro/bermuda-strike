@@ -1,9 +1,8 @@
-[gd_scene load_steps=24 format=3 uid="uid://cxs7rowa8sg6m"]
+[gd_scene load_steps=23 format=3 uid="uid://cxs7rowa8sg6m"]
 
 [ext_resource type="Script" path="res://script/global/world.gd" id="1_vsdrq"]
 [ext_resource type="Material" uid="uid://id4e5vebw5am" path="res://addons/water/materials/water.material" id="2_0rtqo"]
 [ext_resource type="Texture2D" uid="uid://bjxklvx6scls7" path="res://textures/sky/sky_1.jpg" id="2_7tsv3"]
-[ext_resource type="Terrain3DStorage" uid="uid://cq88u1yweft4u" path="res://terrain/test_terrain.res" id="5_r24jl"]
 [ext_resource type="Terrain3DAssets" uid="uid://bsdbe4fgjl4x7" path="res://terrain/test_terrain_assets.res" id="6_2rdks"]
 [ext_resource type="Script" path="res://script/env/terrain.gd" id="6_hexti"]
 [ext_resource type="Script" path="res://script/env/water_area.gd" id="7_iu5gd"]
@@ -117,13 +116,14 @@ camera_attributes = SubResource("CameraAttributesPractical_oljg3")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 151.948, 0)
 
 [node name="test_island" type="Terrain3D" parent="world/level"]
-storage = ExtResource("5_r24jl")
+data_directory = "res://terrain/test_terrain"
 material = SubResource("Terrain3DMaterial_eroi0")
 assets = ExtResource("6_2rdks")
-render_cast_shadows = 0
 collision_layer = 3
 collision_mask = 3
+top_level = true
 script = ExtResource("6_hexti")
+metadata/_edit_lock_ = true
 
 [node name="camera" type="Camera3D" parent="world/level/test_island"]
 
@@ -174,14 +174,10 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 200
 size = Vector3(4096, 4096, 2048)
 force = 1.0
 
-[node name="menu" type="Node" parent="."]
-script = ExtResource("7_po7c8")
-pause_menu_packed = ExtResource("8_xlyfs")
-
-[node name="bunker_entrance" parent="." instance=ExtResource("13_dfb4x")]
+[node name="bunker_entrance" parent="world/level" instance=ExtResource("13_dfb4x")]
 transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -35.9423, 65.4939, -44.3534)
 
-[node name="test" type="GridMap" parent="bunker_entrance"]
+[node name="test" type="GridMap" parent="world/level/bunker_entrance"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8)
 mesh_library = ExtResource("10_tkvvn")
 cell_size = Vector3(4, 4, 4)
@@ -192,7 +188,7 @@ data = {
 "cells": PackedInt32Array(65535, 65535, 655362, 1, 65535, 655362, 65534, 65535, 1048579, 65534, 65532, 3, 2, 65532, 1441795, 2, 65535, 655363, 65534, 65534, 1048578, 65534, 65533, 1048578, 65535, 65532, 2, 0, 65532, 2, 1, 65532, 2, 2, 65533, 1441794, 2, 65534, 1441794)
 }
 
-[node name="floor" type="GridMap" parent="bunker_entrance/test"]
+[node name="floor" type="GridMap" parent="world/level/bunker_entrance/test"]
 mesh_library = ExtResource("10_tkvvn")
 cell_size = Vector3(4, 4, 4)
 cell_center_x = false
@@ -202,7 +198,7 @@ data = {
 "cells": PackedInt32Array(2, 65535, 1441792, 1, 65535, 1441792, 0, 65535, 1441792, 65535, 65535, 1441792, 65534, 65535, 1441792, 65534, 65534, 1441792, 65535, 65534, 1441792, 0, 65534, 1441792, 1, 65534, 1441792, 2, 65534, 1441792, 2, 65533, 1441792, 1, 65533, 1441792, 0, 65533, 1441792, 65535, 65533, 1441792, 65534, 65533, 1441792, 65534, 65532, 1441792, 65535, 65532, 1441792, 0, 65532, 1441792, 1, 65532, 1441792, 2, 65532, 1441792)
 }
 
-[node name="ceiling" type="GridMap" parent="bunker_entrance/test"]
+[node name="ceiling" type="GridMap" parent="world/level/bunker_entrance/test"]
 mesh_library = ExtResource("10_tkvvn")
 cell_size = Vector3(4, 4, 4)
 cell_center_x = false
@@ -211,3 +207,7 @@ cell_center_z = false
 data = {
 "cells": PackedInt32Array(2, 65535, 1441793, 1, 65535, 1441793, 0, 65535, 1441793, 0, 65534, 1441793, 65535, 65534, 1441793, 65534, 65534, 1441793, 65534, 65535, 1441793, 65535, 65535, 1441793, 1, 65534, 1441793, 1, 65533, 1441793, 2, 65533, 1441793, 2, 65534, 1441793, 0, 65533, 1441793, 0, 65532, 1441793, 65535, 65532, 1441793, 65534, 65532, 1441793, 65534, 65533, 1441793, 65535, 65533, 1441793, 1, 65532, 1441793, 2, 65532, 1441793)
 }
+
+[node name="menu" type="Node" parent="."]
+script = ExtResource("7_po7c8")
+pause_menu_packed = ExtResource("8_xlyfs")

@@ -25,7 +25,7 @@ var walk_vel = 24.0;
 var gravity_vel = 300.0;
 var jump_vel = 40.0;
 
-var physics_push_velocity = Vector3();
+var push_vel = Vector3();
 
 var camera_roll = 0.0;
 var camera_roll_max = 30.0;
@@ -70,8 +70,8 @@ func set_look_pos( v ):
 	$yaw.rotation.y = look_pos.x;
 	$yaw/pitch.rotation.x = look_pos.y;
 
-func physics_push( v ):
-	physics_push_velocity += v;
+#func physics_push( v ):
+	#push_vel += v;
 
 func set_motion_type( v ):
 	motion_type = v;
@@ -207,8 +207,8 @@ func _physics_process( delta: float ) -> void:
 	velocity *= 1.0 - delta*8.0;
 	velocity += motion*delta*16.0;
 	
-	physics_push_velocity *= 1.0 - delta*4.0;
-	velocity += physics_push_velocity*delta;
+	push_vel *= 1.0 - delta*4.0;
+	velocity += push_vel*delta;
 	
 	# water physics
 	if( motion_type == MOTION_TYPE_WALK ):
@@ -233,6 +233,9 @@ func _physics_process( delta: float ) -> void:
 			velocity.y += 120.0*delta;
 	
 	move_and_slide();
+
+func push( v ):
+	push_vel += v;
 
 func damage( d ):
 	Inventory.damage( d );

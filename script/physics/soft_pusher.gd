@@ -15,6 +15,6 @@ func _process( delta: float ) -> void:
 	var p = Plane( global_basis.z );
 	
 	for obj in $area.get_overlapping_bodies():
-		if( obj.has_method( "physics_push" ) ):
+		if( obj.has_method( "push" ) ):
 			var depth = p.distance_to( obj.global_position );
-			obj.physics_push( -global_basis.z*depth*force*delta );
+			obj.push( -global_basis.z*depth*force*delta );

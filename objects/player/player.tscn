@@ -446,5 +446,5 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="crosshair" type="Sprite2D" parent="gui"]
-modulate = Color(1, 1, 1, 0.678431)
+modulate = Color(1, 1, 1, 0.854902)
 texture = ExtResource("10_21b0i")
