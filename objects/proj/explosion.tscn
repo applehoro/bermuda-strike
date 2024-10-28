@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://dnqhy6su4gc7b"]
+
+[ext_resource type="Script" path="res://script/proj/explosion.gd" id="1_2aqww"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_jihgk"]
+radius = 1.0
+
+[node name="explosion" type="Area3D"]
+monitorable = false
+script = ExtResource("1_2aqww")
+
+[node name="col" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_jihgk")

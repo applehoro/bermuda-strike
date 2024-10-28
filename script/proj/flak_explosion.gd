@@ -8,8 +8,13 @@ func _ready() -> void:
 	call_deferred( "activate" );
 
 func activate():
+	var e = Spawner.spawn( "explosion", global_position + Vector3( 0, 0.25, 0 ), Vector3() );
+	e.radius = 3.6;
+	e.damage = Vector2( 60.0, 120.0 );
+	e.push = 100.0;
+	
 	for i in range( spawn_num ):
-		var c = Spawner.spawn( spawn_id, global_position + Vector3( 0, 0.5, 0 ), Vector3() );
+		var c = Spawner.spawn( spawn_id, global_position + Vector3( 0, 0.25, 0 ), Vector3() );
 		c.global_rotate( c.global_basis.y, randf_range( 0, PI*2.0 ) );
 		c.global_rotate( c.global_basis.x, randf_range( 0, PI*2.0 ) );
 		

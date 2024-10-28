@@ -9,6 +9,7 @@ var door_front_r_pos = Vector3();
 @export var door_front_movement = 1.0;
 var is_door_front_closed = true;
 var is_player_inside = false;
+var door_front_s = 0.0;
 
 @export var door_back_l: NodePath;
 @export var door_back_r: NodePath;
@@ -17,6 +18,7 @@ var door_back_r_pos = Vector3();
 @export var area_back_in: NodePath;
 @export var area_back_out: NodePath;
 @export var door_back_movement = 1.0;
+var door_back_s = 0.0;
 
 @export var disable_sun_on_enter = true;
 var sun_def_energy = 1.0;
@@ -37,21 +39,40 @@ func _process( delta: float ) -> void:
 	var door_front_closed = false;
 	var f_open = is_player_in_area( area_front_in ) || is_player_in_area( area_front_out );
 	if( f_open ):
-		interpolate_door( door_front_l, door_front_l_pos, -door_front_movement, delta/0.4 );
-		interpolate_door( door_front_r, door_front_r_pos, door_front_movement, delta/0.4 );
+		door_front_s = min( door_front_s + delta/0.4, 1.0 );
 		is_door_front_closed = false;
 	else:
-		interpolate_door( door_front_l, door_front_l_pos, 0.0, delta/0.07 );
-		if( interpolate_door( door_front_r, door_front_r_pos, 0.0, delta/0.07 ) ):
+		door_front_s = max( door_front_s - delta/0.2, 0.0 );
+		if( door_front_s < 0.02 ):
 			is_door_front_closed = true;
+	
+	set_door( door_front_l, door_front_l_pos, -door_front_movement*door_front_s );
+	set_door( door_front_r, door_front_r_pos, door_front_movement*door_front_s );
+	
+	#if( f_open ):
+		#interpolate_door( door_front_l, door_front_l_pos, -door_front_movement, delta/0.4 );
+		#interpolate_door( door_front_r, door_front_r_pos, door_front_movement, delta/0.4 );
+		#is_door_front_closed = false;
+	#else:
+		#interpolate_door( door_front_l, door_front_l_pos, 0.0, delta/0.07 );
+		#if( interpolate_door( door_front_r, door_front_r_pos, 0.0, delta/0.07 ) ):
+			#is_door_front_closed = true;
 	
 	var b_open = is_player_in_area( area_back_in ) || is_player_in_area( area_back_out );
 	if( b_open ):
-		interpolate_door( door_back_l, door_back_l_pos, door_back_movement, delta/0.4 );
-		interpolate_door( door_back_r, door_back_r_pos, -door_back_movement, delta/0.4 );
+		door_back_s = min( door_back_s + delta/0.4, 1.0 );
 	else:
-		interpolate_door( door_back_l, door_back_l_pos, 0.0, delta/0.07 );
-		interpolate_door( door_back_r, door_back_r_pos, 0.0, delta/0.07 );
+		door_back_s = max( door_back_s - delta/0.2, 0.0 );
+	
+	set_door( door_back_l, door_back_l_pos, door_back_movement*door_back_s );
+	set_door( door_back_r, door_back_r_pos, -door_back_movement*door_back_s );
+	
+	#if( b_open ):
+		#interpolate_door( door_back_l, door_back_l_pos, door_back_movement, delta/0.4 );
+		#interpolate_door( door_back_r, door_back_r_pos, -door_back_movement, delta/0.4 );
+	#else:
+		#interpolate_door( door_back_l, door_back_l_pos, 0.0, delta/0.07 );
+		#interpolate_door( door_back_r, door_back_r_pos, 0.0, delta/0.07 );
 	
 	if( is_player_in_area( area_front_out ) ):
 		is_player_inside = false;
@@ -73,6 +94,9 @@ func interpolate_door( node_path, pos, offset, delta ):
 	else:
 		n.position = lerp( cp, tp, delta );
 		return false;
+
+func set_door( node_path, pos, offset ):
+	get_node( node_path ).position = pos + Vector3( offset, 0.0, 0.0 );
 
 func is_player_in_area( node_path ):
 	for obj in get_node( node_path ).get_overlapping_bodies():

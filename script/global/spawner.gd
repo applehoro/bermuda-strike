@@ -14,6 +14,8 @@ var assets = {
 	"flak_explosion": preload( "res://objects/proj/flak_explosion.tscn" ),
 	"bullet_frag": preload( "res://objects/proj/bullet_frag.tscn" ),
 	
+	"explosion": preload( "res://objects/proj/explosion.tscn" ),
+	
 	"hit_mark": preload( "res://objects/effects/hit_mark.tscn" ),
 	
 	"water_splash": preload( "res://objects/effects/water_splash.tscn" ),
