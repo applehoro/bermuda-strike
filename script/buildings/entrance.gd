@@ -49,15 +49,6 @@ func _process( delta: float ) -> void:
 	set_door( door_front_l, door_front_l_pos, -door_front_movement*door_front_s );
 	set_door( door_front_r, door_front_r_pos, door_front_movement*door_front_s );
 	
-	#if( f_open ):
-		#interpolate_door( door_front_l, door_front_l_pos, -door_front_movement, delta/0.4 );
-		#interpolate_door( door_front_r, door_front_r_pos, door_front_movement, delta/0.4 );
-		#is_door_front_closed = false;
-	#else:
-		#interpolate_door( door_front_l, door_front_l_pos, 0.0, delta/0.07 );
-		#if( interpolate_door( door_front_r, door_front_r_pos, 0.0, delta/0.07 ) ):
-			#is_door_front_closed = true;
-	
 	var b_open = is_player_in_area( area_back_in ) || is_player_in_area( area_back_out );
 	if( b_open ):
 		door_back_s = min( door_back_s + delta/0.4, 1.0 );
@@ -66,13 +57,6 @@ func _process( delta: float ) -> void:
 	
 	set_door( door_back_l, door_back_l_pos, door_back_movement*door_back_s );
 	set_door( door_back_r, door_back_r_pos, -door_back_movement*door_back_s );
-	
-	#if( b_open ):
-		#interpolate_door( door_back_l, door_back_l_pos, door_back_movement, delta/0.4 );
-		#interpolate_door( door_back_r, door_back_r_pos, -door_back_movement, delta/0.4 );
-	#else:
-		#interpolate_door( door_back_l, door_back_l_pos, 0.0, delta/0.07 );
-		#interpolate_door( door_back_r, door_back_r_pos, 0.0, delta/0.07 );
 	
 	if( is_player_in_area( area_front_out ) ):
 		is_player_inside = false;
@@ -83,17 +67,6 @@ func _process( delta: float ) -> void:
 		set_sun_enabled( false, delta/0.05 );
 	else:
 		set_sun_enabled( true, delta/0.05 );
-
-func interpolate_door( node_path, pos, offset, delta ):
-	var n = get_node( node_path );
-	var cp = n.position;
-	var tp = pos + Vector3( offset, 0, 0 );
-	if( cp.distance_to( tp ) < 0.02 ):
-		n.position = tp;
-		return true;
-	else:
-		n.position = lerp( cp, tp, delta );
-		return false;
 
 func set_door( node_path, pos, offset ):
 	get_node( node_path ).position = pos + Vector3( offset, 0.0, 0.0 );

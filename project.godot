@@ -53,6 +53,7 @@ import/blender/enabled=false
 player=""
 sun=""
 env=""
+enemy=""
 
 [input]
 
@@ -180,6 +181,8 @@ locale/translations=PackedStringArray("res://addons/maaacks_game_template/base/t
 
 3d_physics/layer_1="Physics"
 3d_physics/layer_2="Water"
+3d_physics/layer_3="Player"
+3d_physics/layer_4="Enemies"
 
 [maaacks_game_template]
 
