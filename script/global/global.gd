@@ -22,6 +22,8 @@ var settings = {
 	"lens_flare": true,
 	"special_effects": true,
 	"view_bob": 1.0,
+	
+	"auto_aim": true,
 };
 
 signal on_update_settings();
@@ -78,6 +80,8 @@ func update_settings():
 		"lens_flare": Config.get_config( "VideoSettings", "LensFlare" ),
 		"special_effects": Config.get_config( "VideoSettings", "SpecialEffects" ),
 		"view_bob": Config.get_config( "VideoSettings", "ViewBob" ),
+		
+		"auto_aim": Config.get_config( "GameSettings", "AutoAim" ),
 	};
 	
 	if( settings[ "aa" ] ):
@@ -92,3 +96,5 @@ func update_settings():
 	
 	on_update_settings.emit();
 
+func normalize_transform( t ):
+	return Transform3D( t.basis.x, t.basis.y, t.basis.z, t.origin );

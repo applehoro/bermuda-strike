@@ -29,7 +29,14 @@ func _process(_delta: float) -> void:
 	$overheat.text = "Overheat: " + str( int( get_parent().overdrive_heat*100.0 ) ) + "%";
 	$velocity.text = str( snappedf( get_parent().velocity.length(), 1.0 ) ) + " m/s";
 	$velocity.visible = get_parent().motion_type != get_parent().MOTION_TYPE_WALK;
-	$health.text = "+" + str( int( Inventory.health ) );
+	
+	if( Inventory.health <= 0.0 ):
+		$health.text = "+0";
+	elif( Inventory.health < 1.0 ):
+		$health.text = "+1";
+	else:
+		$health.text = "+" + str( int( Inventory.health ) );
+	
 	$ammo_magazine.text = str( Inventory.cw_get_magazine_ammo() ) + "/" + str( Inventory.cw_get_magazine_capacity() );
 	$ammo_magazine.visible = Inventory.current_weapon_id != "";
 	$ammo_inventory.text = str( Inventory.cw_get_ammo_for_weapon() );

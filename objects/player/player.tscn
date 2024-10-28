@@ -231,7 +231,7 @@ shape = SubResource("CapsuleShape3D_75dfv")
 
 [node name="pitch" type="Node3D" parent="yaw"]
 
-[node name="target" type="Node3D" parent="yaw/pitch"]
+[node name="target" type="Node3D" parent="yaw/pitch" groups=["player_target"]]
 script = ExtResource("3_tqfwt")
 
 [node name="lock_on" type="Sprite3D" parent="yaw/pitch/target"]

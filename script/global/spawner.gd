@@ -31,3 +31,11 @@ func spawn( id, pos, rot ):
 		c.global_rotation = rot;
 		return c;
 	return null;
+
+func spawn_t( id, t ):
+	if( Global.node_world != null && assets.has( id ) ):
+		var c = assets[ id ].instantiate();
+		Global.node_world.add_child( c );
+		c.global_transform = t;
+		return c;
+	return null;

@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://dh2al0us646sh"]
+[gd_scene load_steps=21 format=3 uid="uid://dh2al0us646sh"]
 
 [ext_resource type="Script" path="res://script/player/weapons/weapon_smg.gd" id="1_5cdj7"]
 [ext_resource type="PackedScene" uid="uid://cfp45cmblmn83" path="res://models/weapons/smg/junk_smg/junk_smg.gltf" id="2_ibhbx"]
@@ -13,6 +13,9 @@
 [ext_resource type="Animation" uid="uid://chr8jh8g5dlyl" path="res://models/weapons/smg/junk_smg/anims/override/override_attack_1.res" id="12_7pv5r"]
 [ext_resource type="Animation" uid="uid://br5xo0j51jfh4" path="res://models/weapons/smg/junk_smg/anims/override/override_attack_burst.res" id="13_a82od"]
 [ext_resource type="Animation" uid="uid://dlosel70wtigs" path="res://models/weapons/smg/junk_smg/anims/override/override_reload.res" id="14_kihnp"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_j4ajs"]
+size = Vector3(0.01, 0.01, 0.1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nagdt"]
 transparency = 1
@@ -195,7 +198,13 @@ bone_name = "gun_root"
 bone_idx = 63
 
 [node name="muzzle" type="Marker3D" parent="junk_smg/bones/Skeleton3D/muzzle_attach"]
-transform = Transform3D(1, 0, 0, 0, 0.104288, -0.994547, 0, 0.994547, 0.104288, -0.00231826, 0.697507, 0.00290439)
+transform = Transform3D(1, 0, 0, 0, 0.104528, -0.994522, 0, 0.994522, 0.104528, -0.00231826, 0.697507, 0.00290439)
+
+[node name="test" type="MeshInstance3D" parent="junk_smg/bones/Skeleton3D/muzzle_attach/muzzle"]
+transform = Transform3D(5, 0, 0, 0, 5, 4.42355e-06, 0, -4.42355e-06, 5, 0, 2.98023e-08, -0.5)
+visible = false
+mesh = SubResource("BoxMesh_j4ajs")
+skeleton = NodePath("../../../../../..")
 
 [node name="flash" type="MeshInstance3D" parent="junk_smg/bones/Skeleton3D/muzzle_attach/muzzle"]
 visible = false

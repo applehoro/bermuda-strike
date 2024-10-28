@@ -14,8 +14,24 @@ const KEY_DELETION_TEXT : String = "Are you sure you want to remove {key} from {
 	"move_up" : "Up",
 	"move_dn" : "Down",
 	"overdrive" : "Overdrive",
-	"switch_motion" : "Switch Motion Type",
-	"shoot" : "Shoot"
+	"jump": "Jump",
+	"crouch": "Crouch",
+	"jet_mode_off": "Turn Off Jets",
+	"jet_mode_hover": "Jet Hover Mode",
+	"jet_mode_glide": "Jet Glide Mode",
+	"attack" : "Attack",
+	"alt_attack": "Alt. Attack",
+	"reload": "Reload",
+	"weapon_1": "Weapon 1 (Melee)",
+	"weapon_2": "Weapon 2 (SMG)",
+	"weapon_3": "Weapon 3 (Flak Gun)",
+	"weapon_4": "Weapon 4 (Machine Gun)",
+	"weapon_5": "Weapon 5 (Grenade Launcher)",
+	"weapon_6": "Weapon 6 (Rocket Launcher)",
+	"weapon_7": "Weapon 7 (Sniper Rifle)",
+	"weapon_8": "Weapon 8 (Plasma Gun)",
+	"weapon_9": "Weapon 9 (Island Defender)",
+	"weapon_0": "Weapon 10 (Atomic Rocket)",
 }
 ## Show action names that are not explicitely listed in an action name map.
 @export var show_all_actions : bool = false

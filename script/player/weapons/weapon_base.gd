@@ -38,6 +38,8 @@ var anim_queue_attack_id = 0;
 @export var anim_queue_alt_attack = [ "attack" ];
 var anim_queue_alt_attack_id = 0;
 
+var target_pos = Vector3();
+
 func _ready() -> void:
 	if( !get_node( node_anim ).is_connected( "animation_finished", _on_animation_finished ) ):
 		get_node( node_anim ).connect( "animation_finished", _on_animation_finished );
@@ -62,6 +64,13 @@ func _physics_process( delta: float ) -> void:
 	elif( Input.is_action_just_released( "alt_attack" ) ):
 		alt_trigger = false;
 		on_alt_trigger_released();
+	
+	target_pos = global_position - global_basis.z*240.0;
+	if( Global.settings[ "auto_aim" ] ):
+		for obj in get_tree().get_nodes_in_group( "player_target" ):
+			if( obj.is_lock_on ):
+				target_pos = obj.target_pos;
+	get_node( node_muzzle ).look_at( target_pos, global_basis.x );
 	
 	if( cd > 0.0 ):
 		cd -= delta;
@@ -169,7 +178,8 @@ func shoot_raycast( ignore_player = true, raycast_num = 1, raycast_spread = 0.0,
 	
 	for i in range( raycast_num ):
 		var sp = get_node( node_muzzle ).global_position;
-		var sd = -get_node( node_muzzle ).global_basis.z;
+		var off = target_pos - get_node( node_muzzle ).global_position;
+		var sd = -off.normalized();
 		sd = sd.rotated( get_node( node_muzzle ).global_basis.y, randf_range( -deg_to_rad( spread ), deg_to_rad( spread ) ) );
 		sd = sd.rotated( get_node( node_muzzle ).global_basis.x, randf_range( -deg_to_rad( spread ), deg_to_rad( spread ) ) );
 		sd = sd.rotated( get_node( node_muzzle ).global_basis.y, randf_range( -deg_to_rad( raycast_spread ), deg_to_rad( raycast_spread ) ) );
@@ -196,8 +206,10 @@ func shoot_raycast( ignore_player = true, raycast_num = 1, raycast_spread = 0.0,
 
 # handle projectile spawning
 func shoot_projectile( projectile_num = 1, projectile_id = "", projectile_spread = 0.0 ):
+	var t = Global.normalize_transform( get_node( node_muzzle ).global_transform );
+	t = t.looking_at( target_pos, global_basis.x );
 	for i in range( projectile_num ):
-		var c = Spawner.spawn( projectile_id, get_node( node_muzzle ).global_position, global_rotation );
+		var c = Spawner.spawn_t( projectile_id, t );
 		c.add_exclude( Global.node_player );
 		c.global_rotate( c.global_basis.y, randf_range( -deg_to_rad( spread ), deg_to_rad( spread ) ) );
 		c.global_rotate( c.global_basis.x, randf_range( -deg_to_rad( spread ), deg_to_rad( spread ) ) );

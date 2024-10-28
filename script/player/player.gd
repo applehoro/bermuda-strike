@@ -47,8 +47,6 @@ func _ready() -> void:
 	update_settings();
 	Global.connect( "on_update_settings", self.update_settings );
 	Inventory.connect( "on_death", self.die );
-	
-	$yaw/pitch/target.setup( self );
 
 func update_settings():
 	$yaw/pitch/camera/outline.visible = Global.settings[ "outline" ];
@@ -172,10 +170,10 @@ func _physics_process( delta: float ) -> void:
 		MOTION_TYPE_GLIDE:
 			if( Input.is_action_pressed( "overdrive" ) ):
 				control_glide = min( control_glide + delta*8.0, 1.0 + overdrive_boost );
-			elif( Input.is_action_pressed( "move_up" ) ):
-				control_glide = min( control_glide + delta*8.0, 1.0 );
-			elif( Input.is_action_pressed( "move_dn" ) ):
-				control_glide = max( control_glide - delta*8.0, 0.25 );
+			#elif( Input.is_action_pressed( "move_up" ) ):
+				#control_glide = min( control_glide + delta*8.0, 1.0 );
+			#elif( Input.is_action_pressed( "move_dn" ) ):
+				#control_glide = max( control_glide - delta*8.0, 0.25 );
 			else:
 				control_glide = lerp( control_glide, 0.5, delta*8.0 );
 			
@@ -194,7 +192,7 @@ func _physics_process( delta: float ) -> void:
 				motion += $yaw/pitch.global_basis.z*control.z*delta*walk_vel;
 				if( Input.is_action_pressed( "move_dn" ) ):
 					motion -= $yaw.global_basis.y*walk_vel*delta;
-				if( Input.is_action_pressed( "overdrive" ) ):
+				if( Input.is_action_pressed( "move_up" ) ):
 					motion += $yaw.global_basis.y*walk_vel*delta;
 			
 			# walking on ground
@@ -202,7 +200,7 @@ func _physics_process( delta: float ) -> void:
 				motion += $yaw.global_basis.z*control.z*delta*walk_vel;
 				if( is_on_ground ):
 					motion.y = max( motion.y, 0.0 );
-					if( Input.is_action_just_pressed( "overdrive" ) ):
+					if( Input.is_action_just_pressed( "jump" ) ):
 						motion.y = jump_vel;
 	
 	# apply motion to velocity

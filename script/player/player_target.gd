@@ -3,15 +3,16 @@ extends Node3D
 var is_lock_on = false;
 var target = null;
 
-func _ready() -> void:
-	pass;
+var target_pos = Vector3();
 
-func setup( player ):
+func _ready() -> void:
 	pass;
 
 func _physics_process( delta: float ) -> void:
 	is_lock_on = false;
 	target = null;
+	target_pos = global_position - global_basis.z*240.0;
+	
 	var angle = -1.0;
 	
 	if( !is_lock_on ):
@@ -28,4 +29,5 @@ func _physics_process( delta: float ) -> void:
 	
 	if( target != null ):
 		$lock_on.global_position = target.global_position;
+		target_pos = target.global_position;
 	$lock_on.visible = is_lock_on;
