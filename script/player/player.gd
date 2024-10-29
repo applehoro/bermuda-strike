@@ -228,8 +228,14 @@ func _physics_process( delta: float ) -> void:
 	
 	move_and_slide();
 	
-	if( Input.is_action_pressed( "lock_on" ) && $yaw/pitch/target.has_target ):
-		slow_look_at_pos( $yaw/pitch/target.target_pos, delta );
+	$gui.has_target = false;
+	if( $yaw/pitch/target.has_target ):
+		var p = $yaw/pitch/camera.unproject_position( $yaw/pitch/target.target_pos );
+		$gui.has_target = true;
+		$gui.target_pos = p;
+	
+	#if( Input.is_action_pressed( "lock_on" ) && $yaw/pitch/target.has_target ):
+		#slow_look_at_pos( $yaw/pitch/target.target_pos, delta );
 
 func push( v ):
 	push_vel += v;
