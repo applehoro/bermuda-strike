@@ -207,6 +207,7 @@ mesh = SubResource("BoxMesh_j4ajs")
 skeleton = NodePath("../../../../../..")
 
 [node name="flash" type="MeshInstance3D" parent="junk_smg/bones/Skeleton3D/muzzle_attach/muzzle"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 visible = false
 transparency = 0.1
 cast_shadow = 0

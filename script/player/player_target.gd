@@ -14,6 +14,7 @@ func _physics_process( delta: float ) -> void:
 	
 	# get object closest to target
 	var angle = -1.0;
+	var dist = -1.0;
 	if( !has_target ):
 		for obj in $area.get_overlapping_bodies():
 			if( obj.is_in_group( "enemy" ) ):
@@ -22,16 +23,13 @@ func _physics_process( delta: float ) -> void:
 				if( a < angle || angle < 0.0 ):
 					angle = a;
 					target = obj;
+					dist = offset.length();
 	
 	if( check_target( target ) ):
-		#$lock_on.global_position = target.global_position;
-		#$lock_on.visible = true;
 		target_pos = target.global_position;
 		has_target = true;
-		#if( target.has_method( "on_player_target" ) ):
-			#target.on_player_target();
-	#else:
-		#$lock_on.visible = false;
+		if( angle < deg_to_rad( 3.0 ) && dist < 50.0 && target.has_method( "on_player_target" ) ):
+			target.on_player_target();
 
 
 func check_target( t ):
