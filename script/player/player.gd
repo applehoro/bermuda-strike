@@ -229,7 +229,7 @@ func _physics_process( delta: float ) -> void:
 	move_and_slide();
 	
 	if( Input.is_action_pressed( "lock_on" ) && $yaw/pitch/target.has_target ):
-		look_at_pos( $yaw/pitch/target.target_pos );
+		slow_look_at_pos( $yaw/pitch/target.target_pos, delta );
 
 func push( v ):
 	push_vel += v;
@@ -250,16 +250,25 @@ func set_look( v ):
 
 func look_at_pos( pos ):
 	var offset = pos - global_position;
-	#print( str( offset ) );
+	var hz_a = $yaw.global_basis.z.signed_angle_to( -offset, $yaw.global_basis.y );
+	var vt_a = $yaw/pitch.global_basis.z.signed_angle_to( -offset, $yaw/pitch.global_basis.x );
+	set_look( look_pos + Vector2( hz_a, vt_a ) );
+
+func slow_look_at_pos( pos, delta ):
+	var offset = pos - global_position;
+	var hz_a = $yaw.global_basis.z.signed_angle_to( -offset, $yaw.global_basis.y );
+	var vt_a = $yaw/pitch.global_basis.z.signed_angle_to( -offset, $yaw/pitch.global_basis.x );
 	
-	var hz_off = Vector2( offset.x, offset.z );
-	var hz_dir = Vector2( 0.0, -1.0 ).rotated( look_pos.x );
-	var hz_angle = hz_dir.angle_to( hz_off );
+	if( abs( hz_a ) > 0.05 ):
+		look_pos.x = lerp( look_pos.x, look_pos.x + hz_a, delta + abs( hz_a )/10.0 );
+		$yaw.rotation.y = look_pos.x;
+	else:
+		$yaw.look_at( pos, $yaw.global_basis.y );
 	
-	var v3 = $yaw/pitch.to_local( pos );
-	var vt_off = Vector2( v3.y, v3.z );
-	var vt_dir = Vector2( 0.0, -1.0 ).rotated( $yaw/pitch.rotation.x );
-	var vt_angle = vt_dir.angle_to( vt_off )*0.5;
-	
-	var lp = Vector2( hz_angle, vt_angle );
-	set_look( look_pos + lp );
+	if( abs( vt_a ) > 0.05 ):
+		look_pos.y = lerp( look_pos.y, look_pos.y + vt_a, delta + abs( vt_a )/10.0 );
+		look_pos.y = clamp( look_pos.y, -PI/2, PI/2 );
+		$yaw/pitch.rotation.x = look_pos.y;
+	else:
+		$yaw/pitch.look_at( pos, $yaw.global_basis.y );
+

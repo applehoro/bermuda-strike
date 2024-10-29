@@ -23,12 +23,13 @@ func _physics_process( delta: float ) -> void:
 					angle = a;
 					target = obj;
 	
-	
 	if( check_target( target ) ):
 		$lock_on.global_position = target.global_position;
 		$lock_on.visible = true;
 		target_pos = target.global_position;
 		has_target = true;
+		#if( target.has_method( "on_player_target" ) ):
+			#target.on_player_target();
 	else:
 		$lock_on.visible = false;
 
