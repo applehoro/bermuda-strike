@@ -60,15 +60,9 @@ func _input( event: InputEvent ) -> void:
 	
 	# mouse motion
 	if( event is InputEventMouseMotion ):
-		set_look_pos( look_pos - event.relative*Global.settings[ "mouse_sensitivity" ] );
+		set_look( look_pos - event.relative*Global.settings[ "mouse_sensitivity" ] );
 		if( motion_type == MOTION_TYPE_GLIDE ):
 			camera_roll -= event.relative.x*Global.settings[ "mouse_sensitivity" ]*control_glide*0.5;
-
-func set_look_pos( v ):
-	look_pos = v;
-	look_pos.y = clamp( look_pos.y, -PI/2, PI/2 );
-	$yaw.rotation.y = look_pos.x;
-	$yaw/pitch.rotation.x = look_pos.y;
 
 #func physics_push( v ):
 	#push_vel += v;
@@ -233,6 +227,9 @@ func _physics_process( delta: float ) -> void:
 			velocity.y += 120.0*delta;
 	
 	move_and_slide();
+	
+	if( Input.is_action_pressed( "lock_on" ) && $yaw/pitch/target.has_target ):
+		look_at_pos( $yaw/pitch/target.target_pos );
 
 func push( v ):
 	push_vel += v;
@@ -244,3 +241,25 @@ func damage( d ):
 func die():
 	Global.node_player = null;
 	queue_free();
+
+func set_look( v ):
+	look_pos = v;
+	look_pos.y = clamp( look_pos.y, -PI/2, PI/2 );
+	$yaw.rotation.y = look_pos.x;
+	$yaw/pitch.rotation.x = look_pos.y;
+
+func look_at_pos( pos ):
+	var offset = pos - global_position;
+	#print( str( offset ) );
+	
+	var hz_off = Vector2( offset.x, offset.z );
+	var hz_dir = Vector2( 0.0, -1.0 ).rotated( look_pos.x );
+	var hz_angle = hz_dir.angle_to( hz_off );
+	
+	var v3 = $yaw/pitch.to_local( pos );
+	var vt_off = Vector2( v3.y, v3.z );
+	var vt_dir = Vector2( 0.0, -1.0 ).rotated( $yaw/pitch.rotation.x );
+	var vt_angle = vt_dir.angle_to( vt_off )*0.5;
+	
+	var lp = Vector2( hz_angle, vt_angle );
+	set_look( look_pos + lp );

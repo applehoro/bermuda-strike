@@ -68,7 +68,7 @@ func _physics_process( delta: float ) -> void:
 	target_pos = global_position - global_basis.z*240.0;
 	if( Global.settings[ "auto_aim" ] ):
 		for obj in get_tree().get_nodes_in_group( "player_target" ):
-			if( obj.is_lock_on ):
+			if( obj.has_target ):
 				target_pos = obj.target_pos;
 	get_node( node_muzzle ).look_at( target_pos, global_basis.x );
 	
