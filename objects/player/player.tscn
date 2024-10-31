@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://b142sd861jpb0"]
+[gd_scene load_steps=57 format=3 uid="uid://b142sd861jpb0"]
 
 [ext_resource type="Script" path="res://script/player/player.gd" id="1_4t0x4"]
 [ext_resource type="Shader" path="res://shaders/outline_2.gdshader" id="2_hkm1e"]
@@ -18,6 +18,8 @@
 [ext_resource type="Texture2D" uid="uid://ct33v08ovt8jh" path="res://textures/gui/crosshair_circle.png" id="16_ue7ew"]
 [ext_resource type="PackedScene" uid="uid://beix2oisbu7m1" path="res://objects/radar/radar_mark.tscn" id="17_c4aug"]
 [ext_resource type="Texture2D" uid="uid://d2rrbx4xedfpp" path="res://textures/gui/radar/radar_mask.png" id="17_u20jp"]
+[ext_resource type="Texture2D" uid="uid://dx20f4eh8g4uc" path="res://textures/gui/radar/radar_directions.png" id="19_43vqd"]
+[ext_resource type="Texture2D" uid="uid://dxanpr5e0fvly" path="res://textures/gui/radar/radar_outline.png" id="19_klnfl"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_75dfv"]
 
@@ -669,6 +671,7 @@ libraries = {
 }
 
 [node name="radar" type="Node2D" parent="gui"]
+position = Vector2(1149, 121)
 
 [node name="viewport" type="SubViewport" parent="gui/radar"]
 transparent_bg = true
@@ -688,7 +691,6 @@ pixel_size = 0.0075
 
 [node name="mask" type="Sprite2D" parent="gui/radar"]
 clip_children = 1
-position = Vector2(1165, 118)
 texture = ExtResource("17_u20jp")
 
 [node name="texture" type="TextureRect" parent="gui/radar/mask"]
@@ -696,3 +698,9 @@ offset_left = -100.0
 offset_top = -100.0
 offset_right = 100.0
 offset_bottom = 100.0
+
+[node name="outline" type="Sprite2D" parent="gui/radar"]
+texture = ExtResource("19_klnfl")
+
+[node name="directions" type="Sprite2D" parent="gui/radar"]
+texture = ExtResource("19_43vqd")

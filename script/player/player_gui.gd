@@ -61,7 +61,7 @@ func _process(_delta: float) -> void:
 	
 	$radar/viewport/yaw.global_position = get_parent().global_position;
 	$radar/viewport/yaw.global_rotation = get_parent().get_node( "yaw" ).global_rotation;
-	
+	$radar/directions.rotation = $radar/viewport/yaw.global_rotation.y;
 
 func update_settings():
 	$lens_flare.visible = Global.settings[ "lens_flare" ];

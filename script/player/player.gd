@@ -21,9 +21,12 @@ var overdrive_heat = 0.0;
 
 var hover_vel = 64.0;
 var glide_vel = 180.0;
-var walk_vel = 24.0;
+var walk_vel = 14.0;
+var sprint_vel = 30.0;
 var gravity_vel = 300.0;
 var jump_vel = 40.0;
+
+var sprint_switch = false;
 
 var push_vel = Vector3();
 
@@ -122,6 +125,10 @@ func _physics_process( delta: float ) -> void:
 	if( Input.is_action_just_pressed( "jet_mode_off" ) ):
 		set_motion_type( MOTION_TYPE_WALK);
 	
+	# sprint
+	if( Input.is_action_just_pressed( "sprint_switch" ) ):
+		sprint_switch = !sprint_switch;
+	
 	# overdrive
 	if( Input.is_action_pressed( "overdrive" ) && motion_type == MOTION_TYPE_GLIDE ):
 		overdrive_heat = min( overdrive_heat + delta/20.0, 1.0 );
@@ -179,20 +186,24 @@ func _physics_process( delta: float ) -> void:
 		
 		# walk motion
 		MOTION_TYPE_WALK:
-			motion += $yaw.global_basis.x*control.x*delta*walk_vel;
+			var vel = walk_vel;
+			if( Input.is_action_pressed( "sprint" ) || sprint_switch ):
+				vel = sprint_vel;
+			
+			motion += $yaw.global_basis.x*control.x*delta*vel;
 			camera_roll -= control.x*delta*0.12;
 			
 			# swimming
 			if( is_underwater || ( is_over_water && y_offset > -3.0 ) ):
-				motion += $yaw/pitch.global_basis.z*control.z*delta*walk_vel;
+				motion += $yaw/pitch.global_basis.z*control.z*delta*vel;
 				if( Input.is_action_pressed( "move_dn" ) ):
-					motion -= $yaw.global_basis.y*walk_vel*delta;
+					motion -= $yaw.global_basis.y*vel*delta;
 				if( Input.is_action_pressed( "move_up" ) ):
-					motion += $yaw.global_basis.y*walk_vel*delta;
+					motion += $yaw.global_basis.y*vel*delta;
 			
 			# walking on ground
 			else:
-				motion += $yaw.global_basis.z*control.z*delta*walk_vel;
+				motion += $yaw.global_basis.z*control.z*delta*vel;
 				if( is_on_ground ):
 					motion.y = max( motion.y, 0.0 );
 					if( Input.is_action_just_pressed( "jump" ) ):

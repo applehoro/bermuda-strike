@@ -28,4 +28,3 @@ skeleton = NodePath("../../..")
 
 [node name="radar_mark" parent="." instance=ExtResource("2_aj7tt")]
 modulate = Color(1, 0, 0, 1)
-pixel_size = 0.005
