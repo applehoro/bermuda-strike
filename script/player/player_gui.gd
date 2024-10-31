@@ -13,6 +13,7 @@ func _ready() -> void:
 	update_settings();
 	Global.connect( "on_update_settings", self.update_settings );
 	get_viewport().connect( "size_changed", self.update_settings );
+	$radar/mask/texture.texture = $radar/viewport.get_texture();
 
 func _process(_delta: float) -> void:
 	if( ( get_parent().is_over_water || get_parent().is_underwater ) && Global.settings[ "special_effects" ] ):
@@ -31,6 +32,7 @@ func _process(_delta: float) -> void:
 	# gui
 	$fps.text = "FPS: " + str( Engine.get_frames_per_second() );
 	$overheat.text = "Overheat: " + str( int( get_parent().overdrive_heat*100.0 ) ) + "%";
+	$overheat.visible = get_parent().motion_type == get_parent().MOTION_TYPE_GLIDE;
 	$velocity.text = str( snappedf( get_parent().velocity.length(), 1.0 ) ) + " m/s";
 	$velocity.visible = get_parent().motion_type != get_parent().MOTION_TYPE_WALK;
 	
@@ -56,6 +58,10 @@ func _process(_delta: float) -> void:
 		else:
 			$target/animation_player.play( "off" );
 	_had_target = has_target;
+	
+	$radar/viewport/yaw.global_position = get_parent().global_position;
+	$radar/viewport/yaw.global_rotation = get_parent().get_node( "yaw" ).global_rotation;
+	
 
 func update_settings():
 	$lens_flare.visible = Global.settings[ "lens_flare" ];

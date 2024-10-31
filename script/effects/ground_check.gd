@@ -9,6 +9,7 @@ extends Node3D
 var is_over_water = false;
 var is_underwater = false;
 var is_over_ground = false;
+var is_colliding = false;
 var y_offset = 0.0;
 
 var jet_enabled = true;
@@ -32,6 +33,7 @@ func _process( _delta: float ) -> void:
 	is_over_water = false;
 	is_underwater = false;
 	is_over_ground = false;
+	is_colliding = $raycast.is_colliding();
 	
 	if( $raycast.is_colliding() ):
 		var obj = $raycast.get_collider();

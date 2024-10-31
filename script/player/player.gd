@@ -97,6 +97,7 @@ func _physics_process( delta: float ) -> void:
 	is_over_ground = $ground_check.is_over_ground;
 	y_offset = $ground_check.y_offset;
 	is_on_ground = is_on_floor() || ( is_on_ground && abs( y_offset ) < 2.0 );
+	var is_colliding = $ground_check.is_colliding;
 	
 	# update control
 	var control = Vector3();
@@ -216,6 +217,9 @@ func _physics_process( delta: float ) -> void:
 		# apply gravity if in the air
 		elif( !is_on_floor() ):
 			velocity.y -= gravity_vel*gravity_scale*delta;
+	
+	if( !is_colliding ):
+		velocity.y -= gravity_vel*delta*8.0;
 	
 	else:
 		if( is_underwater ):

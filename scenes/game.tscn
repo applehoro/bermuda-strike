@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://cxs7rowa8sg6m"]
+[gd_scene load_steps=30 format=3 uid="uid://cxs7rowa8sg6m"]
 
 [ext_resource type="Script" path="res://script/global/world.gd" id="1_vsdrq"]
 [ext_resource type="Material" uid="uid://id4e5vebw5am" path="res://addons/water/materials/water.material" id="2_0rtqo"]
@@ -6,10 +6,10 @@
 [ext_resource type="Terrain3DAssets" uid="uid://bsdbe4fgjl4x7" path="res://terrain/test_terrain_assets.res" id="6_2rdks"]
 [ext_resource type="Script" path="res://script/env/terrain.gd" id="6_hexti"]
 [ext_resource type="Script" path="res://script/env/water_area.gd" id="7_iu5gd"]
+[ext_resource type="Script" path="res://script/radar/mesh_radar.gd" id="7_jnox7"]
 [ext_resource type="Script" path="res://addons/maaacks_game_template/extras/scripts/pause_menu_controller.gd" id="7_po7c8"]
 [ext_resource type="PackedScene" uid="uid://dblwnwcrjevy5" path="res://scenes/menus/pause_menu.tscn" id="8_xlyfs"]
 [ext_resource type="PackedScene" uid="uid://b142sd861jpb0" path="res://objects/player/player.tscn" id="10_4juid"]
-[ext_resource type="PackedScene" uid="uid://d2keeg5miou64" path="res://objects/physics/soft_pusher.tscn" id="10_q3r4t"]
 [ext_resource type="MeshLibrary" uid="uid://qmqg3a0lkyok" path="res://tilesets/test_tileset/test_tileset.tres" id="10_tkvvn"]
 [ext_resource type="PackedScene" uid="uid://h6ngrxvn36t3" path="res://objects/enemy/enemy_test.tscn" id="11_sqm5t"]
 [ext_resource type="PackedScene" uid="uid://b1t3bmgx5ktiv" path="res://objects/static/buildings/bunker_entrance.tscn" id="13_dfb4x"]
@@ -99,8 +99,32 @@ size = Vector2(10000, 10000)
 subdivide_width = 128
 subdivide_depth = 128
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tmljm"]
+shading_mode = 0
+specular_mode = 2
+albedo_color = Color(0.377986, 0.499366, 0.73264, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_gnysx"]
+lightmap_size_hint = Vector2i(50002, 50002)
+material = SubResource("StandardMaterial3D_tmljm")
+size = Vector2(10000, 10000)
+subdivide_width = 128
+subdivide_depth = 128
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_foa1o"]
 size = Vector3(4096, 40, 4096)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6l2ot"]
+size = Vector3(8, 1024, 2048)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pu2jx"]
+size = Vector3(8, 1024, 2048)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6f101"]
+size = Vector3(2048, 1024, 8)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4y20t"]
+size = Vector3(2048, 1024, 8)
 
 [node name="game" type="Node3D"]
 
@@ -141,6 +165,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20, 0)
 mesh = SubResource("PlaneMesh_desx8")
 skeleton = NodePath("../../../..")
 
+[node name="mesh_radar" type="MeshInstance3D" parent="world/level/water" groups=["radar"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+visible = false
+layers = 2
+mesh = SubResource("PlaneMesh_gnysx")
+skeleton = NodePath("../../../..")
+script = ExtResource("7_jnox7")
+
 [node name="area" type="Area3D" parent="world/level/water"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -20, 0)
 collision_layer = 2
@@ -149,31 +181,6 @@ script = ExtResource("7_iu5gd")
 
 [node name="col" type="CollisionShape3D" parent="world/level/water/area"]
 shape = SubResource("BoxShape3D_foa1o")
-
-[node name="soft_pusher_top" parent="world/level" instance=ExtResource("10_q3r4t")]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 200, 0)
-size = Vector3(4096, 4096, 2048)
-force = 2.0
-
-[node name="soft_pusher_lt" parent="world/level" instance=ExtResource("10_q3r4t")]
-transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, -2000, 200, 0)
-size = Vector3(4096, 4096, 2048)
-force = 1.0
-
-[node name="soft_pusher_rt" parent="world/level" instance=ExtResource("10_q3r4t")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 2000, 200, 0)
-size = Vector3(4096, 4096, 2048)
-force = 1.0
-
-[node name="soft_pusher_fw" parent="world/level" instance=ExtResource("10_q3r4t")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 200, 2000)
-size = Vector3(4096, 4096, 2048)
-force = 1.0
-
-[node name="soft_pusher_bw" parent="world/level" instance=ExtResource("10_q3r4t")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 200, -2000)
-size = Vector3(4096, 4096, 2048)
-force = 1.0
 
 [node name="bunker_entrance" parent="world/level" instance=ExtResource("13_dfb4x")]
 transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -35.9423, 65.4939, -44.3534)
@@ -214,6 +221,30 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 151.869, -87.4529)
 
 [node name="enemy_test_2" parent="world/level" instance=ExtResource("11_sqm5t")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.7354, 151.869, -61.4025)
+
+[node name="wall_lt" type="StaticBody3D" parent="world"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1024, 100, 0)
+
+[node name="col" type="CollisionShape3D" parent="world/wall_lt"]
+shape = SubResource("BoxShape3D_6l2ot")
+
+[node name="wall_rt" type="StaticBody3D" parent="world"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1024, 100, 0)
+
+[node name="col" type="CollisionShape3D" parent="world/wall_rt"]
+shape = SubResource("BoxShape3D_pu2jx")
+
+[node name="wall_fw" type="StaticBody3D" parent="world"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 100, 1024)
+
+[node name="col" type="CollisionShape3D" parent="world/wall_fw"]
+shape = SubResource("BoxShape3D_6f101")
+
+[node name="wall_bw" type="StaticBody3D" parent="world"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 100, -1024)
+
+[node name="col" type="CollisionShape3D" parent="world/wall_bw"]
+shape = SubResource("BoxShape3D_4y20t")
 
 [node name="menu" type="Node" parent="."]
 script = ExtResource("7_po7c8")

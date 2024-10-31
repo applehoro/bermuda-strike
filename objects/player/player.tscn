@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=3 uid="uid://b142sd861jpb0"]
+[gd_scene load_steps=55 format=3 uid="uid://b142sd861jpb0"]
 
 [ext_resource type="Script" path="res://script/player/player.gd" id="1_4t0x4"]
 [ext_resource type="Shader" path="res://shaders/outline_2.gdshader" id="2_hkm1e"]
@@ -16,6 +16,8 @@
 [ext_resource type="Shader" path="res://addons/post_processing/shaders/speed_lines.gdshader" id="13_6evge"]
 [ext_resource type="Texture2D" uid="uid://hlotp7e25854" path="res://textures/gui/crosshair_center.png" id="15_eaxbm"]
 [ext_resource type="Texture2D" uid="uid://ct33v08ovt8jh" path="res://textures/gui/crosshair_circle.png" id="16_ue7ew"]
+[ext_resource type="PackedScene" uid="uid://beix2oisbu7m1" path="res://objects/radar/radar_mark.tscn" id="17_c4aug"]
+[ext_resource type="Texture2D" uid="uid://d2rrbx4xedfpp" path="res://textures/gui/radar/radar_mask.png" id="17_u20jp"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_75dfv"]
 
@@ -414,6 +416,7 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 
 shape = SubResource("ConvexPolygonShape3D_8ba34")
 
 [node name="camera" type="Camera3D" parent="yaw/pitch"]
+cull_mask = 1048573
 current = true
 fov = 80.0
 near = 0.005
@@ -440,6 +443,7 @@ process_material = SubResource("ParticleProcessMaterial_tqoy2")
 draw_pass_1 = SubResource("QuadMesh_147q2")
 
 [node name="ground_check" type="Node3D" parent="."]
+visible = false
 script = ExtResource("7_p8ui4")
 
 [node name="raycast" type="RayCast3D" parent="ground_check"]
@@ -663,3 +667,32 @@ texture = ExtResource("4_wh5n0")
 libraries = {
 "": SubResource("AnimationLibrary_rsmn7")
 }
+
+[node name="radar" type="Node2D" parent="gui"]
+
+[node name="viewport" type="SubViewport" parent="gui/radar"]
+transparent_bg = true
+gui_disable_input = true
+size = Vector2i(200, 200)
+
+[node name="yaw" type="Node3D" parent="gui/radar/viewport"]
+
+[node name="camera" type="Camera3D" parent="gui/radar/viewport/yaw"]
+transform = Transform3D(1, 0, 0, 0, 1.19249e-08, 1, 0, -1, 1.19249e-08, 0, 512, 0)
+projection = 1
+size = 800.0
+far = 2400.0
+
+[node name="radar_mark" parent="gui/radar/viewport/yaw" instance=ExtResource("17_c4aug")]
+pixel_size = 0.0075
+
+[node name="mask" type="Sprite2D" parent="gui/radar"]
+clip_children = 1
+position = Vector2(1165, 118)
+texture = ExtResource("17_u20jp")
+
+[node name="texture" type="TextureRect" parent="gui/radar/mask"]
+offset_left = -100.0
+offset_top = -100.0
+offset_right = 100.0
+offset_bottom = 100.0

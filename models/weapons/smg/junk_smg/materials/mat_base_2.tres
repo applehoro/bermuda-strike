@@ -4,6 +4,7 @@
 
 [resource]
 resource_name = "mat_base_2"
+render_priority = 1
 cull_mode = 2
 albedo_texture = ExtResource("1_7eh6d")
 roughness = 0.95

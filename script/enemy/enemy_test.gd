@@ -12,6 +12,7 @@ var look_pos = Vector2();
 
 func _ready() -> void:
 	look_at_pos( global_position - $yaw.global_basis.z );
+	$radar_mark.visible = true;
 
 func _physics_process(delta: float) -> void:
 	# cooldowns

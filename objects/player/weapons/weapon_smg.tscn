@@ -71,7 +71,7 @@ anim_queue_attack = ["attack_1"]
 anim_queue_alt_attack = ["attack_burst"]
 
 [node name="junk_smg" parent="." instance=ExtResource("2_ibhbx")]
-transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
 
 [node name="Skeleton3D" parent="junk_smg/bones" index="0"]
 bones/1/rotation = Quaternion(0.62026, -0.248623, 0.678075, -0.306069)
@@ -187,10 +187,14 @@ bones/67/position = Vector3(-0.0528198, 0.277083, 0.000324477)
 bones/67/rotation = Quaternion(1.31709e-09, -1.31709e-09, 0.707107, 0.707107)
 
 [node name="base" parent="junk_smg/bones/Skeleton3D" index="0"]
+sorting_offset = 1024.0
 cast_shadow = 0
+gi_mode = 0
 
 [node name="hands" parent="junk_smg/bones/Skeleton3D" index="1"]
+sorting_offset = 1024.0
 cast_shadow = 0
+gi_mode = 0
 
 [node name="muzzle_attach" type="BoneAttachment3D" parent="junk_smg/bones/Skeleton3D" index="2"]
 transform = Transform3D(1, 0, 0, 0, 0.104289, 0.994547, 0, -0.994547, 0.104289, 0.251887, -0.299599, -0.410305)

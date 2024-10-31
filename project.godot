@@ -55,6 +55,7 @@ sun=""
 env=""
 enemy=""
 player_target=""
+radar=""
 
 [input]
 

@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://beix2oisbu7m1"]
+
+[ext_resource type="Texture2D" uid="uid://b870bkangrifs" path="res://textures/gui/radar/radar_mark.png" id="1_hmmaa"]
+[ext_resource type="Script" path="res://script/radar/radar_mark.gd" id="2_hbaov"]
+
+[node name="radar_mark" type="Sprite3D"]
+visible = false
+layers = 2
+cast_shadow = 0
+pixel_size = 0.005
+billboard = 1
+no_depth_test = true
+fixed_size = true
+texture = ExtResource("1_hmmaa")
+script = ExtResource("2_hbaov")

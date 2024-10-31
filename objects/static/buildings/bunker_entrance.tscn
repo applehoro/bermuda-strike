@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://b1t3bmgx5ktiv"]
+[gd_scene load_steps=5 format=3 uid="uid://b1t3bmgx5ktiv"]
 
 [ext_resource type="Script" path="res://script/buildings/entrance.gd" id="1_lau8s"]
 [ext_resource type="PackedScene" uid="uid://rcnw5yq0be83" path="res://models/building/bunker_entrance.gltf" id="2_cab0p"]
+[ext_resource type="PackedScene" uid="uid://beix2oisbu7m1" path="res://objects/radar/radar_mark.tscn" id="3_3rkbm"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_pmhk6"]
 size = Vector3(3, 4, 2)
@@ -42,5 +43,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10)
 
 [node name="col" type="CollisionShape3D" parent="area_back_out"]
 shape = SubResource("BoxShape3D_pmhk6")
+
+[node name="radar_mark" parent="." instance=ExtResource("3_3rkbm")]
 
 [editable path="bunker_entrance"]
