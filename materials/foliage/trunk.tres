@@ -6,3 +6,4 @@
 resource_name = "trunk"
 cull_mode = 2
 albedo_texture = ExtResource("1_tpyn6")
+metallic_specular = 0.1
