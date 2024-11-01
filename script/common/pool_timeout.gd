@@ -33,7 +33,6 @@ func setup():
 	set_process( true );
 	visible = true;
 	live = true;
-	print( "hit!" );
 	if( has_node( "anim" ) ):
 		$anim.stop();
 		$anim.play( "startup" );

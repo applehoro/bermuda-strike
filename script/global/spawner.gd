@@ -27,11 +27,11 @@ var pool_assets = {
 	"bullet_smg": 20,
 	"bullet_machine_gun": 40,
 	"bullet_flak": 30,
-	"bullet_flak_alt": 4,
+	"bullet_flak_alt": 3,
 	"bullet_frag": 80,
-	"hit_mark": 30,
-	"water_splash": 16,
-	"dust_burst": 16,
+	"hit_mark": 50,
+	"water_splash": 32,
+	"dust_burst": 32,
 };
 
 var pool = {};
@@ -58,14 +58,14 @@ func find_free( id ):
 		for c in pool[ id ]:
 			if( !c.live ):
 				return c;
-	else:
-		return assets[ id ].instantiate();
+	var c = assets[ id ].instantiate();
+	Global.node_world.add_child( c );
+	return c;
 
 # spawning
 func spawn( id, pos, rot ):
 	if( Global.node_world != null && assets.has( id ) ):
 		var c = find_free( id );
-		Global.node_world.add_child( c );
 		c.global_position = pos;
 		c.global_rotation = rot;
 		if( c.has_method( "setup" ) ):
@@ -76,7 +76,6 @@ func spawn( id, pos, rot ):
 func spawn_t( id, t ):
 	if( Global.node_world != null && assets.has( id ) ):
 		var c = find_free( id );
-		Global.node_world.add_child( c );
 		c.global_transform = t;
 		if( c.has_method( "setup" ) ):
 			c.setup();
