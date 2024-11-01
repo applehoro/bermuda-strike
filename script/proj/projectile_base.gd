@@ -8,6 +8,7 @@ extends Node3D
 
 @export var velocity = 480.0;
 @export var lifetime = 4.0;
+var life = 0.0;
 @export var damage = Vector2( 5.0, 8.0 );
 @export var dive = 0.04;
 @export var spawn_on_hit = "";
@@ -18,18 +19,14 @@ var exclude = [];
 
 var hit_water = false;
 
+var live = false;
+var is_in_pool = false;
+
 func _ready() -> void:
 	#$mesh.scale.z = 0.01;
 	$mesh.position.z = -$mesh.mesh.size.z*2.0;
 	#$mesh.visible = false;
-	call_deferred( "setup" );
-
-func setup():
-	var rw = Global.raycast_3d_area( global_position, global_position - global_basis.z*0.05, [], Global.water_layer );
-	if( rw ):
-		if( rw[ "collider" ].has_meta( "is_water" ) ):
-			if( rw[ "collider" ].get_meta( "is_water" ) ):
-				hit_water = true;
+	#call_deferred( "setup" );
 
 func add_exclude( obj ):
 	exclude.push_back( obj );
@@ -69,8 +66,8 @@ func _physics_process(delta: float) -> void:
 	global_transform = global_transform.looking_at( global_position - global_basis.z - Vector3( 0, dive, 0 )*delta );
 	
 	# lifetime
-	lifetime -= delta;
-	if( lifetime <= 0 ):
+	life -= delta;
+	if( life <= 0 ):
 		if( spawn_on_lifetime_end != "" ):
 			Spawner.spawn( spawn_on_lifetime_end, global_position, global_rotation );
 		die();
@@ -82,4 +79,33 @@ func _process( delta: float ) -> void:
 	#$mesh.visible = true;
 
 func die():
-	queue_free();
+	if( is_in_pool ):
+		set_process( false );
+		set_physics_process( false );
+		visible = false;
+		live = false;
+	else:
+		queue_free();
+
+func setup():
+	live = true;
+	life = lifetime;
+	hit_water = false;
+	set_process( true );
+	set_physics_process( true );
+	visible = true;
+	
+	var rw = Global.raycast_3d_area( global_position, global_position - global_basis.z*0.05, [], Global.water_layer );
+	if( rw ):
+		if( rw[ "collider" ].has_meta( "is_water" ) ):
+			if( rw[ "collider" ].get_meta( "is_water" ) ):
+				hit_water = true;
+
+#func spawn( pos, rot ):
+	#global_position = pos;
+	#global_rotation = rot;
+	#setup();
+#
+#func spawn_t( t ):
+	#global_transform = t;
+	#setup();
