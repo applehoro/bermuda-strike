@@ -1,0 +1,12 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://dc4b5dkknsmxe"]
+
+[ext_resource type="Texture2D" uid="uid://bvaqmopowgfa0" path="res://models/foliage/textures/palm_leaves.png" id="1_lovcc"]
+
+[resource]
+resource_name = "leaves"
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+cull_mode = 2
+albedo_texture = ExtResource("1_lovcc")
+roughness = 0.5

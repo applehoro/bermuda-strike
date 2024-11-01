@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://pd665ejge50l"]
+
+[ext_resource type="Texture2D" uid="uid://c83s2mdbsktfo" path="res://models/foliage/textures/palm_trunk.png" id="1_tpyn6"]
+
+[resource]
+resource_name = "trunk"
+cull_mode = 2
+albedo_texture = ExtResource("1_tpyn6")

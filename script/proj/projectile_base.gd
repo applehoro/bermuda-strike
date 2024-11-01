@@ -43,7 +43,6 @@ func _physics_process(delta: float) -> void:
 					Spawner.spawn( "water_splash", rw[ "position" ], Vector3() );
 					hit_water = true;
 	
-	
 	# hit something
 	var r = Global.raycast_3d_body( global_position, np, exclude, 1 );
 	if( r ):
@@ -90,11 +89,11 @@ func die():
 func setup():
 	live = true;
 	life = lifetime;
-	hit_water = false;
 	set_process( true );
 	set_physics_process( true );
 	visible = true;
 	
+	hit_water = false;
 	var rw = Global.raycast_3d_area( global_position, global_position - global_basis.z*0.05, [], Global.water_layer );
 	if( rw ):
 		if( rw[ "collider" ].has_meta( "is_water" ) ):

@@ -1,10 +1,12 @@
-[gd_scene load_steps=30 format=3 uid="uid://cxs7rowa8sg6m"]
+[gd_scene load_steps=32 format=3 uid="uid://cxs7rowa8sg6m"]
 
 [ext_resource type="Script" path="res://script/global/world.gd" id="1_vsdrq"]
 [ext_resource type="Material" uid="uid://id4e5vebw5am" path="res://addons/water/materials/water.material" id="2_0rtqo"]
 [ext_resource type="Texture2D" uid="uid://bjxklvx6scls7" path="res://textures/sky/sky_1.jpg" id="2_7tsv3"]
 [ext_resource type="Terrain3DAssets" uid="uid://bsdbe4fgjl4x7" path="res://terrain/test_terrain_assets.res" id="6_2rdks"]
 [ext_resource type="Script" path="res://script/env/terrain.gd" id="6_hexti"]
+[ext_resource type="Script" path="res://addons/terrain_3d/utils/terrain_3d_objects.gd" id="6_onfco"]
+[ext_resource type="PackedScene" uid="uid://2mlcmfhxb0bs" path="res://objects/foliage/palm_1.tscn" id="7_7ecyy"]
 [ext_resource type="Script" path="res://script/env/water_area.gd" id="7_iu5gd"]
 [ext_resource type="Script" path="res://script/radar/mesh_radar.gd" id="7_jnox7"]
 [ext_resource type="Script" path="res://addons/maaacks_game_template/extras/scripts/pause_menu_controller.gd" id="7_po7c8"]
@@ -151,6 +153,12 @@ script = ExtResource("6_hexti")
 metadata/_edit_lock_ = true
 
 [node name="camera" type="Camera3D" parent="world/level/test_island"]
+
+[node name="terrain_3d_objects" type="Node3D" parent="world/level/test_island"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -80.4199, 79.3218, -104.341)
+script = ExtResource("6_onfco")
+
+[node name="palm_1" parent="world/level/test_island/terrain_3d_objects" instance=ExtResource("7_7ecyy")]
 
 [node name="sun" type="DirectionalLight3D" parent="world/level" groups=["sun"]]
 transform = Transform3D(0.809591, 0.368028, -0.457294, 0, 0.779043, 0.626971, 0.586994, -0.50759, 0.630706, 0, 100, 0)

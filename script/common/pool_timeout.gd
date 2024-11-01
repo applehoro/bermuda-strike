@@ -3,7 +3,6 @@ extends Node3D
 @export var lifetime = 1.0;
 var life = 0.0;
 var live = false;
-
 var is_in_pool = false;
 
 func _process( delta: float ) -> void:
@@ -25,6 +24,8 @@ func die():
 		set_process( false );
 		visible = false;
 		live = false;
+		if( has_node( "anim" ) ):
+			$anim.stop();
 	else:
 		queue_free();
 
