@@ -20,6 +20,8 @@ var assets = {
 	
 	"water_splash": preload( "res://objects/effects/water_splash.tscn" ),
 	"dust_burst": preload( "res://objects/effects/dust_burst.tscn" ),
+	
+	"palm_1": preload( "res://objects/foliage/palm_1.tscn" ),
 };
 
 var pool_assets = {
@@ -58,6 +60,7 @@ func find_free( id ):
 		for c in pool[ id ]:
 			if( !c.live ):
 				return c;
+	
 	var c = assets[ id ].instantiate();
 	Global.node_world.add_child( c );
 	return c;
