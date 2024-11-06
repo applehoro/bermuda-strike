@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dh4cwvd445qfh"
-path.s3tc="res://.godot/imported/grass_1_albedo_height.png-886500b642ec2105e3cb01589c1ee55e.s3tc.ctex"
+uid="uid://xawvhqekkyqr"
+path.s3tc="res://.godot/imported/grass_1_packed_normal_roughness.png-bd7580355d8dcd25f842abaf7c0a75f4.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://textures/env/grass_1_albedo_height.png"
-dest_files=["res://.godot/imported/grass_1_albedo_height.png-886500b642ec2105e3cb01589c1ee55e.s3tc.ctex"]
+source_file="res://textures/env/packed/grass_1_packed_normal_roughness.png"
+dest_files=["res://.godot/imported/grass_1_packed_normal_roughness.png-bd7580355d8dcd25f842abaf7c0a75f4.s3tc.ctex"]
 
 [params]
 

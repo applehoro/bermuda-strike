@@ -21,6 +21,8 @@ var assets = {
 	"water_splash": preload( "res://objects/effects/water_splash.tscn" ),
 	"dust_burst": preload( "res://objects/effects/dust_burst.tscn" ),
 	
+	"grass_1": preload( "res://objects/foliage/grass_1.tscn" ),
+	
 	"palm_1": preload( "res://objects/foliage/palm_1.tscn" ),
 };
 

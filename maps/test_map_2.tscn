@@ -1,15 +1,16 @@
-[gd_scene load_steps=29 format=3 uid="uid://c8v2x5edqivac"]
+[gd_scene load_steps=31 format=3 uid="uid://c8v2x5edqivac"]
 
 [ext_resource type="Texture2D" uid="uid://bjxklvx6scls7" path="res://textures/sky/sky_1.jpg" id="1_ypjjk"]
 [ext_resource type="PackedScene" uid="uid://b142sd861jpb0" path="res://objects/player/player.tscn" id="2_q2c1v"]
 [ext_resource type="Script" path="res://script/player/player_follow.gd" id="3_4n53g"]
 [ext_resource type="Material" uid="uid://id4e5vebw5am" path="res://addons/water/materials/water.material" id="5_encjr"]
 [ext_resource type="Script" path="res://script/radar/mesh_radar.gd" id="6_qedit"]
-[ext_resource type="Texture2D" uid="uid://cjus787fwxmfw" path="res://textures/env/sand_1_packed_albedo_height.png" id="7_t1wor"]
+[ext_resource type="Texture2D" uid="uid://bv5k5nw0l7u5s" path="res://textures/foliage/grass_1.png" id="7_7uu5g"]
+[ext_resource type="Texture2D" uid="uid://cjus787fwxmfw" path="res://textures/env/packed/sand_1_packed_albedo_height.png" id="7_t1wor"]
 [ext_resource type="Script" path="res://script/env/water_area.gd" id="7_wshqr"]
-[ext_resource type="Texture2D" uid="uid://c0utuq0ktq0ln" path="res://textures/env/sand_1_packed_normal_roughness.png" id="8_onhsv"]
-[ext_resource type="Texture2D" uid="uid://dh4cwvd445qfh" path="res://textures/env/grass_1_albedo_height.png" id="10_wyv0i"]
-[ext_resource type="Texture2D" uid="uid://xawvhqekkyqr" path="res://textures/env/grass_1_normal_roughness.png" id="11_qixh1"]
+[ext_resource type="Texture2D" uid="uid://cd0aswaggq7oh" path="res://textures/env/packed/sand_1_packed_normal_roughness.png" id="8_vatg3"]
+[ext_resource type="Texture2D" uid="uid://dh4cwvd445qfh" path="res://textures/env/packed/grass_1_packed_albedo_height.png" id="9_2572l"]
+[ext_resource type="Texture2D" uid="uid://xawvhqekkyqr" path="res://textures/env/packed/grass_1_packed_normal_roughness.png" id="10_f1d5j"]
 [ext_resource type="Script" path="res://script/env/terrain.gd" id="12_e15qx"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_1chws"]
@@ -113,9 +114,12 @@ _shader_parameters = {
 }
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uafvh"]
-transparency = 4
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
 cull_mode = 2
 vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("7_7uu5g")
 backlight_enabled = true
 backlight = Color(0.5, 0.5, 0.5, 1)
 distance_fade_mode = 1
@@ -123,29 +127,40 @@ distance_fade_min_distance = 960.0
 distance_fade_max_distance = 480.0
 
 [sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_112t3"]
+name = "grass_1"
 height_offset = 0.5
 density = 10.0
+visibility_range = 600.0
 material_override = SubResource("StandardMaterial3D_uafvh")
 generated_type = 1
 
-[sub_resource type="Terrain3DTextureAsset" id="Terrain3DTextureAsset_qgckq"]
+[sub_resource type="Terrain3DTextureAsset" id="Terrain3DTextureAsset_lv2wx"]
 name = "sand"
 albedo_texture = ExtResource("7_t1wor")
-normal_texture = ExtResource("8_onhsv")
+normal_texture = ExtResource("8_vatg3")
 uv_scale = 0.5
 detiling = 1.0
 
-[sub_resource type="Terrain3DTextureAsset" id="Terrain3DTextureAsset_exrax"]
-name = "foliage"
+[sub_resource type="Terrain3DTextureAsset" id="Terrain3DTextureAsset_qgckq"]
+name = "grass-gen_forest-gen_grass"
 id = 1
-albedo_texture = ExtResource("10_wyv0i")
-normal_texture = ExtResource("11_qixh1")
-uv_scale = 1.0
+albedo_color = Color(0, 0.483333, 1, 1)
+albedo_texture = ExtResource("9_2572l")
+normal_texture = ExtResource("10_f1d5j")
+uv_scale = 0.5
+detiling = 1.0
+
+[sub_resource type="Terrain3DTextureAsset" id="Terrain3DTextureAsset_rr7se"]
+name = "grass-gen_grass"
+id = 2
+albedo_texture = ExtResource("9_2572l")
+normal_texture = ExtResource("10_f1d5j")
+uv_scale = 0.5
 detiling = 1.0
 
 [sub_resource type="Terrain3DAssets" id="Terrain3DAssets_fvo1j"]
 mesh_list = Array[Terrain3DMeshAsset]([SubResource("Terrain3DMeshAsset_112t3")])
-texture_list = Array[Terrain3DTextureAsset]([SubResource("Terrain3DTextureAsset_qgckq"), SubResource("Terrain3DTextureAsset_exrax")])
+texture_list = Array[Terrain3DTextureAsset]([SubResource("Terrain3DTextureAsset_lv2wx"), SubResource("Terrain3DTextureAsset_qgckq"), SubResource("Terrain3DTextureAsset_rr7se")])
 
 [node name="test_map" type="Node3D"]
 
@@ -193,7 +208,8 @@ shadow_enabled = true
 data_directory = "res://terrain/island_1"
 material = SubResource("Terrain3DMaterial_nmjcn")
 assets = SubResource("Terrain3DAssets_fvo1j")
-vertex_spacing = 4.0
+collision_layer = 3
+collision_mask = 3
 top_level = true
 script = ExtResource("12_e15qx")
 metadata/_edit_lock_ = true

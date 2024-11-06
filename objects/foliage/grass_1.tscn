@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://cxlscc0owmbbb"]
+
+[ext_resource type="Texture2D" uid="uid://bv5k5nw0l7u5s" path="res://textures/foliage/grass_1.png" id="1_w00ga"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xn7qj"]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+cull_mode = 2
+albedo_texture = ExtResource("1_w00ga")
+
+[sub_resource type="QuadMesh" id="QuadMesh_u4n4n"]
+material = SubResource("StandardMaterial3D_xn7qj")
+size = Vector2(3, 2)
+center_offset = Vector3(0, 1, 0)
+
+[sub_resource type="QuadMesh" id="QuadMesh_2reql"]
+material = SubResource("StandardMaterial3D_xn7qj")
+size = Vector2(3, 2)
+center_offset = Vector3(0, 1, 0)
+orientation = 0
+
+[node name="grass_1" type="Node3D"]
+
+[node name="plane_1" type="MeshInstance3D" parent="."]
+gi_mode = 0
+visibility_range_end = 50.0
+mesh = SubResource("QuadMesh_u4n4n")
+
+[node name="plane_2" type="MeshInstance3D" parent="."]
+gi_mode = 0
+visibility_range_end = 50.0
+mesh = SubResource("QuadMesh_2reql")

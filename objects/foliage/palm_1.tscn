@@ -6,4 +6,4 @@
 
 [node name="mesh" parent="." index="0"]
 gi_mode = 0
-visibility_range_end = 1000.0
+visibility_range_end = 300.0

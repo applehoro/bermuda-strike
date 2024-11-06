@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cjus787fwxmfw"
-path.s3tc="res://.godot/imported/sand_1_packed_albedo_height.png-b5abf39bea6a35a7f8e5178a1a22e43f.s3tc.ctex"
+uid="uid://cd0aswaggq7oh"
+path.s3tc="res://.godot/imported/sand_1_packed_normal_roughness.png-420e607b68e9c19b209aad64a1e9e098.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://textures/env/sand_1_packed_albedo_height.png"
-dest_files=["res://.godot/imported/sand_1_packed_albedo_height.png-b5abf39bea6a35a7f8e5178a1a22e43f.s3tc.ctex"]
+source_file="res://textures/env/packed/sand_1_packed_normal_roughness.png"
+dest_files=["res://.godot/imported/sand_1_packed_normal_roughness.png-420e607b68e9c19b209aad64a1e9e098.s3tc.ctex"]
 
 [params]
 
@@ -32,4 +32,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=1
+detect_3d/compress_to=0
