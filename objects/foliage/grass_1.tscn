@@ -24,10 +24,14 @@ orientation = 0
 
 [node name="plane_1" type="MeshInstance3D" parent="."]
 gi_mode = 0
-visibility_range_end = 50.0
+visibility_range_end = 150.0
+visibility_range_end_margin = 50.0
+visibility_range_fade_mode = 2
 mesh = SubResource("QuadMesh_u4n4n")
 
 [node name="plane_2" type="MeshInstance3D" parent="."]
 gi_mode = 0
-visibility_range_end = 50.0
+visibility_range_end = 150.0
+visibility_range_end_margin = 50.0
+visibility_range_fade_mode = 1
 mesh = SubResource("QuadMesh_2reql")

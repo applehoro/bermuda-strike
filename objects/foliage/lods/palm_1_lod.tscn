@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://cae5ke2xok146"]
+
+[ext_resource type="Texture2D" uid="uid://bql0l56klf71d" path="res://textures/foliage/lod/palm_1_lod.png" id="1_lxsop"]
+
+[node name="palm_1_lod" type="Sprite3D"]
+visibility_range_begin = 300.0
+visibility_range_begin_margin = 80.0
+visibility_range_end = 1000.0
+visibility_range_end_margin = 100.0
+visibility_range_fade_mode = 1
+offset = Vector2(0, 14)
+pixel_size = 0.65
+billboard = 1
+shaded = true
+alpha_cut = 1
+alpha_scissor_threshold = 0.8
+texture = ExtResource("1_lxsop")
