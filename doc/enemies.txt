@@ -1,0 +1,42 @@
+# Mobs
+
+## Alien troop
+
+Flying and grounded variants.
+Can have laser rifle (semi-auto), blaster (rapid fire), rocket launcher. Also throw grenades and punch in meelee. Can have shield.
+
+## Drone
+
+Slow flying enemy, can shoot lasers, blasters, rockets and be kamikaze.
+
+## Plane
+
+Fast flying enemy, shoot lasers, charged shots and rockets, drop bombs.
+
+## Mine
+
+Slowly floats in the air, if player is nearby, follows him and explodes on timer.
+
+## Turret
+
+Stays on ground or in air and shoot at player if is in range. Can have lasers, blasters, charged shots, rockets. Can have shields.
+
+
+
+# Bosses
+
+## Alien mutant
+
+Slow big human-alien hybrid mini-boss. Throw powerful punches, can grab player, shoots rockets from back, meelee attack with electricity.
+
+## Paladin
+
+Fast flying mini-boss, meelee and grenades, smoke grenade, dash attack, ring attack, self-destructs on death. Dodge player attacks more frequently. Has shield.
+
+## Archeologist
+
+Slow boss on tracks. Shoot exposive tank rounds and firethrowers, uses circular saw, set up mines.
+
+## General
+
+Final boss. Have four hands, with laser rifle, blaster, rocket launcher and grenade launcher. Has shield. Has charge attack, when charged, shoot sphere of flame around.

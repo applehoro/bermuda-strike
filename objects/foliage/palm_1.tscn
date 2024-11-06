@@ -3,3 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://ckpavr711mxij" path="res://models/foliage/palm_1.gltf" id="1_rmw88"]
 
 [node name="palm_1" instance=ExtResource("1_rmw88")]
+
+[node name="mesh" parent="." index="0"]
+gi_mode = 0
+visibility_range_end = 1000.0

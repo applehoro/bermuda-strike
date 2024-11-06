@@ -19,6 +19,7 @@
 			"name":"mesh"
 		},
 		{
+			"mesh":1,
 			"name":"body-convcolonly"
 		}
 	],
@@ -66,6 +67,20 @@
 					},
 					"indices":7,
 					"material":1
+				}
+			]
+		},
+		{
+			"name":"palm_1_mesh.002",
+			"primitives":[
+				{
+					"attributes":{
+						"POSITION":8,
+						"NORMAL":9,
+						"TEXCOORD_0":10
+					},
+					"indices":3,
+					"material":0
 				}
 			]
 		}
@@ -160,6 +175,34 @@
 			"componentType":5123,
 			"count":720,
 			"type":"SCALAR"
+		},
+		{
+			"bufferView":8,
+			"componentType":5126,
+			"count":144,
+			"max":[
+				0.32942384481430054,
+				9.98773193359375,
+				0.32942384481430054
+			],
+			"min":[
+				-0.32942384481430054,
+				-2,
+				-0.5912427306175232
+			],
+			"type":"VEC3"
+		},
+		{
+			"bufferView":9,
+			"componentType":5126,
+			"count":144,
+			"type":"VEC3"
+		},
+		{
+			"bufferView":10,
+			"componentType":5126,
+			"count":144,
+			"type":"VEC2"
 		}
 	],
 	"bufferViews":[
@@ -210,6 +253,24 @@
 			"byteLength":1440,
 			"byteOffset":12440,
 			"target":34963
+		},
+		{
+			"buffer":0,
+			"byteLength":1728,
+			"byteOffset":13880,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":1728,
+			"byteOffset":15608,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":1152,
+			"byteOffset":17336,
+			"target":34962
 		}
 	],
 	"samplers":[
@@ -220,7 +281,7 @@
 	],
 	"buffers":[
 		{
-			"byteLength":13880,
+			"byteLength":18488,
 			"uri":"palm_1.bin"
 		}
 	]

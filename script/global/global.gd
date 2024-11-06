@@ -8,6 +8,7 @@ extends Node
 
 var node_world = null;
 var node_player = null;
+var node_map = null;
 
 var settings = {
 	"mouse_sensitivity": 0.005,
