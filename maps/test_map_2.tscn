@@ -9,8 +9,8 @@
 [ext_resource type="Texture2D" uid="uid://cjus787fwxmfw" path="res://textures/env/packed/sand_1_packed_albedo_height.png" id="7_t1wor"]
 [ext_resource type="Script" path="res://script/env/water_area.gd" id="7_wshqr"]
 [ext_resource type="Texture2D" uid="uid://cd0aswaggq7oh" path="res://textures/env/packed/sand_1_packed_normal_roughness.png" id="8_vatg3"]
-[ext_resource type="Texture2D" uid="uid://dh4cwvd445qfh" path="res://textures/env/packed/grass_1_packed_albedo_height.png" id="9_2572l"]
-[ext_resource type="Texture2D" uid="uid://xawvhqekkyqr" path="res://textures/env/packed/grass_1_packed_normal_roughness.png" id="10_f1d5j"]
+[ext_resource type="Texture2D" uid="uid://dxos152vewxwv" path="res://textures/env/packed/grass_1_packed_albedo_height.png" id="9_2572l"]
+[ext_resource type="Texture2D" uid="uid://b8oi0dv8oqk0n" path="res://textures/env/packed/grass_1_packed_normal_roughness.png" id="10_f1d5j"]
 [ext_resource type="Script" path="res://script/env/terrain.gd" id="12_e15qx"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_1chws"]
@@ -26,23 +26,26 @@ ambient_light_source = 3
 ambient_light_color = Color(0.236094, 0.336869, 0.429732, 1)
 ambient_light_sky_contribution = 0.9
 tonemap_mode = 3
+fog_enabled = true
 fog_mode = 1
-fog_light_energy = 0.05
+fog_light_color = Color(0.584314, 0.670588, 0.913725, 1)
+fog_light_energy = 0.5
 fog_sun_scatter = 0.3
-fog_density = 1.0
+fog_density = 0.7
+fog_aerial_perspective = 1.0
 fog_sky_affect = 0.1
-fog_height = 10.0
 fog_height_density = 0.1
 fog_depth_curve = 0.466516
-fog_depth_begin = 2000.0
+fog_depth_begin = 1000.0
 fog_depth_end = 3500.0
 volumetric_fog_enabled = true
-volumetric_fog_density = 0.02
-volumetric_fog_albedo = Color(0.475967, 0.579295, 0.877459, 1)
+volumetric_fog_density = 0.0065
+volumetric_fog_albedo = Color(0.582881, 0.671556, 0.914218, 1)
 volumetric_fog_emission = Color(0.128425, 0.12782, 0.269936, 1)
 volumetric_fog_gi_inject = 0.0
 volumetric_fog_anisotropy = 0.5
-volumetric_fog_length = 25.0
+volumetric_fog_length = 60.0
+volumetric_fog_detail_spread = 1.5
 volumetric_fog_ambient_inject = 1.0
 volumetric_fog_temporal_reprojection_enabled = false
 adjustment_enabled = true
@@ -144,10 +147,9 @@ detiling = 1.0
 [sub_resource type="Terrain3DTextureAsset" id="Terrain3DTextureAsset_qgckq"]
 name = "grass-gen_forest-gen_grass"
 id = 1
-albedo_color = Color(0, 0.483333, 1, 1)
 albedo_texture = ExtResource("9_2572l")
 normal_texture = ExtResource("10_f1d5j")
-uv_scale = 0.5
+uv_scale = 2.0
 detiling = 1.0
 
 [sub_resource type="Terrain3DTextureAsset" id="Terrain3DTextureAsset_rr7se"]
@@ -155,7 +157,7 @@ name = "grass-gen_grass"
 id = 2
 albedo_texture = ExtResource("9_2572l")
 normal_texture = ExtResource("10_f1d5j")
-uv_scale = 0.5
+uv_scale = 2.0
 detiling = 1.0
 
 [sub_resource type="Terrain3DAssets" id="Terrain3DAssets_fvo1j"]
@@ -210,6 +212,7 @@ material = SubResource("Terrain3DMaterial_nmjcn")
 assets = SubResource("Terrain3DAssets_fvo1j")
 collision_layer = 3
 collision_mask = 3
+vertex_spacing = 4.0
 top_level = true
 script = ExtResource("12_e15qx")
 metadata/_edit_lock_ = true

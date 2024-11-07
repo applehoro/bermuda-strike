@@ -12,12 +12,12 @@ albedo_texture = ExtResource("1_w00ga")
 [sub_resource type="QuadMesh" id="QuadMesh_u4n4n"]
 material = SubResource("StandardMaterial3D_xn7qj")
 size = Vector2(3, 2)
-center_offset = Vector3(0, 1, 0)
+center_offset = Vector3(0, 0.9, 0)
 
 [sub_resource type="QuadMesh" id="QuadMesh_2reql"]
 material = SubResource("StandardMaterial3D_xn7qj")
 size = Vector2(3, 2)
-center_offset = Vector3(0, 1, 0)
+center_offset = Vector3(0, 0.9, 0)
 orientation = 0
 
 [node name="grass_1" type="Node3D"]

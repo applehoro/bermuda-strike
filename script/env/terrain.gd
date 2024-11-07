@@ -7,14 +7,14 @@ var gen_list = {
 
 var gen_limit = {
 	"gen_forest": 1000,
-	"gen_grass": 2400,
+	"gen_grass": 1400,
 };
 var gen_nodes = {};
 var gen_nodes_i = {};
 var gen_ids = {};
 
 var gen_dist = {
-	"gen_forest": 500.0,
+	"gen_forest": 400.0,
 	"gen_grass": 150.0,
 };
 
@@ -31,7 +31,8 @@ var lod_nodes_i = {};
 var lod_ids = {};
 
 var lod_dist = {
-	"gen_forest": Vector2( 300.0, 1000.0 ),
+	#"gen_forest": Vector2( 300.0, 1000.0 ),
+	"gen_forest": 800.0,
 }
 
 func _ready() -> void:
@@ -77,43 +78,65 @@ func populate():
 	
 	for gi in gen_list.keys():
 		for i in range( gen_limit[ gi ] ):
-			var tries = 100
-			while( tries > 0 ):
-				tries -= 1;
-				var p = Vector3( randf_range( 0.0, gen_dist[ gi ] ), 0.0, 0.0 ).rotated( Vector3.UP, randf_range( 0.0, PI*2.0 ) );
-				var id = data.get_control_base_id( p );
-				if( gen_ids[ gi ].has( id ) ):
-					var sid = gen_list[ gi ][ randi()%gen_list[ gi ].size() ];
-					var c = Spawner.spawn( sid, Vector3( p.x, data.get_height( p ), p.z ), Vector3( deg_to_rad( randf_range( -5.0, 5.0 ) ), randf_range( 0.0, PI*2.0 ), deg_to_rad( randf_range( -5.0, 5.0 ) ) ) );
-					c.reparent( self );
-					gen_nodes[ gi ].push_back( c );
-					tries = -1;
+			var p = Global.node_player.global_position + Vector3( randf_range( -gen_dist[ gi ], gen_dist[ gi ] ), 0.0, randf_range( -gen_dist[ gi ], gen_dist[ gi ] ) );
+			var id = data.get_control_base_id( p );
 			
-			if( tries == 0 ):
-				var sid = gen_list[ gi ][ randi()%gen_list[ gi ].size() ];
-				var c = Spawner.spawn( sid, Vector3( 0, -1000.0, 0.0 ), Vector3( deg_to_rad( randf_range( -5.0, 5.0 ) ), randf_range( 0.0, PI*2.0 ), deg_to_rad( randf_range( -5.0, 5.0 ) ) ) );
-				c.reparent( self );
-				gen_nodes[ gi ].push_back( c );
+			var sid = gen_list[ gi ][ randi()%gen_list[ gi ].size() ];
+			var c = Spawner.spawn( sid, Vector3( p.x, data.get_height( p ), p.z ), Vector3( deg_to_rad( randf_range( -5.0, 5.0 ) ), randf_range( 0.0, PI*2.0 ), deg_to_rad( randf_range( -5.0, 5.0 ) ) ) );
+			c.reparent( self );
+			gen_nodes[ gi ].push_back( c );
+			if( !gen_ids[ gi ].has( id ) ):
+				c.global_position.y = -4096.0;
+				c.visible = false;
+			
+			#var tries = 100
+			#while( tries > 0 ):
+				#tries -= 1;
+				#var p = Vector3( randf_range( 0.0, gen_dist[ gi ] ), 0.0, 0.0 ).rotated( Vector3.UP, randf_range( 0.0, PI*2.0 ) );
+				#var id = data.get_control_base_id( p );
+				#if( gen_ids[ gi ].has( id ) ):
+					#var sid = gen_list[ gi ][ randi()%gen_list[ gi ].size() ];
+					#var c = Spawner.spawn( sid, Vector3( p.x, data.get_height( p ), p.z ), Vector3( deg_to_rad( randf_range( -5.0, 5.0 ) ), randf_range( 0.0, PI*2.0 ), deg_to_rad( randf_range( -5.0, 5.0 ) ) ) );
+					#c.reparent( self );
+					#gen_nodes[ gi ].push_back( c );
+					#tries = -1;
+			#
+			#if( tries == 0 ):
+				#var sid = gen_list[ gi ][ randi()%gen_list[ gi ].size() ];
+				#var c = Spawner.spawn( sid, Vector3( 0, -1000.0, 0.0 ), Vector3( deg_to_rad( randf_range( -5.0, 5.0 ) ), randf_range( 0.0, PI*2.0 ), deg_to_rad( randf_range( -5.0, 5.0 ) ) ) );
+				#c.reparent( self );
+				#gen_nodes[ gi ].push_back( c );
 	
 	for li in lod_list.keys():
 		for i in range( lod_limit[ li ] ):
-			var tries = 100
-			while( tries > 0 ):
-				tries -= 1;
-				var p = Vector3( randf_range( lod_dist[ li ].x, lod_dist[ li ].y ), 0.0, 0.0 ).rotated( Vector3.UP, randf_range( 0.0, PI*2.0 ) );
-				var id = data.get_control_base_id( p );
-				if( lod_ids[ li ].has( id ) ):
-					var sid = lod_list[ li ][ randi()%lod_list[ li ].size() ];
-					var c = Spawner.spawn( sid, Vector3( p.x, data.get_height( p ), p.z ), Vector3( deg_to_rad( randf_range( -5.0, 5.0 ) ), randf_range( 0.0, PI*2.0 ), deg_to_rad( randf_range( -5.0, 5.0 ) ) ) );
-					c.reparent( self );
-					lod_nodes[ li ].push_back( c );
-					tries = -1;
+			var p = Global.node_player.global_position + Vector3( randf_range( -lod_dist[ li ], lod_dist[ li ] ), 0.0, randf_range( -lod_dist[ li ], lod_dist[ li ] ) );
+			var id = data.get_control_base_id( p );
 			
-			if( tries == 0 ):
-				var sid = lod_list[ li ][ randi()%lod_list[ li ].size() ];
-				var c = Spawner.spawn( sid, Vector3( 0, -1000.0, 0.0 ), Vector3( deg_to_rad( randf_range( -5.0, 5.0 ) ), randf_range( 0.0, PI*2.0 ), deg_to_rad( randf_range( -5.0, 5.0 ) ) ) );
-				c.reparent( self );
-				lod_nodes[ li ].push_back( c );
+			var sid = lod_list[ li ][ randi()%lod_list[ li ].size() ];
+			var c = Spawner.spawn( sid, Vector3( p.x, data.get_height( p ), p.z ), Vector3( deg_to_rad( randf_range( -5.0, 5.0 ) ), randf_range( 0.0, PI*2.0 ), deg_to_rad( randf_range( -5.0, 5.0 ) ) ) );
+			c.reparent( self );
+			lod_nodes[ li ].push_back( c );
+			if( !lod_ids[ li ].has( id ) ):
+				c.global_position.y = -4096.0;
+				c.visible = false;
+			
+			#var tries = 100
+			#while( tries > 0 ):
+				#tries -= 1;
+				#var p = Vector3( randf_range( lod_dist[ li ].x, lod_dist[ li ].y ), 0.0, 0.0 ).rotated( Vector3.UP, randf_range( 0.0, PI*2.0 ) );
+				#var id = data.get_control_base_id( p );
+				#if( lod_ids[ li ].has( id ) ):
+					#var sid = lod_list[ li ][ randi()%lod_list[ li ].size() ];
+					#var c = Spawner.spawn( sid, Vector3( p.x, data.get_height( p ), p.z ), Vector3( deg_to_rad( randf_range( -5.0, 5.0 ) ), randf_range( 0.0, PI*2.0 ), deg_to_rad( randf_range( -5.0, 5.0 ) ) ) );
+					#c.reparent( self );
+					#lod_nodes[ li ].push_back( c );
+					#tries = -1;
+			#
+			#if( tries == 0 ):
+				#var sid = lod_list[ li ][ randi()%lod_list[ li ].size() ];
+				#var c = Spawner.spawn( sid, Vector3( 0, -1000.0, 0.0 ), Vector3( deg_to_rad( randf_range( -5.0, 5.0 ) ), randf_range( 0.0, PI*2.0 ), deg_to_rad( randf_range( -5.0, 5.0 ) ) ) );
+				#c.reparent( self );
+				#lod_nodes[ li ].push_back( c );
 
 func get_surface_y( pos ):
 	return data.get_height( pos );
@@ -124,28 +147,34 @@ func mark_damage( p ):
 func _process( delta: float ) -> void:
 	var pp = Vector2( Global.node_player.global_position.x, Global.node_player.global_position.z );
 	
-	for gn in gen_list.keys():
-		var i = gen_nodes_i[ gn ];
+	for gi in gen_list.keys():
+		var i = gen_nodes_i[ gi ];
 		for j in range( 50 ):
 			i += 1;
-			if( i > gen_nodes[ gn ].size() - 1 ):
+			if( i > gen_nodes[ gi ].size() - 1 ):
 				i = 0;
 			
-			var c = gen_nodes[ gn ][ i ];
-			var cp = Vector2( c.global_position.x, c.global_position.z );
-			var dist = cp.distance_to( pp );
-			if( dist > gen_dist[ gn ] + 8.0 ):
-				var tries = 10
-				while( tries > 0 ):
-					tries -= 1;
-					var np = Global.node_player.global_position + Vector3( gen_dist[ gn ] - 1.0, 0.0, 0.0 ).rotated( Vector3.UP, randf_range( 0.0, PI*2.0 ) );
-					var id = data.get_control_base_id( np );
-					if( gen_ids[ gn ].has( id ) ):
-						c.global_position = Vector3( np.x, data.get_height( np ), np.z );
-						tries = 0;
+			var c = gen_nodes[ gi ][ i ];
+			
+			var off = c.global_position - Global.node_player.global_position;
+			if( off.x < -gen_dist[ gi ] ):
+				c.global_position.x += gen_dist[ gi ]*2.0;
+			if( off.x > gen_dist[ gi ] ):
+				c.global_position.x -= gen_dist[ gi ]*2.0;
+			if( off.z < -gen_dist[ gi ] ):
+				c.global_position.z += gen_dist[ gi ]*2.0;
+			if( off.z > gen_dist[ gi ] ):
+				c.global_position.z -= gen_dist[ gi ]*2.0;
+			
+			var id = data.get_control_base_id( c.global_position );
+			if( gen_ids[ gi ].has( id ) ):
+				c.visible = true;
+				c.global_position.y = data.get_height( c.global_position );
+			else:
+				c.visible = false;
+				c.global_position.y = -4096.0;
 		
-		gen_nodes_i[ gn ] = i;
-	
+		gen_nodes_i[ gi ] = i;
 	
 	for li in lod_list.keys():
 		var i = lod_nodes_i[ li ];
@@ -155,16 +184,23 @@ func _process( delta: float ) -> void:
 				i = 0;
 			
 			var c = lod_nodes[ li ][ i ];
-			var cp = Vector2( c.global_position.x, c.global_position.z );
-			var dist = cp.distance_to( pp );
-			if( dist < lod_dist[ li ].x - 8.0 || dist > lod_dist[ li ].y + 8.0 ):
-				var tries = 10
-				while( tries > 0 ):
-					tries -= 1;
-					var np = Global.node_player.global_position + Vector3( randf_range( lod_dist[ li ].y - 8.0, lod_dist[ li ].y ), 0.0, 0.0 ).rotated( Vector3.UP, randf_range( 0.0, PI*2.0 ) );
-					var id = data.get_control_base_id( np );
-					if( lod_ids[ li ].has( id ) ):
-						c.global_position = Vector3( np.x, data.get_height( np ), np.z );
-						tries = 0;
+			
+			var off = c.global_position - Global.node_player.global_position;
+			if( off.x < -lod_dist[ li ] ):
+				c.global_position.x += lod_dist[ li ]*2.0;
+			if( off.x > lod_dist[ li ] ):
+				c.global_position.x -= lod_dist[ li ]*2.0;
+			if( off.z < -lod_dist[ li ] ):
+				c.global_position.z += lod_dist[ li ]*2.0;
+			if( off.z > lod_dist[ li ] ):
+				c.global_position.z -= lod_dist[ li ]*2.0;
+			
+			var id = data.get_control_base_id( c.global_position );
+			if( lod_ids[ li ].has( id ) ):
+				c.visible = true;
+				c.global_position.y = data.get_height( c.global_position );
+			else:
+				c.visible = false;
+				c.global_position.y = -4096.0;
 		
 		lod_nodes_i[ li ] = i;
