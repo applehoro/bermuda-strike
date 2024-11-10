@@ -10,6 +10,8 @@ var node_world = null;
 var node_player = null;
 var node_map = null;
 
+var menu_open = false;
+
 var settings = {
 	"mouse_sensitivity": 0.005,
 	

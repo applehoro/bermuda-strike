@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3 uid="uid://b142sd861jpb0"]
+[gd_scene load_steps=58 format=3 uid="uid://b142sd861jpb0"]
 
 [ext_resource type="Script" path="res://script/player/player.gd" id="1_4t0x4"]
 [ext_resource type="Shader" path="res://shaders/outline_2.gdshader" id="2_hkm1e"]
@@ -20,6 +20,7 @@
 [ext_resource type="Texture2D" uid="uid://d2rrbx4xedfpp" path="res://textures/gui/radar/radar_mask.png" id="17_u20jp"]
 [ext_resource type="Texture2D" uid="uid://dx20f4eh8g4uc" path="res://textures/gui/radar/radar_directions.png" id="19_43vqd"]
 [ext_resource type="Texture2D" uid="uid://dxanpr5e0fvly" path="res://textures/gui/radar/radar_outline.png" id="19_klnfl"]
+[ext_resource type="Script" path="res://script/radar/map.gd" id="21_kve55"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_75dfv"]
 
@@ -704,3 +705,28 @@ texture = ExtResource("19_klnfl")
 
 [node name="directions" type="Sprite2D" parent="gui/radar"]
 texture = ExtResource("19_43vqd")
+
+[node name="map" type="Node2D" parent="gui"]
+process_mode = 3
+position = Vector2(640, 360)
+script = ExtResource("21_kve55")
+
+[node name="viewport" type="SubViewport" parent="gui/map"]
+size = Vector2i(800, 600)
+
+[node name="yaw" type="Node3D" parent="gui/map/viewport"]
+
+[node name="pitch" type="Node3D" parent="gui/map/viewport/yaw"]
+
+[node name="camera" type="Camera3D" parent="gui/map/viewport/yaw/pitch"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5000)
+size = 600.0
+far = 40000.0
+
+[node name="texture" type="TextureRect" parent="gui/map"]
+custom_minimum_size = Vector2(800, 600)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
