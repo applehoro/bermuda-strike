@@ -54,6 +54,10 @@ Contributors
 * Malido [@Malidos](https://github.com/Malidos)
 * Sven Cannivy [@svencan](https://github.com/svencan)
 
+### Travelling Trees
+[@devmar](https://www.youtube.com/@actualdevmar)
+[pastebin link](https://pastebin.com/zSgkTkHb)
+
 ### Godot SSR water
 Marcel Bankmann [@marcelb](https://github.com/marcelb)
 Source: [github: GodotSSRWater](https://github.com/marcelb/GodotSSRWater)

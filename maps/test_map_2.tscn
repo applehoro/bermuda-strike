@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://c8v2x5edqivac"]
+[gd_scene load_steps=34 format=3 uid="uid://c8v2x5edqivac"]
 
 [ext_resource type="Texture2D" uid="uid://bjxklvx6scls7" path="res://textures/sky/sky_1.jpg" id="1_ypjjk"]
 [ext_resource type="PackedScene" uid="uid://b142sd861jpb0" path="res://objects/player/player.tscn" id="2_q2c1v"]
@@ -12,6 +12,9 @@
 [ext_resource type="Texture2D" uid="uid://dxos152vewxwv" path="res://textures/env/packed/grass_1_packed_albedo_height.png" id="9_2572l"]
 [ext_resource type="Texture2D" uid="uid://b8oi0dv8oqk0n" path="res://textures/env/packed/grass_1_packed_normal_roughness.png" id="10_f1d5j"]
 [ext_resource type="Script" path="res://script/env/terrain.gd" id="12_e15qx"]
+[ext_resource type="Script" path="res://script/env/wandering_instancer.gd" id="13_6esw2"]
+[ext_resource type="ArrayMesh" uid="uid://dekf4nl66dlnd" path="res://meshes/foliage/palm_1.mesh" id="14_r1j0v"]
+[ext_resource type="Shape3D" uid="uid://lil0tfki87ss" path="res://meshes/foliage/palm_1.shape" id="15_mnfbb"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_1chws"]
 panorama = ExtResource("1_ypjjk")
@@ -216,3 +219,18 @@ vertex_spacing = 4.0
 top_level = true
 script = ExtResource("12_e15qx")
 metadata/_edit_lock_ = true
+
+[node name="gen_forest" type="Node3D" parent="terrain_3d"]
+script = ExtResource("13_6esw2")
+instance_amount = 800
+generate_colliders = true
+collider_coverage_dist = 300.0
+pos_randomize = 40.0
+instance_spacing = 50
+scale_randomize = 1.5
+rot_y_randomize = 1.0
+rot_x_randomize = 0.15
+rot_z_randomize = 0.15
+instance_mesh = ExtResource("14_r1j0v")
+instance_collision = ExtResource("15_mnfbb")
+update_frequency = 0.5

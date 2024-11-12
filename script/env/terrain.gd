@@ -37,9 +37,11 @@ var lod_dist = {
 
 func _ready() -> void:
 	set_meta( "is_terrain", true );
-	call_deferred( "populate" );
+	clear_data();
+	fill_ids();
+	#call_deferred( "populate" );
 
-func populate():
+func clear_data():
 	gen_ids = {};
 	for gk in gen_nodes:
 		for c in gen_nodes[ gk ]:
@@ -52,7 +54,8 @@ func populate():
 			c.queue_free();
 	lod_nodes = {};
 	lod_nodes_i = {};
-	
+
+func fill_ids():
 	for t in assets.texture_list:
 		var nd = t.name.split( "-" );
 		for n in nd:
@@ -75,7 +78,8 @@ func populate():
 					lod_nodes_i[ li ] = 0;
 				if( n == li ):
 					lod_ids[ li ].push_back( t.id );
-	
+
+func generate_instances():
 	for gi in gen_list.keys():
 		for i in range( gen_limit[ gi ] ):
 			var p = Global.node_player.global_position + Vector3( randf_range( -gen_dist[ gi ], gen_dist[ gi ] ), 0.0, randf_range( -gen_dist[ gi ], gen_dist[ gi ] ) );
@@ -88,24 +92,6 @@ func populate():
 			if( !gen_ids[ gi ].has( id ) ):
 				c.global_position.y = -4096.0;
 				c.visible = false;
-			
-			#var tries = 100
-			#while( tries > 0 ):
-				#tries -= 1;
-				#var p = Vector3( randf_range( 0.0, gen_dist[ gi ] ), 0.0, 0.0 ).rotated( Vector3.UP, randf_range( 0.0, PI*2.0 ) );
-				#var id = data.get_control_base_id( p );
-				#if( gen_ids[ gi ].has( id ) ):
-					#var sid = gen_list[ gi ][ randi()%gen_list[ gi ].size() ];
-					#var c = Spawner.spawn( sid, Vector3( p.x, data.get_height( p ), p.z ), Vector3( deg_to_rad( randf_range( -5.0, 5.0 ) ), randf_range( 0.0, PI*2.0 ), deg_to_rad( randf_range( -5.0, 5.0 ) ) ) );
-					#c.reparent( self );
-					#gen_nodes[ gi ].push_back( c );
-					#tries = -1;
-			#
-			#if( tries == 0 ):
-				#var sid = gen_list[ gi ][ randi()%gen_list[ gi ].size() ];
-				#var c = Spawner.spawn( sid, Vector3( 0, -1000.0, 0.0 ), Vector3( deg_to_rad( randf_range( -5.0, 5.0 ) ), randf_range( 0.0, PI*2.0 ), deg_to_rad( randf_range( -5.0, 5.0 ) ) ) );
-				#c.reparent( self );
-				#gen_nodes[ gi ].push_back( c );
 	
 	for li in lod_list.keys():
 		for i in range( lod_limit[ li ] ):
@@ -119,24 +105,11 @@ func populate():
 			if( !lod_ids[ li ].has( id ) ):
 				c.global_position.y = -4096.0;
 				c.visible = false;
-			
-			#var tries = 100
-			#while( tries > 0 ):
-				#tries -= 1;
-				#var p = Vector3( randf_range( lod_dist[ li ].x, lod_dist[ li ].y ), 0.0, 0.0 ).rotated( Vector3.UP, randf_range( 0.0, PI*2.0 ) );
-				#var id = data.get_control_base_id( p );
-				#if( lod_ids[ li ].has( id ) ):
-					#var sid = lod_list[ li ][ randi()%lod_list[ li ].size() ];
-					#var c = Spawner.spawn( sid, Vector3( p.x, data.get_height( p ), p.z ), Vector3( deg_to_rad( randf_range( -5.0, 5.0 ) ), randf_range( 0.0, PI*2.0 ), deg_to_rad( randf_range( -5.0, 5.0 ) ) ) );
-					#c.reparent( self );
-					#lod_nodes[ li ].push_back( c );
-					#tries = -1;
-			#
-			#if( tries == 0 ):
-				#var sid = lod_list[ li ][ randi()%lod_list[ li ].size() ];
-				#var c = Spawner.spawn( sid, Vector3( 0, -1000.0, 0.0 ), Vector3( deg_to_rad( randf_range( -5.0, 5.0 ) ), randf_range( 0.0, PI*2.0 ), deg_to_rad( randf_range( -5.0, 5.0 ) ) ) );
-				#c.reparent( self );
-				#lod_nodes[ li ].push_back( c );
+
+func populate():
+	clear_data();
+	fill_ids();
+	#generate_instances();
 
 func get_surface_y( pos ):
 	return data.get_height( pos );
@@ -144,63 +117,67 @@ func get_surface_y( pos ):
 func mark_damage( p ):
 	Spawner.spawn( "dust_burst", p, Vector3() );
 
-func _process( delta: float ) -> void:
-	var pp = Vector2( Global.node_player.global_position.x, Global.node_player.global_position.z );
-	
-	for gi in gen_list.keys():
-		var i = gen_nodes_i[ gi ];
-		for j in range( 50 ):
-			i += 1;
-			if( i > gen_nodes[ gi ].size() - 1 ):
-				i = 0;
-			
-			var c = gen_nodes[ gi ][ i ];
-			
-			var off = c.global_position - Global.node_player.global_position;
-			if( off.x < -gen_dist[ gi ] ):
-				c.global_position.x += gen_dist[ gi ]*2.0;
-			if( off.x > gen_dist[ gi ] ):
-				c.global_position.x -= gen_dist[ gi ]*2.0;
-			if( off.z < -gen_dist[ gi ] ):
-				c.global_position.z += gen_dist[ gi ]*2.0;
-			if( off.z > gen_dist[ gi ] ):
-				c.global_position.z -= gen_dist[ gi ]*2.0;
-			
-			var id = data.get_control_base_id( c.global_position );
-			if( gen_ids[ gi ].has( id ) ):
-				c.visible = true;
-				c.global_position.y = data.get_height( c.global_position );
-			else:
-				c.visible = false;
-				c.global_position.y = -4096.0;
-		
-		gen_nodes_i[ gi ] = i;
-	
-	for li in lod_list.keys():
-		var i = lod_nodes_i[ li ];
-		for j in range( 50 ):
-			i += 1;
-			if( i > lod_nodes[ li ].size() - 1 ):
-				i = 0;
-			
-			var c = lod_nodes[ li ][ i ];
-			
-			var off = c.global_position - Global.node_player.global_position;
-			if( off.x < -lod_dist[ li ] ):
-				c.global_position.x += lod_dist[ li ]*2.0;
-			if( off.x > lod_dist[ li ] ):
-				c.global_position.x -= lod_dist[ li ]*2.0;
-			if( off.z < -lod_dist[ li ] ):
-				c.global_position.z += lod_dist[ li ]*2.0;
-			if( off.z > lod_dist[ li ] ):
-				c.global_position.z -= lod_dist[ li ]*2.0;
-			
-			var id = data.get_control_base_id( c.global_position );
-			if( lod_ids[ li ].has( id ) ):
-				c.visible = true;
-				c.global_position.y = data.get_height( c.global_position );
-			else:
-				c.visible = false;
-				c.global_position.y = -4096.0;
-		
-		lod_nodes_i[ li ] = i;
+func is_gen_id( pos, id ):
+	var i = data.get_control_base_id( pos );
+	return gen_ids[ id ].has( i );
+
+#func _process( delta: float ) -> void:
+	#var pp = Vector2( Global.node_player.global_position.x, Global.node_player.global_position.z );
+	#
+	#for gi in gen_list.keys():
+		#var i = gen_nodes_i[ gi ];
+		#for j in range( 50 ):
+			#i += 1;
+			#if( i > gen_nodes[ gi ].size() - 1 ):
+				#i = 0;
+			#
+			#var c = gen_nodes[ gi ][ i ];
+			#
+			#var off = c.global_position - Global.node_player.global_position;
+			#if( off.x < -gen_dist[ gi ] ):
+				#c.global_position.x += gen_dist[ gi ]*2.0;
+			#if( off.x > gen_dist[ gi ] ):
+				#c.global_position.x -= gen_dist[ gi ]*2.0;
+			#if( off.z < -gen_dist[ gi ] ):
+				#c.global_position.z += gen_dist[ gi ]*2.0;
+			#if( off.z > gen_dist[ gi ] ):
+				#c.global_position.z -= gen_dist[ gi ]*2.0;
+			#
+			#var id = data.get_control_base_id( c.global_position );
+			#if( gen_ids[ gi ].has( id ) ):
+				#c.visible = true;
+				#c.global_position.y = data.get_height( c.global_position );
+			#else:
+				#c.visible = false;
+				#c.global_position.y = -4096.0;
+		#
+		#gen_nodes_i[ gi ] = i;
+	#
+	#for li in lod_list.keys():
+		#var i = lod_nodes_i[ li ];
+		#for j in range( 50 ):
+			#i += 1;
+			#if( i > lod_nodes[ li ].size() - 1 ):
+				#i = 0;
+			#
+			#var c = lod_nodes[ li ][ i ];
+			#
+			#var off = c.global_position - Global.node_player.global_position;
+			#if( off.x < -lod_dist[ li ] ):
+				#c.global_position.x += lod_dist[ li ]*2.0;
+			#if( off.x > lod_dist[ li ] ):
+				#c.global_position.x -= lod_dist[ li ]*2.0;
+			#if( off.z < -lod_dist[ li ] ):
+				#c.global_position.z += lod_dist[ li ]*2.0;
+			#if( off.z > lod_dist[ li ] ):
+				#c.global_position.z -= lod_dist[ li ]*2.0;
+			#
+			#var id = data.get_control_base_id( c.global_position );
+			#if( lod_ids[ li ].has( id ) ):
+				#c.visible = true;
+				#c.global_position.y = data.get_height( c.global_position );
+			#else:
+				#c.visible = false;
+				#c.global_position.y = -4096.0;
+		#
+		#lod_nodes_i[ li ] = i;
