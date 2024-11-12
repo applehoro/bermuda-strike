@@ -1,12 +1,13 @@
 extends Node2D
 
 var is_shown = false;
-var look_pos = Vector2();
+var look_pos = Vector2( 0.0, -PI/2.0 );
 var zoom = 4;
 
 func _ready() -> void:
 	visible = is_shown;
 	$texture.texture = $viewport.get_texture();
+	$viewport/yaw/pitch/camera.position.z = 250.0*zoom;
 
 func _process( delta: float ) -> void:
 	if( Input.is_action_just_pressed( "map" ) ):
@@ -36,6 +37,6 @@ func _input(event: InputEvent) -> void:
 
 func set_look( v ):
 	look_pos = v;
-	look_pos.y = clamp( look_pos.y, -PI/2.0, 0.0 );
+	look_pos.y = clamp( look_pos.y, -PI/2.0, -PI/6.0 );
 	$viewport/yaw.rotation.y = look_pos.x;
 	$viewport/yaw/pitch.rotation.x = look_pos.y;

@@ -11,4 +11,4 @@ func _process(delta: float) -> void:
 			pos = pos.snappedf( 512 );
 			pos.y = 0;
 			global_position = pos;
-		cd = 1.0;
+		cd = 4.0;

@@ -64,7 +64,7 @@ dof_blur_amount = 0.15
 [sub_resource type="PlaneMesh" id="PlaneMesh_desx8"]
 lightmap_size_hint = Vector2i(50002, 50002)
 material = ExtResource("5_encjr")
-size = Vector2(10000, 10000)
+size = Vector2(8192, 8192)
 subdivide_width = 128
 subdivide_depth = 128
 
@@ -76,9 +76,9 @@ albedo_color = Color(0.377986, 0.499366, 0.73264, 1)
 [sub_resource type="PlaneMesh" id="PlaneMesh_gnysx"]
 lightmap_size_hint = Vector2i(50002, 50002)
 material = SubResource("StandardMaterial3D_tmljm")
-size = Vector2(10000, 10000)
-subdivide_width = 128
-subdivide_depth = 128
+size = Vector2(50000, 50000)
+subdivide_width = 1
+subdivide_depth = 1
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_foa1o"]
 size = Vector3(4096, 40, 4096)
@@ -183,6 +183,7 @@ script = ExtResource("3_4n53g")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20, 0)
 
 [node name="mesh" type="MeshInstance3D" parent="player_follow/water"]
+cast_shadow = 0
 mesh = SubResource("PlaneMesh_desx8")
 skeleton = NodePath("../../../../..")
 
@@ -216,13 +217,14 @@ assets = SubResource("Terrain3DAssets_fvo1j")
 collision_layer = 3
 collision_mask = 3
 vertex_spacing = 4.0
+render_layers = 2147483651
 top_level = true
 script = ExtResource("12_e15qx")
 metadata/_edit_lock_ = true
 
-[node name="gen_forest" type="Node3D" parent="terrain_3d"]
+[node name="gen_forest_1" type="Node3D" parent="terrain_3d"]
 script = ExtResource("13_6esw2")
-instance_amount = 800
+instance_amount = 300
 generate_colliders = true
 collider_coverage_dist = 300.0
 pos_randomize = 40.0
@@ -233,4 +235,19 @@ rot_x_randomize = 0.15
 rot_z_randomize = 0.15
 instance_mesh = ExtResource("14_r1j0v")
 instance_collision = ExtResource("15_mnfbb")
-update_frequency = 0.5
+update_frequency = 1.0
+
+[node name="gen_forest_2" type="Node3D" parent="terrain_3d"]
+script = ExtResource("13_6esw2")
+instance_amount = 300
+generate_colliders = true
+collider_coverage_dist = 300.0
+pos_randomize = 40.0
+instance_spacing = 50
+scale_randomize = 1.5
+rot_y_randomize = 1.0
+rot_x_randomize = 0.15
+rot_z_randomize = 0.15
+instance_mesh = ExtResource("14_r1j0v")
+instance_collision = ExtResource("15_mnfbb")
+update_frequency = 1.0
