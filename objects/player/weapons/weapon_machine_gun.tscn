@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=3 uid="uid://dccy2i0qlhrtj"]
 
-[ext_resource type="Script" path="res://script/player/weapons/weapon_base_old.gd" id="1_5fyct"]
+[ext_resource type="Script" path="res://script/player/weapons/weapon_machine_gun.gd" id="1_3pkmd"]
 [ext_resource type="PackedScene" uid="uid://dq8bhkppkpcf8" path="res://models/weapons/smg/junk_smg/junk_smg-001.glb" id="2_n550d"]
 [ext_resource type="Texture2D" uid="uid://dkupvqwrkuefx" path="res://textures/effects/test_muzzle_flash.png" id="3_6wdtx"]
 
@@ -343,15 +343,19 @@ _data = {
 }
 
 [node name="weapon_machine_gun" type="Node3D"]
-script = ExtResource("1_5fyct")
-attack_cd = 0.01
+script = ExtResource("1_3pkmd")
+trigger_mechanic = 1
+alt_trigger_mechanic = 3
+attack_cd = 0.02
 weapon_id = "machine_gun"
 ammo_usage_per_attack = 1
-spread_increase = 6.5
-spread_decrease = 50.0
+spread_range_degrees = Vector2(0.8, 15)
+spread_increase = 2.5
+spread_alt_increase = 0.0
+spread_decrease = 19.0
 node_muzzle = NodePath("pos/muzzle")
-projectile_id = "bullet_machine_gun"
 node_anim = NodePath("anim")
+anim_queue_alt_attack = []
 
 [node name="pos" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0493625, -0.0982567, -0.08321)

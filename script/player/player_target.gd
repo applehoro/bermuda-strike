@@ -8,6 +8,11 @@ func _ready() -> void:
 	pass;
 
 func _physics_process( delta: float ) -> void:
+	if( Global.node_player.is_lock_on ):
+		if( target != null ):
+			target_pos = target.global_position;
+			return;
+	
 	has_target = false;
 	target = null;
 	target_pos = global_position - global_basis.z*240.0;

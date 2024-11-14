@@ -5,7 +5,7 @@ class_name PlayerWeaponBase
 var trigger = false;
 var alt_trigger = false;
 @export_enum( "one-shot", "hold" ) var trigger_mechanic = 0;
-@export_enum( "one-shot", "hold" ) var alt_trigger_mechanic = 0;
+@export_enum( "none", "one-shot", "hold", "lock_on" ) var alt_trigger_mechanic = 0;
 var cd = 0.0;
 @export var attack_cd = 0.07;
 @export var alt_attack_cd = 0.07;
@@ -84,14 +84,17 @@ func _physics_process( delta: float ) -> void:
 		if( trigger_mechanic == 0 ):
 			trigger = false;
 	
-	elif( alt_trigger ):
+	elif( alt_trigger  ):
 		if( alt_attack() ):
 			cd = alt_attack_cd;
 		else:
 			reload();
 		
-		if( alt_trigger_mechanic == 0 ):
+		if( alt_trigger_mechanic == 1 ):
 			alt_trigger = false;
+	
+	if( alt_trigger_mechanic == 3 ):
+		Global.node_player.is_lock_on = alt_trigger;
 	
 	elif( Input.is_action_just_pressed( "reload" ) ):
 		reload();
@@ -116,8 +119,9 @@ func alt_attack():
 
 func equip():
 	get_node( node_anim ).play( anim_name_equip );
-	if( get_node( node_anim_add ).has_animation( anim_name_equip ) ):
-		get_node( node_anim_add ).play( anim_name_equip );
+	if( has_node( node_anim_add ) ):
+		if( get_node( node_anim_add ).has_animation( anim_name_equip ) ):
+			get_node( node_anim_add ).play( anim_name_equip );
 	#state_machine.travel( anim_name_equip );
 	cd = get_node( node_anim ).get_current_animation_length();
 	Inventory.switch_weapon( weapon_id );
@@ -126,33 +130,36 @@ func reload():
 	if( Inventory.cw_can_magazine_reload() && !Inventory.cw_is_magazine_full() ):
 		Inventory.cw_magazine_unload();
 		get_node( node_anim ).play( anim_name_reload );
-		if( get_node( node_anim_add ).has_animation( anim_name_reload ) ):
-			get_node( node_anim_add ).play( anim_name_reload );
+		if( has_node( node_anim_add ) ):
+			if( get_node( node_anim_add ).has_animation( anim_name_reload ) ):
+				get_node( node_anim_add ).play( anim_name_reload );
 		#state_machine.travel( anim_name_reload );
 		cd = get_node( node_anim ).get_current_animation_length() + 0.1;
 		trigger = false;
 
 func play_next_attack_anim():
-	get_node( node_anim ).stop();
 	if( !anim_queue_attack.is_empty() ):
+		get_node( node_anim ).stop();
 		anim_queue_attack_id += 1;
 		if( anim_queue_attack_id >= anim_queue_attack.size() ):
 			anim_queue_attack_id = 0;
 		#state_machine.travel( anim_queue_attack[ anim_queue_attack_id ] );
 		get_node( node_anim ).play( anim_queue_attack[ anim_queue_attack_id ] );
-		if( get_node( node_anim_add ).has_animation( anim_queue_attack[ anim_queue_attack_id ] ) ):
-			get_node( node_anim_add ).play( anim_queue_attack[ anim_queue_attack_id ] );
+		if( has_node( node_anim_add ) ):
+			if( get_node( node_anim_add ).has_animation( anim_queue_attack[ anim_queue_attack_id ] ) ):
+				get_node( node_anim_add ).play( anim_queue_attack[ anim_queue_attack_id ] );
 
 func play_next_alt_attack_anim():
-	get_node( node_anim ).stop();
 	if( !anim_queue_alt_attack.is_empty() ):
+		get_node( node_anim ).stop();
 		anim_queue_alt_attack_id += 1;
 		if( anim_queue_alt_attack_id >= anim_queue_alt_attack.size() ):
 			anim_queue_alt_attack_id = 0;
 		#state_machine.travel( anim_queue_alt_attack[ anim_queue_alt_attack_id ] );
 		get_node( node_anim ).play( anim_queue_alt_attack[ anim_queue_alt_attack_id ] );
-		if( get_node( node_anim_add ).has_animation( anim_queue_alt_attack[ anim_queue_alt_attack_id ] ) ):
-			get_node( node_anim_add ).play( anim_queue_alt_attack[ anim_queue_alt_attack_id ] );
+		if( has_node( node_anim_add ) ):
+			if( get_node( node_anim_add ).has_animation( anim_queue_alt_attack[ anim_queue_alt_attack_id ] ) ):
+				get_node( node_anim_add ).play( anim_queue_alt_attack[ anim_queue_alt_attack_id ] );
 
 func _on_animation_finished( anim_name ):
 	match( anim_name ):
@@ -161,8 +168,9 @@ func _on_animation_finished( anim_name ):
 		
 		_:
 			get_node( node_anim ).play( anim_name_idle );
-			if( get_node( node_anim_add ).has_animation( anim_name_idle ) ):
-				get_node( node_anim_add ).play( anim_name_idle );
+			if( has_node( node_anim_add ) ):
+				if( get_node( node_anim_add ).has_animation( anim_name_idle ) ):
+					get_node( node_anim_add ).play( anim_name_idle );
 
 func shoot():
 	pass;

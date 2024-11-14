@@ -104,6 +104,7 @@ stream_0/stream = ExtResource("16_d3vgq")
 [node name="weapon_smg" type="Node3D"]
 script = ExtResource("1_5cdj7")
 trigger_mechanic = 1
+alt_trigger_mechanic = 1
 alt_attack_cd = 0.2
 weapon_id = "smg"
 ammo_usage_per_attack = 1

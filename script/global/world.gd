@@ -21,7 +21,7 @@ func switch_map( n ):
 func _ready() -> void:
 	Global.node_world = self;
 	Spawner.fill_pool();
-	switch_map( "test_map_2" );
+	switch_map( "test_map" );
 
 func _exit_tree() -> void:
 	Global.node_world = null;

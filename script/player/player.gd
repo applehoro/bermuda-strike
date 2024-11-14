@@ -44,6 +44,8 @@ var gravity_scale = 0.0;
 var heal_cd = 0.0;
 var heal_margin = 50.0;
 
+var is_lock_on = false;
+
 func _ready() -> void:
 	Global.node_player = self;
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED;

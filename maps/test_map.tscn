@@ -1,11 +1,14 @@
-[gd_scene load_steps=27 format=3 uid="uid://bujvcqrv3baoy"]
+[gd_scene load_steps=30 format=3 uid="uid://bujvcqrv3baoy"]
 
 [ext_resource type="Texture2D" uid="uid://bjxklvx6scls7" path="res://textures/sky/sky_1.jpg" id="1_5rm6v"]
 [ext_resource type="PackedScene" uid="uid://b142sd861jpb0" path="res://objects/player/player.tscn" id="2_jed6r"]
 [ext_resource type="Terrain3DAssets" uid="uid://bsdbe4fgjl4x7" path="res://terrain/test_terrain_assets.res" id="3_tso5g"]
 [ext_resource type="Script" path="res://script/env/terrain.gd" id="4_6k38g"]
 [ext_resource type="Material" uid="uid://id4e5vebw5am" path="res://addons/water/materials/water.material" id="5_ssepd"]
+[ext_resource type="Script" path="res://script/env/wandering_instancer.gd" id="5_x0oj6"]
+[ext_resource type="ArrayMesh" uid="uid://dekf4nl66dlnd" path="res://meshes/foliage/palm_1.mesh" id="6_4ojrc"]
 [ext_resource type="Script" path="res://script/radar/mesh_radar.gd" id="6_vw6su"]
+[ext_resource type="Shape3D" uid="uid://lil0tfki87ss" path="res://meshes/foliage/palm_1.shape" id="7_6ouqb"]
 [ext_resource type="Script" path="res://script/env/water_area.gd" id="7_lc2eu"]
 [ext_resource type="PackedScene" uid="uid://b1t3bmgx5ktiv" path="res://objects/static/buildings/bunker_entrance.tscn" id="8_m4ins"]
 [ext_resource type="MeshLibrary" uid="uid://qmqg3a0lkyok" path="res://tilesets/test_tileset/test_tileset.tres" id="9_iel2b"]
@@ -138,11 +141,25 @@ material = SubResource("Terrain3DMaterial_eroi0")
 assets = ExtResource("3_tso5g")
 collision_layer = 3
 collision_mask = 3
+render_layers = 2147483651
 top_level = true
 script = ExtResource("4_6k38g")
 metadata/_edit_lock_ = true
 
 [node name="camera" type="Camera3D" parent="test_island"]
+
+[node name="gen_forest" type="Node3D" parent="test_island"]
+script = ExtResource("5_x0oj6")
+collider_coverage_dist = 150.0
+pos_randomize = 7.0
+instance_spacing = 40
+scale_randomize = 0.5
+rot_y_randomize = 3.14
+rot_x_randomize = 0.1
+rot_z_randomize = 0.1
+instance_mesh = ExtResource("6_4ojrc")
+instance_collision = ExtResource("7_6ouqb")
+update_frequency = 0.5
 
 [node name="sun" type="DirectionalLight3D" parent="." groups=["sun"]]
 transform = Transform3D(0.809591, 0.368028, -0.457294, 0, 0.779043, 0.626971, 0.586994, -0.50759, 0.630706, 0, 100, 0)

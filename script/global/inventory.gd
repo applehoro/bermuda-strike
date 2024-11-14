@@ -64,6 +64,21 @@ var weapons_ammo_pickup = {
 
 var current_weapon_id = "";
 
+var weapons_in_slots ={
+	1: "",
+	2: "smg",
+	3: "flak",
+	4: "machine_gun",
+	5: "",
+	6: "",
+	7: "",
+	8: "",
+	9: "",
+	0: "",
+};
+
+var current_slot = 2;
+
 func has_ammo( t ):
 	if( ammo.has( t ) ):
 		return ammo[ t ].x > 0;
