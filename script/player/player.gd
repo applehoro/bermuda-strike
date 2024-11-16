@@ -21,10 +21,10 @@ var overdrive_heat = 0.0;
 
 var hover_vel = 64.0;
 var glide_vel = 180.0;
-var walk_vel = 14.0;
-var sprint_vel = 30.0;
-var gravity_vel = 300.0;
-var jump_vel = 40.0;
+var walk_vel = 20.0;
+var sprint_vel = 40.0;
+var gravity_vel = 9.8*4.0;
+var jump_vel = 6.0;
 
 var sprint_switch = false;
 
@@ -69,9 +69,6 @@ func _input( event: InputEvent ) -> void:
 		if( motion_type == MOTION_TYPE_GLIDE ):
 			camera_roll -= event.relative.x*Global.settings[ "mouse_sensitivity" ]*control_glide*0.5;
 
-#func physics_push( v ):
-	#push_vel += v;
-
 func set_motion_type( v ):
 	motion_type = v;
 	$ground_check.jet_enabled = motion_type != MOTION_TYPE_WALK;
@@ -89,6 +86,12 @@ func _process( delta: float ) -> void:
 	
 	# visual effects
 	$yaw/smoke_trail.emitting = motion.length() > 0.5 && Global.settings[ "smoke_trails" ] && !is_underwater && motion_type != MOTION_TYPE_WALK;
+	
+	$gui.has_target = false;
+	if( $yaw/pitch/target.has_target ):
+		var p = $yaw/pitch/camera.unproject_position( $yaw/pitch/target.target_pos );
+		$gui.has_target = true;
+		$gui.target_pos = p;
 
 func _physics_process( delta: float ) -> void:
 	if( heal_cd > 0.0 ):
@@ -101,7 +104,8 @@ func _physics_process( delta: float ) -> void:
 	is_underwater = $ground_check.is_underwater;
 	is_over_ground = $ground_check.is_over_ground;
 	y_offset = $ground_check.y_offset;
-	is_on_ground = is_on_floor() || ( is_on_ground && abs( y_offset ) < 2.0 );
+	var was_on_ground = is_on_ground;
+	is_on_ground = is_on_floor(); # || ( is_on_ground && abs( y_offset ) < 2.0 );
 	var is_colliding = $ground_check.is_colliding;
 	
 	# update control
@@ -136,11 +140,11 @@ func _physics_process( delta: float ) -> void:
 		overdrive_heat = min( overdrive_heat + delta/20.0, 1.0 );
 	else:
 		overdrive_heat = max( overdrive_heat - delta/30.0, 0.0 );
-	overdrive_boost = 1.0 - overdrive_heat*0.95;
+	overdrive_boost = 1.0 - overdrive_heat*0.8;
 	
 	# damping
 	if( motion_type == MOTION_TYPE_WALK ):
-		motion *= 1.0 - delta*4.0;
+		motion *= 1.0 - delta*6.0;
 		if( is_underwater ):
 			motion *= 1.0 - delta*5.0;
 	else:
@@ -174,10 +178,6 @@ func _physics_process( delta: float ) -> void:
 		MOTION_TYPE_GLIDE:
 			if( Input.is_action_pressed( "overdrive" ) ):
 				control_glide = min( control_glide + delta*8.0, 1.0 + overdrive_boost );
-			#elif( Input.is_action_pressed( "move_up" ) ):
-				#control_glide = min( control_glide + delta*8.0, 1.0 );
-			#elif( Input.is_action_pressed( "move_dn" ) ):
-				#control_glide = max( control_glide - delta*8.0, 0.25 );
 			else:
 				control_glide = lerp( control_glide, 0.5, delta*8.0 );
 			
@@ -208,11 +208,16 @@ func _physics_process( delta: float ) -> void:
 				motion += $yaw.global_basis.z*control.z*delta*vel;
 				if( is_on_ground ):
 					motion.y = max( motion.y, 0.0 );
-					if( Input.is_action_just_pressed( "jump" ) ):
-						motion.y = jump_vel;
+				if( Input.is_action_just_pressed( "jump" ) && ( is_on_ground || was_on_ground ) ):
+					motion.y = jump_vel;
+					#gravity_scale = 0.0;
 	
 	# apply motion to velocity
-	velocity *= 1.0 - delta*8.0;
+	if( motion_type == MOTION_TYPE_WALK ):
+		velocity.x *= 1.0 - delta*8.0;
+		velocity.z *= 1.0 - delta*8.0;
+	else:
+		velocity *= 1.0 - delta*8.0;
 	velocity += motion*delta*16.0;
 	
 	push_vel *= 1.0 - delta*4.0;
@@ -228,7 +233,9 @@ func _physics_process( delta: float ) -> void:
 			velocity.y += 0.5*delta;
 		
 		# apply gravity if in the air
-		elif( !is_on_floor() ):
+		elif( is_on_ground ):
+			velocity.y = max( velocity.y, 0.0 );
+		else:
 			velocity.y -= gravity_vel*gravity_scale*delta;
 	
 	if( !is_colliding ):
@@ -244,15 +251,6 @@ func _physics_process( delta: float ) -> void:
 			velocity.y += 120.0*delta;
 	
 	move_and_slide();
-	
-	$gui.has_target = false;
-	if( $yaw/pitch/target.has_target ):
-		var p = $yaw/pitch/camera.unproject_position( $yaw/pitch/target.target_pos );
-		$gui.has_target = true;
-		$gui.target_pos = p;
-	
-	#if( Input.is_action_pressed( "lock_on" ) && $yaw/pitch/target.has_target ):
-		#slow_look_at_pos( $yaw/pitch/target.target_pos, delta );
 
 func push( v ):
 	push_vel += v;
@@ -294,4 +292,3 @@ func slow_look_at_pos( pos, delta ):
 		$yaw/pitch.rotation.x = look_pos.y;
 	else:
 		$yaw/pitch.look_at( pos, $yaw.global_basis.y );
-

@@ -753,7 +753,9 @@ position = Vector2(640, 360)
 script = ExtResource("21_kve55")
 
 [node name="viewport" type="SubViewport" parent="gui/map"]
-size = Vector2i(800, 600)
+size = Vector2i(1600, 1200)
+size_2d_override = Vector2i(1600, 1200)
+size_2d_override_stretch = true
 
 [node name="yaw" type="Node3D" parent="gui/map/viewport"]
 
@@ -774,3 +776,5 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+expand_mode = 3
+stretch_mode = 5

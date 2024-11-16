@@ -10829,25 +10829,9 @@ _subresources={
 }
 },
 "materials": {
-"mat_base_1": {
+"material": {
 "use_external/enabled": true,
-"use_external/path": "res://models/weapons/smg/junk_smg/materials/mat_base_1.tres"
-},
-"mat_base_2": {
-"use_external/enabled": true,
-"use_external/path": "res://models/weapons/smg/junk_smg/materials/mat_base_2.tres"
-},
-"mat_bolt": {
-"use_external/enabled": true,
-"use_external/path": "res://models/weapons/smg/junk_smg/materials/mat_bolt.tres"
-},
-"mat_magazine": {
-"use_external/enabled": true,
-"use_external/path": "res://models/weapons/smg/junk_smg/materials/mat_magazine.tres"
-},
-"mat_misc": {
-"use_external/enabled": true,
-"use_external/path": "res://models/weapons/smg/junk_smg/materials/mat_misc.tres"
+"use_external/path": "res://materials/weapons/junk_smg/weapon.material"
 },
 "skin": {
 "use_external/enabled": true,

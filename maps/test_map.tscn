@@ -150,6 +150,7 @@ metadata/_edit_lock_ = true
 
 [node name="gen_forest" type="Node3D" parent="test_island"]
 script = ExtResource("5_x0oj6")
+generate_colliders = true
 collider_coverage_dist = 150.0
 pos_randomize = 7.0
 instance_spacing = 40
