@@ -1,6 +1,7 @@
 [gd_scene load_steps=2 format=3 uid="uid://d4k6whck2ksmu"]
 
-[ext_resource type="Script" path="res://script/proj/flak_explosion.gd" id="1_le80w"]
+[ext_resource type="Script" path="res://script/proj/frag_and_explosion.gd" id="1_le80w"]
 
 [node name="flak_explosion" type="Node3D"]
 script = ExtResource("1_le80w")
+spawn_num = 24

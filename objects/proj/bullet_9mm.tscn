@@ -11,7 +11,7 @@ disable_receive_shadows = true
 material = SubResource("StandardMaterial3D_uufln")
 size = Vector3(0.1, 0.1, 4)
 
-[node name="bullet_smg" type="Node3D"]
+[node name="bullet_9mm" type="Node3D"]
 script = ExtResource("1_s4d5l")
 
 [node name="mesh" type="MeshInstance3D" parent="."]

@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://uuw4xrs3w5u1"]
+
+[ext_resource type="Script" path="res://script/proj/frag_and_explosion.gd" id="1_k562u"]
+
+[node name="grenade_explosion" type="Node3D"]
+script = ExtResource("1_k562u")
+spawn_num = 6
+explosion_radius = 10.0
+explosion_damage = Vector2(100, 500)
+explosion_push = 400.0

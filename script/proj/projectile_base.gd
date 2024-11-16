@@ -22,6 +22,9 @@ var hit_water = false;
 var live = false;
 var is_in_pool = false;
 
+var target = null;
+@export var target_speed = 1.0;
+
 func _ready() -> void:
 	#$mesh.scale.z = 0.01;
 	$mesh.position.z = -$mesh.mesh.size.z*2.0;
@@ -63,6 +66,10 @@ func _physics_process(delta: float) -> void:
 	
 	# dive
 	global_transform = global_transform.looking_at( global_position - global_basis.z - Vector3( 0, dive, 0 )*delta );
+	
+	if( target != null ):
+		var t = global_transform.looking_at( target.global_position );
+		global_transform = global_transform.interpolate_with( t, delta*target_speed );
 	
 	# lifetime
 	life -= delta;

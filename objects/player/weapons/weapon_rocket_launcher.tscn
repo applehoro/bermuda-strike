@@ -1,14 +1,14 @@
-[gd_scene load_steps=13 format=3 uid="uid://dccy2i0qlhrtj"]
+[gd_scene load_steps=13 format=3 uid="uid://da8t3pjkvo1la"]
 
-[ext_resource type="Script" path="res://script/player/weapons/weapon_machine_gun.gd" id="1_3pkmd"]
-[ext_resource type="PackedScene" uid="uid://dq8bhkppkpcf8" path="res://models/weapons/smg/junk_smg/junk_smg-001.glb" id="2_n550d"]
-[ext_resource type="Texture2D" uid="uid://dkupvqwrkuefx" path="res://textures/effects/test_muzzle_flash.png" id="3_6wdtx"]
+[ext_resource type="Script" path="res://script/player/weapons/weapon_rocket_launcher.gd" id="1_01h6y"]
+[ext_resource type="PackedScene" uid="uid://dq8bhkppkpcf8" path="res://models/weapons/smg/junk_smg/junk_smg-001.glb" id="2_bafif"]
+[ext_resource type="Texture2D" uid="uid://dkupvqwrkuefx" path="res://textures/effects/test_muzzle_flash.png" id="3_r25mk"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nagdt"]
 transparency = 1
 blend_mode = 1
 shading_mode = 0
-albedo_texture = ExtResource("3_6wdtx")
+albedo_texture = ExtResource("3_r25mk")
 disable_receive_shadows = true
 
 [sub_resource type="QuadMesh" id="QuadMesh_4yvp4"]
@@ -342,24 +342,21 @@ _data = {
 "unequip": SubResource("Animation_6kviw")
 }
 
-[node name="weapon_machine_gun" type="Node3D"]
-script = ExtResource("1_3pkmd")
+[node name="weapon_rocket_launcher" type="Node3D"]
+script = ExtResource("1_01h6y")
 trigger_mechanic = 1
-attack_cd = 0.02
-weapon_id = "machine_gun"
+alt_trigger_mechanic = 4
+alt_attack_cd = 0.16
+trigger_safety = true
+weapon_id = "rocket_launcher"
 ammo_usage_per_attack = 1
-spread_range_degrees = Vector2(0.8, 15)
-spread_increase = 2.5
-spread_alt_increase = 0.0
-spread_decrease = 19.0
 node_muzzle = NodePath("pos/muzzle")
 node_anim = NodePath("anim")
-anim_queue_alt_attack = []
 
 [node name="pos" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0493625, -0.0982567, -0.08321)
 
-[node name="model" parent="pos" instance=ExtResource("2_n550d")]
+[node name="model" parent="pos" instance=ExtResource("2_bafif")]
 transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, -0.1)
 
 [node name="muzzle" type="Marker3D" parent="pos"]

@@ -10,6 +10,8 @@ var assets = {
 	"smg": preload( "res://objects/player/weapons/weapon_smg.tscn" ),
 	"machine_gun": preload( "res://objects/player/weapons/weapon_machine_gun.tscn" ),
 	"flak": preload( "res://objects/player/weapons/weapon_flak.tscn" ),
+	"grenade_launcher": preload( "res://objects/player/weapons/weapon_grenade_launcher.tscn" ),
+	"rocket_launcher": preload( "res://objects/player/weapons/weapon_rocket_launcher.tscn" ),
 };
 
 var action_to_weapon = {

@@ -344,6 +344,7 @@ _data = {
 
 [node name="weapon_flak" type="Node3D"]
 script = ExtResource("1_07m8u")
+trigger_mechanic = 1
 alt_trigger_mechanic = 1
 attack_cd = 0.05
 alt_attack_cd = 0.3

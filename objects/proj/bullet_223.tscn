@@ -11,7 +11,7 @@ disable_receive_shadows = true
 material = SubResource("StandardMaterial3D_uufln")
 size = Vector3(0.2, 0.2, 6)
 
-[node name="bullet_machine_gun" type="Node3D"]
+[node name="bullet_223" type="Node3D"]
 script = ExtResource("1_wb3um")
 velocity = 1600.0
 damage = Vector2(10, 30)

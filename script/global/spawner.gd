@@ -7,37 +7,41 @@ extends Node
 
 var assets = {
 	"bullet": preload( "res://objects/proj/bullet.tscn" ),
-	"bullet_smg": preload( "res://objects/proj/bullet_smg.tscn" ),
-	"bullet_machine_gun": preload( "res://objects/proj/bullet_machine_gun.tscn" ),
-	"bullet_flak": preload( "res://objects/proj/bullet_flak.tscn" ),
-	"bullet_flak_alt": preload( "res://objects/proj/bullet_flak_alt.tscn" ),
+	"bullet_9mm": preload( "res://objects/proj/bullet_9mm.tscn" ),
+	"bullet_223": preload( "res://objects/proj/bullet_223.tscn" ),
+	"flak": preload( "res://objects/proj/flak.tscn" ),
+	"flak_alt": preload( "res://objects/proj/flak_alt.tscn" ),
 	"flak_explosion": preload( "res://objects/proj/flak_explosion.tscn" ),
-	"bullet_frag": preload( "res://objects/proj/bullet_frag.tscn" ),
+	"grenade": preload( "res://objects/proj/grenade.tscn" ),
+	"grenade_explosion": preload( "res://objects/proj/grenade_explosion.tscn" ),
+	"rocket": preload( "res://objects/proj/rocket.tscn" ),
+	"rocket_explosion": preload( "res://objects/proj/rocket_explosion.tscn" ),
 	
+	"frag": preload( "res://objects/proj/frag.tscn" ),
 	"explosion": preload( "res://objects/proj/explosion.tscn" ),
 	
 	"hit_mark": preload( "res://objects/effects/hit_mark.tscn" ),
-	
 	"water_splash": preload( "res://objects/effects/water_splash.tscn" ),
 	"dust_burst": preload( "res://objects/effects/dust_burst.tscn" ),
 	
 	"grass_1": preload( "res://objects/foliage/grass_1.tscn" ),
-	
 	"palm_1": preload( "res://objects/foliage/palm_1.tscn" ),
-	
 	"palm_1_lod": preload( "res://objects/foliage/lods/palm_1_lod.tscn" ),
 };
 
 var pool_assets = {
-	"bullet": 30,
-	"bullet_smg": 20,
-	"bullet_machine_gun": 40,
-	"bullet_flak": 30,
-	"bullet_flak_alt": 3,
-	"bullet_frag": 80,
-	"hit_mark": 50,
-	"water_splash": 32,
-	"dust_burst": 32,
+	"bullet": 5,
+	"bullet_9mm": 10,
+	"bullet_223": 20,
+	"flak": 30,
+	"flak_alt": 2,
+	"grenade": 6,
+	"rocket": 4,
+	"frag": 50,
+	
+	"hit_mark": 16,
+	"water_splash": 16,
+	"dust_burst": 16,
 };
 
 var pool = {};

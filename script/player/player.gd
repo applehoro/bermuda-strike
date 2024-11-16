@@ -45,6 +45,14 @@ var heal_cd = 0.0;
 var heal_margin = 50.0;
 
 var is_lock_on = false;
+var lock_on_target = null;
+
+var zoom_mul = 1.0;
+var target_zoom = 1.0;
+var zoom = false;
+
+var block_mul = 0.5;
+var block = false;
 
 func _ready() -> void:
 	Global.node_player = self;
@@ -88,7 +96,9 @@ func _process( delta: float ) -> void:
 	$yaw/smoke_trail.emitting = motion.length() > 0.5 && Global.settings[ "smoke_trails" ] && !is_underwater && motion_type != MOTION_TYPE_WALK;
 	
 	$gui.has_target = false;
+	lock_on_target = null;
 	if( $yaw/pitch/target.has_target ):
+		lock_on_target = $yaw/pitch/target.target;
 		var p = $yaw/pitch/camera.unproject_position( $yaw/pitch/target.target_pos );
 		$gui.has_target = true;
 		$gui.target_pos = p;

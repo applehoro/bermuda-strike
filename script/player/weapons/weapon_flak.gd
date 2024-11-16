@@ -1,7 +1,7 @@
 extends PlayerWeaponBase
 
-var projectile_id = "bullet_flak";
-var alt_projectile_id = "bullet_flak_alt";
+var projectile_id = "flak";
+var alt_projectile_id = "flak_alt";
 
 func shoot():
 	shoot_projectile( 12, projectile_id, 5.0 );

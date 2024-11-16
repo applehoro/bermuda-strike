@@ -124,8 +124,8 @@ stream_0/stream = ExtResource("16_d3vgq")
 
 [node name="weapon_smg" type="Node3D"]
 script = ExtResource("1_5cdj7")
-trigger_mechanic = 1
-alt_trigger_mechanic = 1
+trigger_mechanic = 2
+alt_trigger_mechanic = 2
 alt_attack_cd = 0.2
 weapon_id = "smg"
 ammo_usage_per_attack = 1
@@ -267,7 +267,7 @@ cast_shadow = 0
 gi_mode = 0
 
 [node name="muzzle_attach" type="BoneAttachment3D" parent="junk_smg/bones/Skeleton3D" index="2"]
-transform = Transform3D(1, 0, 0, 0, 0.104288, 0.994547, 0, -0.994547, 0.104288, 0.251887, -0.299599, -0.410305)
+transform = Transform3D(1, 0, 0, 0, 0.104289, 0.994547, 0, -0.994547, 0.104289, 0.251887, -0.299599, -0.410305)
 bone_name = "gun_root"
 bone_idx = 63
 

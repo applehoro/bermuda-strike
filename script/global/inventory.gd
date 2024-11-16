@@ -36,16 +36,22 @@ func heal( v ):
 
 var ammo = {
 	"": Vector2i( 0, 0 ),
-	"bullets_smg": Vector2i( 200, 200 ),
-	"bullets_machine_gun": Vector2i( 400, 400 ),
-	"shells_flak": Vector2i( 80, 80 ),
+	"9mm": Vector2i( 200, 200 ),
+	".223": Vector2i( 400, 400 ),
+	".50": Vector2i( 40, 40 ),
+	"flak": Vector2i( 80, 80 ),
+	"explosive": Vector2i( 50, 50 ),
+	"cells": Vector2i( 500, 500 ),
+	"atomic": Vector2i( 1, 1 ),
 };
 
 var magazine = {
 	"": { "ammo": Vector2i( 0, 0 ), "type": "" },
-	"smg": { "ammo": Vector2i( 30, 30 ), "type": "bullets_smg" },
-	"machine_gun": { "ammo": Vector2i( 200, 200 ), "type": "bullets_machine_gun" },
-	"flak": { "ammo": Vector2i( 8, 8 ), "type": "shells_flak" },
+	"smg": { "ammo": Vector2i( 30, 30 ), "type": "9mm" },
+	"machine_gun": { "ammo": Vector2i( 200, 200 ), "type": ".223" },
+	"flak": { "ammo": Vector2i( 8, 8 ), "type": "flak" },
+	"grenade_launcher": { "ammo": Vector2i( 6, 6 ), "type": "explosive" },
+	"rocket_launcher": { "ammo": Vector2i( 2, 2 ), "type": "explosive" },
 };
 
 var weapons = {
@@ -53,14 +59,18 @@ var weapons = {
 	"smg": true,
 	"machine_gun": true,
 	"flak": true,
+	"grenade_launcher": true,
+	"rocket_launcher": true,
 };
 
 var weapons_ammo_pickup = {
 	"": { "ammo": 0, "type": "" },
-	"smg": { "ammo": 30, "type": "bullets_smg" },
-	"machine_gun": { "ammo": 30, "type": "bullets_machine_gun" },
-	"flak": { "ammo": 830, "type": "shells_flak" },
-};
+	"smg": { "ammo": 30, "type": "9mm" },
+	"machine_gun": { "ammo": 30, "type": ".223" },
+	"flak": { "ammo": 8, "type": "flak" },
+	"grenade_launcher": { "ammo": 6, "type": "explosive" },
+	"rocket_launcher": { "ammo": 1, "type": "explosive" },
+	};
 
 var current_weapon_id = "";
 
@@ -69,8 +79,8 @@ var weapons_in_slots ={
 	2: "smg",
 	3: "flak",
 	4: "machine_gun",
-	5: "",
-	6: "",
+	5: "grenade_launcher",
+	6: "rocket_launcher",
 	7: "",
 	8: "",
 	9: "",

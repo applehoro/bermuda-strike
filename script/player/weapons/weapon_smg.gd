@@ -1,6 +1,6 @@
 extends PlayerWeaponBase
 
-var projectile_id = "bullet_smg";
+var projectile_id = "bullet_9mm";
 
 func shoot():
 	shoot_projectile( 1, projectile_id, 0.8 );
