@@ -104,12 +104,12 @@ func _physics_process( delta: float ) -> void:
 		alt_trigger = false;
 	
 	# targetting
-	target_pos = global_position - global_basis.z*240.0;
-	for obj in get_tree().get_nodes_in_group( "player_target" ):
-		if( obj.has_target ):
-			if( Global.node_player.is_lock_on || Global.settings[ "auto_aim" ] ):
-				target_pos = obj.target_pos;
-	get_node( node_muzzle ).look_at( target_pos, global_basis.x );
+	#target_pos = global_position - global_basis.z*240.0;
+	#if( Global.node_player.is_lock_on || Global.settings[ "auto_aim" ] ):
+		#for obj in get_tree().get_nodes_in_group( "player_target" ):
+			#if( obj.has_target ):
+				#target_pos = obj.target_pos;
+	#get_node( node_muzzle ).look_at( target_pos, global_basis.x );
 	
 	# cooldown
 	if( cd > 0.0 ):
@@ -336,10 +336,10 @@ func shoot_raycast( ignore_player = true, raycast_num = 1, raycast_spread = 0.0,
 
 # handle projectile spawning
 func shoot_projectile( projectile_num = 1, projectile_id = "", projectile_spread = 0.0 ):
-	var t = Global.normalize_transform( get_node( node_muzzle ).global_transform );
-	t = t.looking_at( target_pos, global_basis.x );
+	#var t = Global.normalize_transform( get_node( node_muzzle ).global_transform );
+	#t = t.looking_at( target_pos, global_basis.x );
 	for i in range( projectile_num ):
-		var c = Spawner.spawn_t( projectile_id, t );
+		var c = Spawner.spawn( projectile_id, get_node( node_muzzle ).global_position, get_node( node_muzzle ).global_rotation );
 		c.add_exclude( Global.node_player );
 		c.global_rotate( c.global_basis.y, randf_range( -deg_to_rad( spread ), deg_to_rad( spread ) ) );
 		c.global_rotate( c.global_basis.x, randf_range( -deg_to_rad( spread ), deg_to_rad( spread ) ) );
@@ -347,6 +347,8 @@ func shoot_projectile( projectile_num = 1, projectile_id = "", projectile_spread
 		c.global_rotate( c.global_basis.x, randf_range( -deg_to_rad( projectile_spread ), deg_to_rad( projectile_spread ) ) );
 		if( alt_trigger_mechanic == AltTriggerType.LOCK_ON && alt_trigger ):
 			c.target = Global.node_player.lock_on_target;
+		else:
+			c.target = null;
 
 func on_trigger_pressed():
 	pass;

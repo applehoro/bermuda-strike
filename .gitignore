@@ -16,3 +16,4 @@ mono_crash.*.json
 
 # Reaper-specific ignores
 **.rpp-bak
+**.reapeaks

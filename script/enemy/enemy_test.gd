@@ -143,25 +143,24 @@ func ai_state_cooldown( delta ):
 			set_ai_state( "idle" );
 
 func ai_state_update( delta ):
-	match( ai_state ):
-		"idle":
-			if( check_player() ):
-				set_ai_state( "chase" );
-		
-		"chase":
-			slow_look_at_pos( Global.node_player.global_position, delta*2.0 );
-			var offset = Global.node_player.global_position - global_position;
-			player_dist = global_position.distance_to( Global.node_player.global_position );
-			player_yaw_angle = $yaw.global_basis.z.signed_angle_to( -offset, $yaw.global_basis.y );
-			player_pitch_angle = $yaw/pitch.global_basis.z.signed_angle_to( -offset, $yaw/pitch.global_basis.x );
-			if( player_dist > 4.0 ):
-				motion -= $yaw/pitch.global_basis.z.rotated( Vector3.UP, deg_to_rad( move_offset*40.0 ) )*move_vel*delta;
-		
-		"dodge":
-			slow_look_at_pos( Global.node_player.global_position, delta/1.5 );
-		
-		"block":
-			slow_look_at_pos( Global.node_player.global_position, delta/3.0 );
+	if( ai_state == "idle" ):
+		if( check_player() ):
+			set_ai_state( "chase" );
+	
+	elif( ai_state == "chase" ):
+		slow_look_at_pos( Global.node_player.global_position, delta*2.0 );
+		var offset = Global.node_player.global_position - global_position;
+		player_dist = global_position.distance_to( Global.node_player.global_position );
+		player_yaw_angle = $yaw.global_basis.z.signed_angle_to( -offset, $yaw.global_basis.y );
+		player_pitch_angle = $yaw/pitch.global_basis.z.signed_angle_to( -offset, $yaw/pitch.global_basis.x );
+		if( player_dist > 4.0 ):
+			motion -= $yaw/pitch.global_basis.z.rotated( Vector3.UP, deg_to_rad( move_offset*40.0 ) )*move_vel*delta;
+	
+	elif( ai_state == "dodge" ):
+		slow_look_at_pos( Global.node_player.global_position, delta/1.5 );
+	
+	elif( ai_state == "block" ):
+		slow_look_at_pos( Global.node_player.global_position, delta/3.0 );
 
 func set_ai_state( s ):
 	ai_state = s;
