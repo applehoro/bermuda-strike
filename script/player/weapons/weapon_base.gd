@@ -53,9 +53,9 @@ var spread = 0.0;
 
 
 @export_category( "Node Paths" )
-@export var node_muzzle: NodePath;
-@export var node_anim: NodePath;
-@export var node_anim_add: NodePath;
+@export var node_muzzle: Node3D;
+@export var node_anim: AnimationPlayer;
+@export var node_anim_add: AnimationPlayer;
 
 @export_category( "Animations" )
 var state_machine;
@@ -71,8 +71,8 @@ var anim_queue_alt_attack_id = 0;
 var target_pos = Vector3();
 
 func _ready() -> void:
-	if( !get_node( node_anim ).is_connected( "animation_finished", _on_animation_finished ) ):
-		get_node( node_anim ).connect( "animation_finished", _on_animation_finished );
+	if( !node_anim.is_connected( "animation_finished", _on_animation_finished ) ):
+		node_anim.connect( "animation_finished", _on_animation_finished );
 	if( Input.is_action_pressed( "attack" ) && !trigger_safety ):
 		on_trigger_pressed();
 		trigger = true;
@@ -109,7 +109,7 @@ func _physics_process( delta: float ) -> void:
 		#for obj in get_tree().get_nodes_in_group( "player_target" ):
 			#if( obj.has_target ):
 				#target_pos = obj.target_pos;
-	#get_node( node_muzzle ).look_at( target_pos, global_basis.x );
+	#node_muzzle.look_at( target_pos, global_basis.x );
 	
 	# cooldown
 	if( cd > 0.0 ):
@@ -230,58 +230,58 @@ func alt_attack():
 	return false;
 
 func equip():
-	get_node( node_anim ).play( anim_name_equip );
-	if( has_node( node_anim_add ) ):
-		if( get_node( node_anim_add ).has_animation( anim_name_equip ) ):
-			get_node( node_anim_add ).play( anim_name_equip );
-	cd = get_node( node_anim ).get_current_animation_length();
+	node_anim.play( anim_name_equip );
+	if( node_anim_add != null ):
+		if( node_anim_add.has_animation( anim_name_equip ) ):
+			node_anim_add.play( anim_name_equip );
+	cd = node_anim.get_current_animation_length();
 	Inventory.switch_weapon( weapon_id );
 
 func reload():
 	if( Inventory.cw_can_magazine_reload() && !Inventory.cw_is_magazine_full() ):
 		Inventory.cw_magazine_unload();
-		get_node( node_anim ).play( anim_name_reload );
-		if( has_node( node_anim_add ) ):
-			if( get_node( node_anim_add ).has_animation( anim_name_reload ) ):
-				get_node( node_anim_add ).play( anim_name_reload );
-		cd = get_node( node_anim ).get_current_animation_length() + 0.1;
+		node_anim.play( anim_name_reload );
+		if( node_anim_add != null ):
+			if( node_anim_add.has_animation( anim_name_reload ) ):
+				node_anim_add.play( anim_name_reload );
+		cd = node_anim.get_current_animation_length() + 0.1;
 		#trigger = false;
 
 func play_anim( a ):
-	get_node( node_anim ).play( a );
-	if( has_node( node_anim_add ) ):
-		if( get_node( node_anim_add ).has_animation( a ) ):
-			get_node( node_anim_add ).play( a );
+	node_anim.play( a );
+	if( node_anim_add != null ):
+		if( node_anim_add.has_animation( a ) ):
+			node_anim_add.play( a );
 
 func play_anim_reset( a ):
-	get_node( node_anim ).stop();
-	get_node( node_anim ).play( a );
-	if( has_node( node_anim_add ) ):
-		if( get_node( node_anim_add ).has_animation( a ) ):
-			get_node( node_anim_add ).stop();
-			get_node( node_anim_add ).play( a );
+	node_anim.stop();
+	node_anim.play( a );
+	if( node_anim_add != null ):
+		if( node_anim_add.has_animation( a ) ):
+			node_anim_add.stop();
+			node_anim_add.play( a );
 
 func play_next_attack_anim():
 	if( !anim_queue_attack.is_empty() ):
-		get_node( node_anim ).stop();
+		node_anim.stop();
 		anim_queue_attack_id += 1;
 		if( anim_queue_attack_id >= anim_queue_attack.size() ):
 			anim_queue_attack_id = 0;
-		get_node( node_anim ).play( anim_queue_attack[ anim_queue_attack_id ] );
-		if( has_node( node_anim_add ) ):
-			if( get_node( node_anim_add ).has_animation( anim_queue_attack[ anim_queue_attack_id ] ) ):
-				get_node( node_anim_add ).play( anim_queue_attack[ anim_queue_attack_id ] );
+		node_anim.play( anim_queue_attack[ anim_queue_attack_id ] );
+		if( node_anim_add != null ):
+			if( node_anim_add.has_animation( anim_queue_attack[ anim_queue_attack_id ] ) ):
+				node_anim_add.play( anim_queue_attack[ anim_queue_attack_id ] );
 
 func play_next_alt_attack_anim():
 	if( !anim_queue_alt_attack.is_empty() ):
-		get_node( node_anim ).stop();
+		node_anim.stop();
 		anim_queue_alt_attack_id += 1;
 		if( anim_queue_alt_attack_id >= anim_queue_alt_attack.size() ):
 			anim_queue_alt_attack_id = 0;
-		get_node( node_anim ).play( anim_queue_alt_attack[ anim_queue_alt_attack_id ] );
-		if( has_node( node_anim_add ) ):
-			if( get_node( node_anim_add ).has_animation( anim_queue_alt_attack[ anim_queue_alt_attack_id ] ) ):
-				get_node( node_anim_add ).play( anim_queue_alt_attack[ anim_queue_alt_attack_id ] );
+		node_anim.play( anim_queue_alt_attack[ anim_queue_alt_attack_id ] );
+		if( node_anim_add != null ):
+			if( node_anim_add.has_animation( anim_queue_alt_attack[ anim_queue_alt_attack_id ] ) ):
+				node_anim_add.play( anim_queue_alt_attack[ anim_queue_alt_attack_id ] );
 
 func _on_animation_finished( anim_name ):
 	match( anim_name ):
@@ -289,10 +289,10 @@ func _on_animation_finished( anim_name ):
 			Inventory.cw_magazine_reload();
 		
 		_:
-			get_node( node_anim ).play( anim_name_idle );
-			if( has_node( node_anim_add ) ):
-				if( get_node( node_anim_add ).has_animation( anim_name_idle ) ):
-					get_node( node_anim_add ).play( anim_name_idle );
+			node_anim.play( anim_name_idle );
+			if( node_anim_add != null ):
+				if( node_anim_add.has_animation( anim_name_idle ) ):
+					node_anim_add.play( anim_name_idle );
 
 func shoot():
 	pass;
@@ -307,13 +307,13 @@ func shoot_raycast( ignore_player = true, raycast_num = 1, raycast_spread = 0.0,
 		exclude.push_back( Global.node_player );
 	
 	for i in range( raycast_num ):
-		var sp = get_node( node_muzzle ).global_position;
-		var off = target_pos - get_node( node_muzzle ).global_position;
+		var sp = node_muzzle.global_position;
+		var off = target_pos - node_muzzle.global_position;
 		var sd = -off.normalized();
-		sd = sd.rotated( get_node( node_muzzle ).global_basis.y, randf_range( -deg_to_rad( spread ), deg_to_rad( spread ) ) );
-		sd = sd.rotated( get_node( node_muzzle ).global_basis.x, randf_range( -deg_to_rad( spread ), deg_to_rad( spread ) ) );
-		sd = sd.rotated( get_node( node_muzzle ).global_basis.y, randf_range( -deg_to_rad( raycast_spread ), deg_to_rad( raycast_spread ) ) );
-		sd = sd.rotated( get_node( node_muzzle ).global_basis.x, randf_range( -deg_to_rad( raycast_spread ), deg_to_rad( raycast_spread ) ) );
+		sd = sd.rotated( node_muzzle.global_basis.y, randf_range( -deg_to_rad( spread ), deg_to_rad( spread ) ) );
+		sd = sd.rotated( node_muzzle.global_basis.x, randf_range( -deg_to_rad( spread ), deg_to_rad( spread ) ) );
+		sd = sd.rotated( node_muzzle.global_basis.y, randf_range( -deg_to_rad( raycast_spread ), deg_to_rad( raycast_spread ) ) );
+		sd = sd.rotated( node_muzzle.global_basis.x, randf_range( -deg_to_rad( raycast_spread ), deg_to_rad( raycast_spread ) ) );
 		var dp = sp + sd*raycast_length;
 
 		# hit something
@@ -336,15 +336,19 @@ func shoot_raycast( ignore_player = true, raycast_num = 1, raycast_spread = 0.0,
 
 # handle projectile spawning
 func shoot_projectile( projectile_num = 1, projectile_id = "", projectile_spread = 0.0 ):
-	#var t = Global.normalize_transform( get_node( node_muzzle ).global_transform );
+	var t = Global.normalize_transform( node_muzzle.global_transform );
 	#t = t.looking_at( target_pos, global_basis.x );
 	for i in range( projectile_num ):
-		var c = Spawner.spawn( projectile_id, get_node( node_muzzle ).global_position, get_node( node_muzzle ).global_rotation );
+		#var c = Spawner.spawn( projectile_id, node_muzzle.global_position, node_muzzle.global_rotation );
+		var c = Spawner.spawn_t( projectile_id, t );
 		c.add_exclude( Global.node_player );
-		c.global_rotate( c.global_basis.y, randf_range( -deg_to_rad( spread ), deg_to_rad( spread ) ) );
-		c.global_rotate( c.global_basis.x, randf_range( -deg_to_rad( spread ), deg_to_rad( spread ) ) );
-		c.global_rotate( c.global_basis.y, randf_range( -deg_to_rad( projectile_spread ), deg_to_rad( projectile_spread ) ) );
-		c.global_rotate( c.global_basis.x, randf_range( -deg_to_rad( projectile_spread ), deg_to_rad( projectile_spread ) ) );
+		var rot = Vector2( deg_to_rad( randf_range( -spread - projectile_spread, spread + projectile_spread ) ), 0.0 ).rotated( randf_range( 0, PI*2.0 ) );
+		c.global_rotate( t.basis.y.normalized(), rot.x );
+		c.global_rotate( t.basis.x.normalized(), rot.y );
+		#c.global_rotate( t.basis.y.normalized(), randf_range( -deg_to_rad( spread ), deg_to_rad( spread ) ) );
+		#c.global_rotate( t.basis.x.normalized(), randf_range( -deg_to_rad( spread ), deg_to_rad( spread ) ) );
+		#c.global_rotate( t.basis.y.normalized(), randf_range( -deg_to_rad( projectile_spread ), deg_to_rad( projectile_spread ) ) );
+		#c.global_rotate( t.basis.x.normalized(), randf_range( -deg_to_rad( projectile_spread ), deg_to_rad( projectile_spread ) ) );
 		if( alt_trigger_mechanic == AltTriggerType.LOCK_ON && alt_trigger ):
 			c.target = Global.node_player.lock_on_target;
 		else:

@@ -31,11 +31,15 @@ var current_weapon = "";
 
 func _ready() -> void:
 	switch_weapon( Inventory.weapons_in_slots[ Inventory.current_slot ] );
+	$container/viewport.size = get_viewport().size;
 
 func _process( _delta: float ) -> void:
 	for a in action_to_weapon:
 		if( Input.is_action_just_pressed( a ) ):
 			switch_weapon( Inventory.weapons_in_slots[ action_to_weapon[ a ] ] );
+
+func _physics_process(delta: float) -> void:
+	node_weapon.global_transform = global_transform;
 
 func switch_weapon( id ):
 	if( current_weapon != id ):
@@ -47,7 +51,7 @@ func switch_weapon( id ):
 				Inventory.switch_weapon( "" );
 			
 			node_weapon = assets[ id ].instantiate();
-			add_child( node_weapon );
+			$container/viewport.add_child( node_weapon );
 			node_weapon.equip();
 			current_weapon = id;
 			return true;

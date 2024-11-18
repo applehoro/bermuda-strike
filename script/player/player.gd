@@ -99,9 +99,10 @@ func _process( delta: float ) -> void:
 	lock_on_target = null;
 	if( $yaw/pitch/target.has_target ):
 		lock_on_target = $yaw/pitch/target.target;
-		var p = $yaw/pitch/camera.unproject_position( $yaw/pitch/target.target_pos );
-		$gui.has_target = true;
-		$gui.target_pos = p;
+		if( !$yaw/pitch/camera.is_position_behind( $yaw/pitch/target.target_pos ) ):
+			var p = $yaw/pitch/camera.unproject_position( $yaw/pitch/target.target_pos );
+			$gui.has_target = true;
+			$gui.target_pos = p;
 
 func _physics_process( delta: float ) -> void:
 	if( heal_cd > 0.0 ):

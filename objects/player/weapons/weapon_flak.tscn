@@ -1,8 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://cheagx2s765gl"]
+[gd_scene load_steps=16 format=3 uid="uid://cheagx2s765gl"]
 
 [ext_resource type="Script" path="res://script/player/weapons/weapon_flak.gd" id="1_07m8u"]
 [ext_resource type="PackedScene" uid="uid://dq8bhkppkpcf8" path="res://models/weapons/smg/junk_smg/junk_smg-001.glb" id="2_4nwvy"]
 [ext_resource type="Texture2D" uid="uid://dkupvqwrkuefx" path="res://textures/effects/test_muzzle_flash.png" id="3_frniw"]
+[ext_resource type="Shader" path="res://shaders/outline_2.gdshader" id="4_771ph"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nagdt"]
 transparency = 1
@@ -342,7 +343,20 @@ _data = {
 "unequip": SubResource("Animation_6kviw")
 }
 
-[node name="weapon_flak" type="Node3D"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hmu8i"]
+render_priority = 0
+shader = ExtResource("4_771ph")
+shader_parameter/outline_color = Color(0, 0, 0, 1)
+shader_parameter/distance_falloff = 0.1
+shader_parameter/smoothing_cutoff = 0.0
+shader_parameter/smoothing_max = 0.1
+
+[sub_resource type="QuadMesh" id="QuadMesh_ce76p"]
+material = SubResource("ShaderMaterial_hmu8i")
+flip_faces = true
+size = Vector2(2, 2)
+
+[node name="weapon_flak" type="Node3D" node_paths=PackedStringArray("node_muzzle", "node_anim")]
 script = ExtResource("1_07m8u")
 trigger_mechanic = 1
 alt_trigger_mechanic = 1
@@ -364,12 +378,25 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0493625, -0.0982567, -0.083
 [node name="model" parent="pos" instance=ExtResource("2_4nwvy")]
 transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, -0.1)
 
+[node name="base_1" parent="pos/model" index="1"]
+layers = 4
+
+[node name="base_2" parent="pos/model" index="2"]
+layers = 4
+
+[node name="bolt" parent="pos/model" index="3"]
+layers = 4
+
+[node name="magazine" parent="pos/model" index="4"]
+layers = 4
+
 [node name="muzzle" type="Marker3D" parent="pos"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.018365, -0.392241)
 
 [node name="flash" type="MeshInstance3D" parent="pos/muzzle"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0157411, 0.0828786)
 visible = false
+layers = 4
 transparency = 0.1
 cast_shadow = 0
 gi_mode = 0
@@ -388,6 +415,18 @@ libraries = {
 }
 autoplay = "equip"
 
-[node name="test_camera" type="Camera3D" parent="."]
+[node name="camera" type="Camera3D" parent="."]
+cull_mask = 4
+fov = 60.0
+near = 0.005
+
+[node name="outline" type="MeshInstance3D" parent="camera"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.01)
+layers = 4
+cast_shadow = 0
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_ce76p")
 
 [connection signal="animation_finished" from="anim" to="." method="_on_anim_animation_finished"]
+
+[editable path="pos/model"]

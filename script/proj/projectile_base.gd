@@ -68,7 +68,7 @@ func _physics_process(delta: float) -> void:
 	global_transform = global_transform.looking_at( global_position - global_basis.z - Vector3( 0, dive, 0 )*delta );
 	
 	if( target != null ):
-		var t = global_transform.looking_at( target.global_position );
+		var t = global_transform.looking_at( target.global_position, global_basis.y );
 		global_transform = global_transform.interpolate_with( t, delta*target_speed );
 	
 	# lifetime
@@ -82,7 +82,8 @@ func _physics_process(delta: float) -> void:
 func _process( delta: float ) -> void:
 	$mesh.scale.z = 1.0 + velocity*delta;
 	$mesh.position.z = -0.5 - $mesh.mesh.size.z*$mesh.scale.z*0.5;
-	#$mesh.visible = true;
+	if( live ):
+		visible = true;
 
 func die():
 	if( is_in_pool ):
@@ -98,7 +99,7 @@ func setup():
 	life = lifetime;
 	set_process( true );
 	set_physics_process( true );
-	visible = true;
+	visible = false;
 	
 	hit_water = false;
 	var rw = Global.raycast_3d_area( global_position, global_position - global_basis.z*0.05, [], Global.water_layer );
@@ -106,12 +107,3 @@ func setup():
 		if( rw[ "collider" ].has_meta( "is_water" ) ):
 			if( rw[ "collider" ].get_meta( "is_water" ) ):
 				hit_water = true;
-
-#func spawn( pos, rot ):
-	#global_position = pos;
-	#global_rotation = rot;
-	#setup();
-#
-#func spawn_t( t ):
-	#global_transform = t;
-	#setup();
