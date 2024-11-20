@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=3 uid="uid://b142sd861jpb0"]
+[gd_scene load_steps=67 format=3 uid="uid://b142sd861jpb0"]
 
 [ext_resource type="Script" path="res://script/player/player.gd" id="1_4t0x4"]
 [ext_resource type="Shader" path="res://shaders/outline_2.gdshader" id="2_hkm1e"]
@@ -21,6 +21,11 @@
 [ext_resource type="Texture2D" uid="uid://dx20f4eh8g4uc" path="res://textures/gui/radar/radar_directions.png" id="19_43vqd"]
 [ext_resource type="Texture2D" uid="uid://dxanpr5e0fvly" path="res://textures/gui/radar/radar_outline.png" id="19_klnfl"]
 [ext_resource type="Script" path="res://script/radar/map.gd" id="21_kve55"]
+[ext_resource type="Script" path="res://script/player/player_ambience.gd" id="22_n2e57"]
+[ext_resource type="AudioStream" uid="uid://cebtv7kitm163" path="res://sounds/ambience/in_air_walk.wav" id="22_utivl"]
+[ext_resource type="AudioStream" uid="uid://t617eyfn3g7g" path="res://sounds/ambience/in_air_hover.wav" id="23_iyd00"]
+[ext_resource type="AudioStream" uid="uid://btap84wur4656" path="res://sounds/ambience/in_air_glide.wav" id="24_6jp3b"]
+[ext_resource type="AudioStream" uid="uid://de10l3yfwpkfo" path="res://sounds/ambience/in_air_overdrive.wav" id="25_jdkc2"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_75dfv"]
 
@@ -790,3 +795,22 @@ grow_horizontal = 2
 grow_vertical = 2
 expand_mode = 3
 stretch_mode = 5
+
+[node name="ambience" type="Node" parent="."]
+script = ExtResource("22_n2e57")
+
+[node name="walk" type="AudioStreamPlayer" parent="ambience"]
+stream = ExtResource("22_utivl")
+bus = &"Ambience"
+
+[node name="hover" type="AudioStreamPlayer" parent="ambience"]
+stream = ExtResource("23_iyd00")
+bus = &"Ambience"
+
+[node name="glide" type="AudioStreamPlayer" parent="ambience"]
+stream = ExtResource("24_6jp3b")
+bus = &"Ambience"
+
+[node name="overdrive" type="AudioStreamPlayer" parent="ambience"]
+stream = ExtResource("25_jdkc2")
+bus = &"Ambience"

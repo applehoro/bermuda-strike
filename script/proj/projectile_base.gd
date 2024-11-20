@@ -27,7 +27,7 @@ var target = null;
 
 func _ready() -> void:
 	#$mesh.scale.z = 0.01;
-	$mesh.position.z = -$mesh.mesh.size.z*2.0;
+	$mesh.position.z = -$mesh.scale.z*2.0;
 	#$mesh.visible = false;
 	#call_deferred( "setup" );
 
@@ -81,7 +81,7 @@ func _physics_process(delta: float) -> void:
 # visual update
 func _process( delta: float ) -> void:
 	$mesh.scale.z = 1.0 + velocity*delta;
-	$mesh.position.z = -0.5 - $mesh.mesh.size.z*$mesh.scale.z*0.5;
+	$mesh.position.z = -0.5 - $mesh.scale.z*0.5;
 	if( live ):
 		visible = true;
 

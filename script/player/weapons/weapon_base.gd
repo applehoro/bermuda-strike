@@ -336,7 +336,8 @@ func shoot_raycast( ignore_player = true, raycast_num = 1, raycast_spread = 0.0,
 
 # handle projectile spawning
 func shoot_projectile( projectile_num = 1, projectile_id = "", projectile_spread = 0.0 ):
-	var t = Global.normalize_transform( node_muzzle.global_transform );
+	var t = global_transform; #Global.normalize_transform( node_muzzle.global_transform );
+	t.origin -= t.basis.z*0.5;
 	#t = t.looking_at( target_pos, global_basis.x );
 	for i in range( projectile_num ):
 		#var c = Spawner.spawn( projectile_id, node_muzzle.global_position, node_muzzle.global_rotation );

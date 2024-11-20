@@ -335,23 +335,28 @@ mesh = SubResource("QuadMesh_ce76p")
 [node name="snd_clack" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamRandomizer_aowxb")
 volume_db = -6.0
+bus = &"SFX"
 
 [node name="snd_clack_2" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamRandomizer_p5noy")
 volume_db = -6.0
+bus = &"SFX"
 
 [node name="snd_ping" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("15_abpcx")
 volume_db = 3.0
 pitch_scale = 0.7
+bus = &"SFX"
 
 [node name="snd_shot" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamRandomizer_cs0nc")
 volume_db = 6.0
+bus = &"SFX"
 
 [node name="snd_slide" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("17_os66f")
 volume_db = -6.0
 pitch_scale = 1.2
+bus = &"SFX"
 
 [editable path="junk_smg"]
