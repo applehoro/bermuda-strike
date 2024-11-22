@@ -23,7 +23,6 @@ Attack types for main and alt. attacks:
 
 
 
-
 # Ammo types
 
 ## 9mm
@@ -49,7 +48,6 @@ Max amount: 1.
 
 
 
-
 # Weapons
 
 ## 1. Meelee
@@ -68,7 +66,6 @@ Alt. attack throws axe.
 
 ### Whip
 Longest reach, push back enemies.
-
 
 
 
@@ -93,7 +90,6 @@ Magazine capacity: 50 cells.
 
 
 
-
 ## 3. Flak
 
 ### Flak gun
@@ -107,7 +103,6 @@ Same thing as flak gun, except shoot 16 projectiles instead of 8.
 ### 2x barrel flak
 Same thing as flak gun, but shoots 32 projectiles instead of 8, and alt. attack shoots 2 projectiles instead of 1.
 Magazine capacity: 16.
-
 
 
 
@@ -132,28 +127,23 @@ Magazine capacity: 400.
 
 
 
-
 ## 5. Rocket launcher
 
 ### Rocket launcher
-
 Shoot rockets.
 Alt. attack: target lock.
 Magazine capacity: 1.
 
 ### 4x barrel rocket launcher
-
 Alt. attack: lock-on.
 Magazine capacity: 4.
 
 ### New rocket launcher
-
 Automatic.
 Alt. attack: lock-on.
 Magazine capacity: 6.
 
 ### Howitzer
-
 Shoots big rocket with huge explosion.
 Alt. attack: zoom in.
 Magazine capacity: 1.
@@ -178,7 +168,6 @@ Magazine capacity: 10.
 
 
 
-
 ## 7. Sniper rifle
 
 ### Lever action rifle
@@ -195,7 +184,6 @@ Magazine capacity: 16.
 
 
 
-
 ## 8. Plasmagun
 
 ### Plasmagun
@@ -208,6 +196,15 @@ Shoost flame.
 Alt. attack: shoot napalm bomb.
 Magazine capacity: 20.
 
+### Freezer
+Freezes enemies (just like name suggests :3)
+Alt. attack: shoots 6 shards of ice.
+Magazine capacity: 30.
+
+### Lightning gun
+Shoots lightning.
+Alt. attacks shoots chain lightning.
+Magazine capacity: 100.
 
 
 
@@ -217,7 +214,6 @@ Magazine capacity: 20.
 Charged weapon, shoot big projectile with low speed that attack nearby enemies when passed by, and also expodes at certain range or when hit something, shooting a lot of little projectiles in all directions. Also, along with it, shoot a lot of little short-life projectiles in quite a big spread.
 Alt. attack: none.
 Magazine capacity: 40, attack uses 10.
-
 
 
 

@@ -1,195 +1,378 @@
 # Bermuda Strike script
 
-
-
-## Level 1 intro
-
-Emily and other jet girls fly toward alien fleet.
-Emily: "Okay, people, if somebody gonna stop the invasion, it's us! Let's go!"
-Jet girls go attack. Alien Paladin fly behind Emily's back and pierce her with halberd, she falls into the water.
-
-Title screen.
-
-About month passed, Emily is working in shed, welding a gun.
-Emily: "So, I guess it's up to me to stop the invasion all alone. Let's see, where to begin..."
-
-## Level 1 outro
-
-Emily enters into the dark room. Becky jumps from behind and start beating Emily with wrench.
-Becky: "You'll never get me, alien bastard!"
-Emily: "Hey, stop it!"
-Becky: "I'll beat you up, invader!"
-Emily throws Becky on floor.
-Becky "Please, don't kill me, mr. alien!"
-Emily: "Who the hell are you?"
-Becky: "Oh... He, I'm Rebecca, junior technician on the base. Well, what's left of it..."
-Emily, pulling Becky's cheeks: "You're so cute, I wanna adopt you like a puppy!"
-Becky: "Pleash shtop it!"
-Emily: "Oh, yeah, sorry... Got any ideas how to get to nearby Islands?"
-Becky: "Yep, there's a launch-boat parked nearby, I could fix it in no time!"
-
-## Level 2 intro
-
-Emily: "So, what's with that blonde hair?"
-Becky: "Oh, yeah, my mother was Norwegian."
-Emily: "And your father?"
-Becky: "Well, I never seen him once in my life, and mom didn't like to talk about it, so..."
-Emily: "Oh, sorry..."
-Becky: "Don't mind, it's not a big deal for me."
-Radio: "Hey, anyone hear me?"
-Becky: "Yep, who's that?"
-Radio: "It's Base Helmet's radio tower. I'm surrounded by aliens, send help!"
-Emily: "Okay, I'm going there!"
-Radio: "It's not a good idea, there's a lot of them, better call backup!"
-Emily: "Sadly, I don't think we have the backup anymore..."
-
-## Level 2 outro
-
-Emily opens up the door and finds Maria gathering her stuff in the bag.
-Maria: "Okay, I'm ready to go, thanks for rescuing me."
-Emily: "No problem. We've got a boat out there, let's go!"
-Maria and Emily boarding up the boat.
-Becky: "Oh, hey, who are you?"
-Maria: "I'm Maria, communication expert. Nice to meet you."
-
-## Level 3 intro
-
-Maria: "Okay, I've finished, you can put it on."
-Emily put the radar on: "Okay, what is this?"
-Maria: "It's a portable radar. It isn't very powerful, so the range isn't the best, but it could help you detect enemies 360 degrees around you."
-Emily: "Nice!"
-Becky: "Okay, we're getting close, I already see the land from here!"
-Emily stands on launchpad: "Okay, I'm ready!"
-
-## Level 3 boss fight
-
-Emily opens up a door and discovers alien laboratory.
-Emily: "So, this bastards experimenting on humans here?"
-Emily opens up a door and sees a giant monster in the vat. Monster wakes up and start crashing the vat.
-Emily: "Oh, this chunky boy looks angry!"
-
-## Level 3 outro
-
-Becky fixing the boat engine, gets splashed with oil in face and falls into the water. Maria messing with something, while sitting under the tree.
-Emily brings big box and put in on ground, then wipe a sweat.
-Emily: "Phew, that was last one. Found anything interesting?"
-Maria: "Yep, there's lock-on targetting system for rocket launcher."
-Emily: "Nice! How does it works?"
-Maria: "Well, you point at target and press the button, and the rocket locks in. Then just press the trigger to shoot it."
-Emily: "Fancy, thanks!"
-Maira: "No problem!"
-Emily walks to a boat: "Hey, Becky, are you done yet?"
-Becky: "Not yet, I'll need, like, half and hour here."
-Emily: "Okay, then I'll go for a run around the island, call me when you'll start loading!"
-Becky: "Gotcha!"
-Then becky got and oil splash in the face and fall in the water again.
-
-## Level 4 intro
-
-Emily: "What, you were in NASA? That's cool!"
-Becky: "Yeah, that's awesome!"
-Maria: "Not that much, I was just and intern. Didn't have much time to spend here because of invasion, though..."
-Emily: "Yeah, that was a bummer!"
-Becky: "Wow, my first time hearing such an old phrase! How old are you again?"
-Emily: "Well, I'll be 40 this winter."
-Maria: "Oh, you definetly look a lot younger!"
-Emily: "Yeah, thanks!"
-Becky: "Okay, watch out people, we're getting close!"
-
-## Level 4 mid-level scene
-
-Emily: "Okay, I'm in. It looks like... Well.. A tomb..."
-Becky: "A tomb?"
-Emily: "Yeah, you know, Egyptian one..."
-Maria: "Probably we should look at it ourselves."
-Becky: "Yeah, let's go"
-Both arrive in a tomb.
-Maria: "Yeah, definetly looks like something Egyptian. Becky, what do you think?"
-Becky, pointing at Egyptian sun symbol: "Looks like a booba!"
-Becky press the symbol, it glow and opens up the door.
-Emily: "Okay, I'm going in..."
-Becky, lokking from behind a pillar: "Please, be careful..."
-Emily: "Of course!"
-
-## Level 4 outro
-
-Sentry robot wake up, but Emily knocks down its head.
-Two other arrive.
-Maria: "Hey, look what we found near entrance!"
-Becky: "There's whole manual there!"
-Maria: "Yeah, and they've translated quite a lot of it. Seems like it's some sort of shield that could destroy alien spaceships in the Earth orbit."
-Maria turn on the computer, Earth hologram appears in center of room, Becky looks at it fascinated.
-Maria: "Sadly, battery seems to be out. We've gotta find a new one."
-Emily: "Any ideas where to search?"
-Becky poke the hologram with a finger, maria turn on battery overlay on hologram.
-Maria: "Seems like there's one near the base Eaglenest."
-Becky: "Are you sure? It's, like, an enemy territory."
-Emily: "The whole Earth is enemy territory now."
-Becky: "Fair."
-Emily: "Okay, let's try to get it!"
-
-## Level 5 intro
-
-All three in the ship.
-Maria: "So, I wonder, how do you end up as mechanic? You don't look like that type at all."
-Becky: "Well, I always loved cars, and always wanted to design one. So, I ended up in technical design college. Then this whole alien invasion thing happened, and I ended up here."
-Maria: "Oh, I see."
-Becky: "By the way, I see the Port City on the shore! It looks quite empty."
-Emily: "Okay, stay here, I'll scout it out."
-Maria: "Good luck there!"
-
-## Level 5 mid-level
-
-Alien Paladin lands in city center.
-Emily: "Oh, it's you again? We've got a score to settle!"
-Emily cocks a gun.
-
-## Level 5 outro
-
-Alien Paladin falls down and engages self-destruct, Emily barely escapes the explosion.
-Some time later, Emily washes her face in fountain, two other appear. Becky looks at something in the distance and goes to side.
-Maria: "Hey, good job!"
-Emily: "No problem! There's long road ahead, we need some transportation if we wanna make it."
-Becky: "Hey people, look what I found!"
-Emily open the door to garage, Becky stands in trunk of pickup.
-Becky: "That's a little curvy boy!"
-Emily: "Does it work?"
-Becky: "Let's check!"
-Becky jumps out, goes to the window and tries to start the engine, then opens up the hood and looks at the engine, thinking.
-Emily: "Can you fix it?"
-Becky: "I think, yes, just need some time..."
-Becky start fixing the engine, Emily goes outside with binoculars and looks at the road concerned.
+## Intro
+The year is 1999.
+Aliens invaded and, using their air superiority, conquered most of the Earth.
+Earth Defence Army, in a last attempt to turn the tides, formed Jet Commando Forces to fight aliens on their own field.
+This is the story of one such commandos, named Emily.
 
 
 
 
+## Ep. 1 "Steel-Cold Revenge" (Islands)
+
+### Intro
+So there was our heroes, about to start the epic journey.
+Where it will lead to?
+Who knows!
+
+### 1. Looted Base "Square one"
+Becky:
+Okay, this should be the place.
+Your mission is to infiltrate and recover the files.
+Aliens very active here, so be careful.
+
+Emily:
+No problem.
+
+### 2. Volcano Island "Flaming Hot Greetings"
+Becky:
+Looks like this volcano gonna erupt any moment now.
+
+Emily:
+Let the rock-n-roll begin!
+
+### 3. Oil Platform "Middle of Nowhere"
+Becky:
+This place is very critical to produce the oil.
+We need it to supply the army.
+
+Emily:
+Gotcha!
+Any advise?
+
+Becky:
+Lots of flammable things around.
+Watch where you shoot.
+
+### 4. (Bonus) Pirate Cave "Sea Shanty"
+Becky:
+Hey, this place is nowhere to be seen on the maps.
+It's interesting, what's there?
+
+Emily:
+Probably a lot of drunken alien sailors.
+
+Becky:
+And a chest of gold!
+
+Emily:
+And a bottle of Rum!
+
+### 5. Maintenance Docks "Wrenched"
+Becky:
+We gotta take back our repair docks.
+Ships won't maintain themselves!
+
+Emily:
+You say!
+
+### 6. Ancient Temple "Ritual"
+Becky:
+Looks like aliens turned ancient Aztek city into their headquarters.
+Good opportunity to cut the snake's head.
+
+Emily:
+Let's blow 'em up!
+
+### Outro
+As alien paladin fell down to the ground, the weird sensation went through our hero's head.
+We CAN fight back and even reclaim our lost land.
+We CAN defeat them!
+
+
+
+## Ep. 2 "A Shot in the Dark" (Desert)
+
+### Intro
+Endless miles of the sea were coming to end.
+The glimpse of hills were showing through the haze above the horizen.
+Here we are, in our next destination.
+
+### 1. Shore City "Walk on the Wild Side"
+Becky:
+They don't expect attack right now.
+Let's use it to our advantage!
+
+### 2. Valley "Flow"
+Becky:
+Seems like an alien storage units.
+It's our chance to cut off their supplies!
+
+Emily:
+Here I come!
+
+### 3. (Bonus) Cliffside City "Nice View"
+Becky:
+There's ancient city carved in cliffs here.
+
+Emily:
+And a lots of alien troops too.
+
+Becky:
+Then let's make them less of a lots, and more of the none!
+
+### 4. Dam "Tops and Bottoms"
+Becky:
+This dam is crucial for energy supplies.
+We must protect it.
+
+Emily:
+No problem, I like to kick alien's asses!
+
+### 5. Underground base "Moles"
+Becky:
+Okay, another fallen base.
+We could use it for our operations, but we must clear it first.
+
+Emily:
+Lets kick the alien scum out!
+
+### 6. Mines "Cannary in the Cage"
+Becky:
+Looks like this underground mines network has some secrets.
+Why else aliens would protect it so much?
+
+Emily:
+Let's find out!
+
+### 7. Alien Labs "Twisted Experiment"
+Becky:
+Those bastards experiment on humans now!
+Lets show them!
+
+Emily:
+Don't ask twice!
+
+### Outro
+The hideous terrifying beast was slain and was lying on the floor.
+What a gruesome sight!
+It's better not to think of those unfortunate souls beyond help.
+Better think of the ones you can save.
+If only you keep it right until the very end of the road.
+
+
+
+## Ep. 3 "Alien Anarchy" (Alien City)
+
+### Intro
+Giant black walls tear this previously peaceful land into pieces.
+They seem strong and high, but there should be a weakness somewhere.
+This city should fall!
+
+### 1. City Gates "I'm Going In"
+Becky:
+Okay, let's storm the alien stronghold!
+
+### 2. Market Square "Gone Shopping"
+Becky:
+Looks like they are gathering forces there.
+
+Emily:
+Let's pay them a visit!
+
+### 3. Church "Blessed and Cursed"
+Becky:
+Hey, it seems like some sort of religious building.
+Like a temple or something.
+
+Emily:
+Well, alien gods won't help them now!
+
+### 4. (Bonus) Lake "Fresh Water"
+Becky:
+There must be something interesting under the lake.
+
+Emily:
+Like Nessy or what?
+
+Becky:
+You watched too much Scooby Doo.
+
+### 5. Park "Sakura Fall"
+Becky:
+Yeah, the trees are so beautiful this time of the year!
+
+Emily:
+Too bad we can't watch 'em 'cause there's aliens all around to kill.
+
+Becky:
+Maybe, when we're done with all this, we could go out and drink sake and watch the Sakura fall together.
+That would be nice!
+
+Emily:
+Oh, what, your asian genetic memory speaking?
+
+Becky:
+Probably. I just feel so nostalgic about peaceful times of the past.
+
+Emily:
+Hey, if we'll do our job properly, there's a chance for peaceful times in future too.
+
+Becky:
+Yeah, I hope.
+
+### 6. City Hall "Take Me to Yuor Leader"
+Becky:
+Okay, seems like there's alien commander hiding in the castle.
+
+Emily:
+Let's storm it!
+
+### Outro
+Enemy chief was defeated.
+The stronghold that looked so sturdy and menacing, has finally fallen down.
+Glory to the heroes!
 
 
 
 
+## Ep. 4 "Shellshock" (Alien Mothership)
+
+### Intro
+Here it is.
+The lair of the dragon.
+The heart of darkness.
+The throne room of alien queen.
+This fight won't be easy!
 
 
+### 1. Docking Bay "Arrival"
+Becky:
+Okay, there are a lot of aliens behind this door.
+But they don't know we're here.
+Let's use it to our advantage!
 
+Emily:
+Sure thing!
 
+### 2. Headquarters "Computer Hum"
+Becky:
+Hey, I've come up with a joke!
+Knock-knock!
 
+Emily:
+Who's there?
 
+Becky:
+There's a lot of alien highs around here.
+I wonder if it's some sort of command center?
 
+Emily:
+Not a funny joke.
 
-## Important character development, put somewhere in script
+Becky:
+I wasn't telling the joke.
+Geez, can you follow a simple conversation?
 
-Maria: "So, what's this whole scarf in tropics thing?"
-Emily: "Well, it's memoria, my daughter used to wear this."
-Maria: "You have a daughter?"
-Emily: "Well, I had one. And a son. And a loving husband. And a lovely little white house. That was a good days of my life..."
-Maria: "Oh... I'm sorry..."
-Emily: "No problem."
+Emily:
+You changed the subject right in the middle.
 
+Becky:
+Citicen Cane from arcane hurricane!
 
+Emily:
+What?
 
+Becky:
+That's a joke!
+What's not to understand?
 
+Emily:
+I'm lost now.
 
+Becky:
+Good.
+Now unlost yourself and kick alien asses!
 
+Emily:
+No problem!
 
+### 3. Storage "Boxed"
+Becky:
+Hey, guess what?
+We're out of coffe at HQ now!
+
+Emily:
+And I'm out of clue where I am now!
+
+Becky:
+Looks like storage area.
+And looks like there could be something useful in the boxes.
+Unlike me when I'm out of caffeine!
+What a nightmare!
+
+Emily:
+Yeah, you tell me!
+
+### 4. Engine bay "Full Throttle"
+Becky:
+By the way, I just wrote the word "Dummy" on my palm with a pen.
+
+Emily:
+Good to know.
+
+Becky:
+Also good to know that you're near the mothership's enigne.
+Go wreck it!
+
+Emily:
+Right!
+
+### 5. Factory Area "Making Weapons"
+Emily:
+Okay, I think I'm going in circles.
+All these alien halls look the same.
+
+Becky:
+Yeah, and I hear some machinery noises around here.
+Looks like they're making something there.
+
+Emily:
+Let's stop the production then!
+
+### 6. Throne Room "Her Majesty"
+Emily:
+Arrrgh!
+I've been wandering in these halls for hours now!
+Any idea where I'm going?
+
+Becky:
+Hey, by some luck you are nearby alien queen's throne room!
+
+Emily:
+Oh, really?
+
+Becky:
+Yeah, let's not waste the time and cut the head of the snake!
+
+Emily:
+Already used that phrase.
+
+Becky:
+How about end it right here right now?
+Put the last stop in the story?
+Push it to the breaking point?
+
+Emily:
+That's about breaking stuff, not finishing the job.
+
+Becky:
+Well, we're gonna break a lot of stuff anyways!
+
+Emily:
+Danm right, let's dance!
+
+### Outro
+Alien queen was as dead as a soul of corporate worker.
+Strange sensation went through the air.
+Aliens lost.
+Humanity won.
+Emily pack her stuff and gone back home.
+
+No more war.
+I guess our girls could watch the sakura fall in peace after all.
+Rebuilding the Earth would be a long process, but the hope is in the air this spring.
 
 
 
