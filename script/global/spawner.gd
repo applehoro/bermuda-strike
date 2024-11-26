@@ -23,6 +23,7 @@ var assets = {
 	"hit_mark": preload( "res://objects/effects/hit_mark.tscn" ),
 	"water_splash": preload( "res://objects/effects/water_splash.tscn" ),
 	"dust_burst": preload( "res://objects/effects/dust_burst.tscn" ),
+	"flame_burst": preload( "res://objects/effects/flame_burst.tscn" ),
 	
 	"grass_1": preload( "res://objects/foliage/grass_1.tscn" ),
 	"palm_1": preload( "res://objects/foliage/palm_1.tscn" ),
@@ -44,6 +45,7 @@ var pool_assets = {
 	"hit_mark": 16,
 	"water_splash": 16,
 	"dust_burst": 16,
+	"flame_burst": 30,
 };
 
 var pool = {};

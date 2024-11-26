@@ -25,3 +25,10 @@ func activate():
 				if( obj.has_method( "push" ) ):
 					var offset = obj.global_position - global_position;
 					obj.push( offset*push*fo );
+	
+	for i in range( pow( radius, 1.5 ) ):
+		var p = Vector3( randf_range( 0.0, radius*0.75 ), 0.0, 0.0 );
+		p = p.rotated( Vector3.LEFT, randf_range( 0.0, PI*2.0 ) );
+		p = p.rotated( Vector3.UP, randf_range( 0.0, PI*2.0 ) );
+		p = p.rotated( Vector3.FORWARD, randf_range( 0.0, PI*2.0 ) );
+		Spawner.spawn( "flame_burst", global_position + p + Vector3( 0.0, 1.0, 0.0 ), Vector3() );
