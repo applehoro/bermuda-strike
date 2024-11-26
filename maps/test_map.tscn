@@ -12,7 +12,7 @@
 [ext_resource type="Script" path="res://script/env/water_area.gd" id="7_lc2eu"]
 [ext_resource type="PackedScene" uid="uid://b1t3bmgx5ktiv" path="res://objects/static/buildings/bunker_entrance.tscn" id="8_m4ins"]
 [ext_resource type="MeshLibrary" uid="uid://qmqg3a0lkyok" path="res://tilesets/test_tileset/test_tileset.tres" id="9_iel2b"]
-[ext_resource type="PackedScene" uid="uid://h6ngrxvn36t3" path="res://objects/enemy/enemy_test.tscn" id="10_soncg"]
+[ext_resource type="PackedScene" uid="uid://ddtanmlmai73o" path="res://objects/spawn/spawn_enemy_test.tscn" id="13_1rwft"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_1chws"]
 panorama = ExtResource("1_5rm6v")
@@ -226,10 +226,10 @@ data = {
 "cells": PackedInt32Array(2, 65535, 1441793, 1, 65535, 1441793, 0, 65535, 1441793, 0, 65534, 1441793, 65535, 65534, 1441793, 65534, 65534, 1441793, 65534, 65535, 1441793, 65535, 65535, 1441793, 1, 65534, 1441793, 1, 65533, 1441793, 2, 65533, 1441793, 2, 65534, 1441793, 0, 65533, 1441793, 0, 65532, 1441793, 65535, 65532, 1441793, 65534, 65532, 1441793, 65534, 65533, 1441793, 65535, 65533, 1441793, 1, 65532, 1441793, 2, 65532, 1441793)
 }
 
-[node name="enemy_test" parent="." instance=ExtResource("10_soncg")]
+[node name="spawn_enemy_test" parent="." instance=ExtResource("13_1rwft")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 151.869, -87.4529)
 
-[node name="enemy_test_2" parent="." instance=ExtResource("10_soncg")]
+[node name="spawn_enemy_test_2" parent="." instance=ExtResource("13_1rwft")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.7354, 151.869, -61.4025)
 
 [node name="wall_lt" type="StaticBody3D" parent="."]

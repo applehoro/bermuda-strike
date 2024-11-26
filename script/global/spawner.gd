@@ -27,6 +27,8 @@ var assets = {
 	"grass_1": preload( "res://objects/foliage/grass_1.tscn" ),
 	"palm_1": preload( "res://objects/foliage/palm_1.tscn" ),
 	"palm_1_lod": preload( "res://objects/foliage/lods/palm_1_lod.tscn" ),
+	
+	"enemy_test": preload( "res://objects/enemy/enemy_test.tscn" ),
 };
 
 var pool_assets = {

@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://ddtanmlmai73o"]
+
+[ext_resource type="Script" path="res://script/common/spawn.gd" id="1_6dlvo"]
+
+[node name="spawn_enemy_test" type="Node3D" groups=["spawn"]]
+script = ExtResource("1_6dlvo")
+spawn_id = "enemy_test"
+
+[node name="marker_3d" type="Marker3D" parent="."]
+gizmo_extents = 0.5

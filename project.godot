@@ -56,6 +56,7 @@ env=""
 enemy=""
 player_target=""
 radar=""
+spawn=""
 
 [input]
 
