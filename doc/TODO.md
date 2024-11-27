@@ -3,14 +3,16 @@
 ## Gameplay elements
 
 - Player
--- map
+-- engine noises
 
 - Weapons
 -- meele weapons
+-- weapon models
+-- weapon sounds
 
 - Enemies
 -- ai
--- shooting
+-- attack/action mechanics
 -- stats
 
 - Pickups
@@ -19,10 +21,11 @@
 
 - Level elements
 -- level end
+-- saving and loading
 
 - Game
 -- level change
 -- end level stats
--- level selection map
+-- next level screen
 -- inventory system between levels
 

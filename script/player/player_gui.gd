@@ -62,6 +62,9 @@ func _process(_delta: float) -> void:
 	$radar/viewport/yaw.global_position = get_parent().global_position;
 	$radar/viewport/yaw.global_rotation = get_parent().get_node( "yaw" ).global_rotation;
 	$radar/directions.rotation = $radar/viewport/yaw.global_rotation.y;
+	
+	var h = ( 1.0 - Inventory.health/Inventory.max_health )*0.5 + Inventory.damage_cd;
+	$damage_overlay.modulate.a = h;
 
 func update_settings():
 	$lens_flare.visible = Global.settings[ "lens_flare" ];

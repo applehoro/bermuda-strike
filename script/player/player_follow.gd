@@ -7,7 +7,7 @@ func _process(delta: float) -> void:
 		cd -= delta;
 	else:
 		if( Global.node_player != null ):
-			var pos = Global.node_player.global_position;
+			var pos = Global.player_pos;
 			pos = pos.snappedf( 512 );
 			pos.y = 0;
 			global_position = pos;

@@ -105,11 +105,17 @@ func _process( delta: float ) -> void:
 			$gui.target_pos = p;
 
 func _physics_process( delta: float ) -> void:
+	Global.player_pos = global_position;
+	
 	if( heal_cd > 0.0 ):
 		heal_cd -= delta;
 	elif( Inventory.health < heal_margin ):
 		Inventory.heal( 1 );
 		heal_cd = 0.1;
+	
+	Inventory.damage_cd = max( Inventory.damage_cd - delta, 0.0 );
+	if( Input.is_action_just_pressed( "debug_1" ) ):
+		damage( 10 );
 	
 	is_over_water = $ground_check.is_over_water;
 	is_underwater = $ground_check.is_underwater;
@@ -167,9 +173,9 @@ func _physics_process( delta: float ) -> void:
 	if( motion_type == MOTION_TYPE_WALK ):
 		if( is_underwater ):
 			if( y_offset > 0.0 ):
-				gravity_scale = max( gravity_scale - delta/0.7, -0.01 );
+				gravity_scale = max( gravity_scale - delta/0.1, -0.01 );
 			else:
-				gravity_scale = min( gravity_scale + delta/0.7, 0.01 );
+				gravity_scale = min( gravity_scale + delta/0.1, 0.01 );
 		
 		else:
 			gravity_scale = min( gravity_scale + delta/0.7, 1.0 );
@@ -227,6 +233,8 @@ func _physics_process( delta: float ) -> void:
 	if( motion_type == MOTION_TYPE_WALK ):
 		velocity.x *= 1.0 - delta*8.0;
 		velocity.z *= 1.0 - delta*8.0;
+		if( is_underwater || is_over_water && y_offset > -3 ):
+			velocity.y *= 1.0 - delta*8.0;
 	else:
 		velocity *= 1.0 - delta*8.0;
 	velocity += motion*delta*16.0;
@@ -239,9 +247,9 @@ func _physics_process( delta: float ) -> void:
 		
 		# push from under the water
 		if( is_underwater ):
-			velocity.y += ( 0.5 + 0.5*abs( y_offset ) )*delta;
-		elif( is_over_water && y_offset > -3 ):
-			velocity.y += 0.5*delta;
+			velocity.y += ( 0.1 + 0.1*abs( y_offset ) )*delta;
+		elif( is_over_water && y_offset > -3.0 ):
+			velocity.y += 0.1*delta;
 		
 		# apply gravity if in the air
 		elif( is_on_ground ):
@@ -269,9 +277,13 @@ func push( v ):
 func damage( d ):
 	Inventory.damage( d );
 	heal_cd = 5.0;
+	Inventory.damage_cd = 0.5;
 
 func die():
 	Global.node_player = null;
+	Global.node_player = Spawner.spawn_t( "player_corpse", $yaw/pitch.global_transform );
+	Global.node_player.set_vel( velocity );
+	#Global.node_player.linear_velocity = velocity;
 	queue_free();
 
 func set_look( v ):

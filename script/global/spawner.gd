@@ -29,6 +29,9 @@ var assets = {
 	"palm_1": preload( "res://objects/foliage/palm_1.tscn" ),
 	"palm_1_lod": preload( "res://objects/foliage/lods/palm_1_lod.tscn" ),
 	
+	"player": preload( "res://objects/player/player.tscn" ),
+	"player_corpse": preload( "res://objects/player/player_corpse.tscn" ),
+	
 	"enemy_test": preload( "res://objects/enemy/enemy_test.tscn" ),
 };
 
@@ -45,7 +48,7 @@ var pool_assets = {
 	"hit_mark": 16,
 	"water_splash": 16,
 	"dust_burst": 16,
-	"flame_burst": 30,
+	#"flame_burst": 30,
 };
 
 var pool = {};

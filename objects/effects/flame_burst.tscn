@@ -89,12 +89,12 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [false]
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_krqh8"]
 resource_name = "startup"
-length = 0.033335
+length = 0.6
 step = 0.0166667
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -103,10 +103,10 @@ tracks/0/path = NodePath("particles:emitting")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.0166667),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.0166667, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [true, true]
+"values": [true, true, true]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_a7uwc"]
@@ -117,24 +117,25 @@ _data = {
 
 [node name="flame_burst" type="Node3D"]
 script = ExtResource("1_2aw3x")
-lifetime = 0.6
 
 [node name="particles" type="GPUParticles3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 sorting_offset = 10.0
 cast_shadow = 0
 gi_mode = 0
-emitting = false
 lifetime = 0.5
 one_shot = true
 explosiveness = 1.0
-randomness = 1.0
+randomness = 0.1
+interpolate = false
 visibility_aabb = AABB(-8, -8, -8, 16, 16, 16)
 local_coords = true
 process_material = SubResource("ParticleProcessMaterial_tsufn")
 draw_pass_1 = SubResource("QuadMesh_jdcpu")
 
 [node name="anim" type="AnimationPlayer" parent="."]
+callback_mode_method = 1
+callback_mode_discrete = 2
 libraries = {
 "": SubResource("AnimationLibrary_a7uwc")
 }

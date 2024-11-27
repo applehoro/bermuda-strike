@@ -71,7 +71,7 @@ func create_multimesh():
  
 func _update():
 	# on each update, move the center to player
-	self.global_position = Vector3( Global.node_player.global_position.x, 0.0, Global.node_player.global_position.z ).snapped( Vector3( 1, 0, 1 ) );
+	self.global_position = Vector3( Global.player_pos.x, 0.0, Global.player_pos.z ).snapped( Vector3( 1, 0, 1 ) );
 	multi_mesh_instance.multimesh = distribute_meshes();
 	timer.wait_time = update_frequency;
 	timer.start();
@@ -167,7 +167,7 @@ func spawn_colliders():
 func generate_subset():
 	for i in range( instance_amount ):
 		var t = multi_mesh.get_instance_transform( i );
-		if( t.origin.distance_squared_to( Vector3( Global.node_player.global_position.x, t.origin.y, Global.node_player.global_position.z ) ) < pow( collider_coverage_dist, 2 ) ):
+		if( t.origin.distance_squared_to( Vector3( Global.player_pos.x, t.origin.y, Global.player_pos.z ) ) < pow( collider_coverage_dist, 2 ) ):
 				colliders_to_spawn.append( i );
 		if( i==instance_amount - 1 ):
 				spawn_colliders();

@@ -1,4 +1,4 @@
-[gd_scene load_steps=67 format=3 uid="uid://b142sd861jpb0"]
+[gd_scene load_steps=71 format=3 uid="uid://b142sd861jpb0"]
 
 [ext_resource type="Script" path="res://script/player/player.gd" id="1_4t0x4"]
 [ext_resource type="Shader" path="res://shaders/outline_2.gdshader" id="2_hkm1e"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://cu63f3b8sb1n3" path="res://textures/effects/water_splash.png" id="8_b27oc"]
 [ext_resource type="Texture2D" uid="uid://d0hhb6a0det0b" path="res://textures/effects/water_ring.png" id="9_t3q4k"]
 [ext_resource type="Script" path="res://script/player/player_gui.gd" id="10_5pu4h"]
+[ext_resource type="Texture2D" uid="uid://bru2q7gtsaxo2" path="res://textures/gui/damage_overlay.png" id="11_4yvd5"]
 [ext_resource type="Shader" path="res://shaders/distort_2.gdshader" id="11_fu2vn"]
 [ext_resource type="Shader" path="res://shaders/lens_flare.gdshader" id="12_5rfpw"]
 [ext_resource type="Shader" path="res://addons/post_processing/shaders/speed_lines.gdshader" id="13_6evge"]
@@ -38,7 +39,7 @@ radial_segments = 8
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_8ba34"]
 points = PackedVector3Array(-60, -120, -3.8147e-06, -42.4276, -120, -42.4276, -42.4276, -120, 42.4158, -48.007, -72.0047, -3.8147e-06, -25.4659, -24.0094, -25.4659, -3.8147e-06, -72.0047, -48.007, -3.8147e-06, -120, -60, -3.8147e-06, -120, 60, -25.4659, -24.0094, 25.4542, -24.0094, 23.9859, -3.8147e-06, -8.49256, 71.9812, -8.49256, -3.8147e-06, 23.9859, -24.0094, 42.4158, -120, -42.4276, 25.4542, -24.0094, -25.4659, 42.4158, -120, 42.4158, 25.4542, -24.0094, 25.4542, -3.8147e-06, 120, -3.8147e-06, 60, -120, -3.8147e-06)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_hmu8i"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gdadn"]
 render_priority = 0
 shader = ExtResource("2_hkm1e")
 shader_parameter/outline_color = Color(0, 0, 0, 1)
@@ -47,7 +48,7 @@ shader_parameter/smoothing_cutoff = 0.0
 shader_parameter/smoothing_max = 0.1
 
 [sub_resource type="QuadMesh" id="QuadMesh_ce76p"]
-material = SubResource("ShaderMaterial_hmu8i")
+material = SubResource("ShaderMaterial_gdadn")
 flip_faces = true
 size = Vector2(2, 2)
 
@@ -79,6 +80,13 @@ color_ramp = SubResource("GradientTexture1D_a2mca")
 
 [sub_resource type="QuadMesh" id="QuadMesh_147q2"]
 material = ExtResource("3_tajs7")
+
+[sub_resource type="Curve" id="Curve_1mim2"]
+_data = [Vector2(0, 0.415183), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_himla"]
+curve = SubResource("Curve_1mim2")
 
 [sub_resource type="Gradient" id="Gradient_uqbwg"]
 offsets = PackedFloat32Array(0, 0.122222, 0.633333, 1)
@@ -121,6 +129,7 @@ scale_max = 2.5
 scale_curve = SubResource("CurveTexture_8aow4")
 color = Color(1, 1, 1, 0.407843)
 color_ramp = SubResource("GradientTexture1D_3g1q3")
+alpha_curve = SubResource("CurveTexture_himla")
 turbulence_influence_min = 0.01
 turbulence_influence_max = 0.03
 
@@ -164,11 +173,12 @@ attractor_interaction_enabled = false
 scale_min = 32.0
 scale_max = 32.0
 scale_curve = SubResource("CurveTexture_c34g5")
-color = Color(1, 1, 1, 0.32549)
+color = Color(1, 1, 1, 0.258824)
 color_ramp = SubResource("GradientTexture1D_353pl")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b8xip"]
 transparency = 1
+cull_mode = 2
 shading_mode = 0
 vertex_color_use_as_albedo = true
 albedo_color = Color(1, 1, 1, 0.435294)
@@ -429,6 +439,8 @@ adjustment_enabled = true
 adjustment_contrast = 1.1
 adjustment_saturation = 1.3
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_em7ty"]
+
 [node name="player" type="CharacterBody3D" groups=["player"]]
 collision_layer = 5
 collision_mask = 5
@@ -504,7 +516,6 @@ process_material = SubResource("ParticleProcessMaterial_tqoy2")
 draw_pass_1 = SubResource("QuadMesh_147q2")
 
 [node name="ground_check" type="Node3D" parent="."]
-visible = false
 script = ExtResource("7_p8ui4")
 
 [node name="raycast" type="RayCast3D" parent="ground_check"]
@@ -516,6 +527,7 @@ collide_with_areas = true
 [node name="splash" type="GPUParticles3D" parent="ground_check"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 cast_shadow = 0
+custom_aabb = AABB(-8, -8, -8, 16, 16, 16)
 gi_mode = 0
 emitting = false
 amount = 64
@@ -527,6 +539,7 @@ draw_pass_1 = SubResource("QuadMesh_hv7cg")
 [node name="rings" type="GPUParticles3D" parent="ground_check"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
 cast_shadow = 0
+custom_aabb = AABB(-8, -8, -8, 16, 16, 16)
 emitting = false
 amount = 12
 lifetime = 1.6
@@ -795,6 +808,19 @@ grow_horizontal = 2
 grow_vertical = 2
 expand_mode = 3
 stretch_mode = 5
+
+[node name="damage_overlay" type="TextureRect" parent="gui"]
+modulate = Color(1, 0, 0.0166664, 1)
+material = SubResource("CanvasItemMaterial_em7ty")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 3.0
+offset_bottom = 3.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("11_4yvd5")
+expand_mode = 1
 
 [node name="ambience" type="Node" parent="."]
 script = ExtResource("22_n2e57")

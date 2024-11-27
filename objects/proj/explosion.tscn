@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://script/proj/explosion.gd" id="1_2aqww"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_jihgk"]
-radius = 1.0
+radius = 16.0
 
 [node name="explosion" type="Area3D"]
 monitorable = false

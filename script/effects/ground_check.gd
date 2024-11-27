@@ -75,6 +75,9 @@ func _process( _delta: float ) -> void:
 					$splash.emitting = true;
 		
 		# disable water effects if underwater or far away from water
+			else:
+				$rings.emitting = false;
+				$splash.emitting = false;
 		else:
 			$rings.emitting = false;
 			$splash.emitting = false;

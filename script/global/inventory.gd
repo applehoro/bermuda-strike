@@ -13,6 +13,7 @@ func _process( delta: float ) -> void:
 
 var health = 100.0;
 var max_health = 100.0;
+var damage_cd = 0.0;
 
 signal on_damage( v, t );
 signal on_death();

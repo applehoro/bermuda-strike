@@ -82,7 +82,7 @@ func fill_ids():
 func generate_instances():
 	for gi in gen_list.keys():
 		for i in range( gen_limit[ gi ] ):
-			var p = Global.node_player.global_position + Vector3( randf_range( -gen_dist[ gi ], gen_dist[ gi ] ), 0.0, randf_range( -gen_dist[ gi ], gen_dist[ gi ] ) );
+			var p = Global.player_pos + Vector3( randf_range( -gen_dist[ gi ], gen_dist[ gi ] ), 0.0, randf_range( -gen_dist[ gi ], gen_dist[ gi ] ) );
 			var id = data.get_control_base_id( p );
 			
 			var sid = gen_list[ gi ][ randi()%gen_list[ gi ].size() ];
@@ -95,7 +95,7 @@ func generate_instances():
 	
 	for li in lod_list.keys():
 		for i in range( lod_limit[ li ] ):
-			var p = Global.node_player.global_position + Vector3( randf_range( -lod_dist[ li ], lod_dist[ li ] ), 0.0, randf_range( -lod_dist[ li ], lod_dist[ li ] ) );
+			var p = Global.player_pos + Vector3( randf_range( -lod_dist[ li ], lod_dist[ li ] ), 0.0, randf_range( -lod_dist[ li ], lod_dist[ li ] ) );
 			var id = data.get_control_base_id( p );
 			
 			var sid = lod_list[ li ][ randi()%lod_list[ li ].size() ];

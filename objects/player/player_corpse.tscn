@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3 uid="uid://bm76bkloi36aq"]
+
+[ext_resource type="Script" path="res://script/player/player_corpse.gd" id="1_ggb58"]
+[ext_resource type="Shader" path="res://shaders/outline_2.gdshader" id="1_xi7rh"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_iiwga"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hmu8i"]
+render_priority = 0
+shader = ExtResource("1_xi7rh")
+shader_parameter/outline_color = Color(0, 0, 0, 1)
+shader_parameter/distance_falloff = 0.1
+shader_parameter/smoothing_cutoff = 0.0
+shader_parameter/smoothing_max = 0.1
+
+[sub_resource type="QuadMesh" id="QuadMesh_7kk3e"]
+material = SubResource("ShaderMaterial_hmu8i")
+flip_faces = true
+size = Vector2(2, 2)
+
+[node name="player_corpse" type="RigidBody3D"]
+center_of_mass_mode = 1
+center_of_mass = Vector3(0, 0, 0.3)
+continuous_cd = true
+linear_damp = 0.3
+angular_damp = 4.0
+script = ExtResource("1_ggb58")
+
+[node name="col" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_iiwga")
+
+[node name="camera" type="Camera3D" parent="."]
+cull_mask = 1048569
+current = true
+fov = 80.0
+near = 0.005
+
+[node name="outline" type="MeshInstance3D" parent="camera"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.01)
+cast_shadow = 0
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_7kk3e")

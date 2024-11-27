@@ -1,7 +1,14 @@
-[gd_scene load_steps=13 format=3 uid="uid://dep3bpx5hybwq"]
+[gd_scene load_steps=15 format=3 uid="uid://dep3bpx5hybwq"]
 
 [ext_resource type="Script" path="res://script/common/pool_timeout.gd" id="1_3k7f6"]
 [ext_resource type="Texture2D" uid="uid://cu63f3b8sb1n3" path="res://textures/effects/water_splash.png" id="1_yw76e"]
+
+[sub_resource type="Curve" id="Curve_363xj"]
+_data = [Vector2(0, 0.579663), 0.0, -0.576216, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_ludyw"]
+curve = SubResource("Curve_363xj")
 
 [sub_resource type="Gradient" id="Gradient_uqbwg"]
 offsets = PackedFloat32Array(0, 0.122222, 0.633333, 1)
@@ -38,6 +45,7 @@ scale_max = 3.0
 scale_curve = SubResource("CurveTexture_8aow4")
 color = Color(1, 1, 1, 0.407843)
 color_ramp = SubResource("GradientTexture1D_3g1q3")
+alpha_curve = SubResource("CurveTexture_ludyw")
 turbulence_influence_min = 0.01
 turbulence_influence_max = 0.03
 

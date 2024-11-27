@@ -63,7 +63,7 @@ func _physics_process(delta: float) -> void:
 
 func check_player():
 	if( Global.node_player != null ):
-		var offset = Global.node_player.global_position - global_position;
+		var offset = Global.player_pos - global_position;
 		player_dist = global_position.distance_to( Global.node_player.global_position );
 		player_yaw_angle = $yaw.global_basis.z.signed_angle_to( -offset, $yaw.global_basis.y );
 		player_pitch_angle = $yaw/pitch.global_basis.z.signed_angle_to( -offset, $yaw/pitch.global_basis.x );
