@@ -25,6 +25,20 @@ Aliens very active here, so be careful.
 Emily:
 No problem.
 
+-entering the base-
+
+Emily:
+Okay, looks kinda barren and empty
+
+Becky:
+Yeah, but be careful, invaders could still be there
+
+-finding the files-
+
+Becky:
+This should be it!
+Good job, let's get out of here.
+
 ### 2. Volcano Island "Flaming Hot Greetings"
 Becky:
 Looks like this volcano gonna erupt any moment now.
@@ -59,6 +73,18 @@ And a chest of gold!
 Emily:
 And a bottle of Rum!
 
+-finding the treasure-
+
+Emily:
+Hey, a bunch of gold!
+Mine! Mine! Mine!
+
+Becky:
+You're greedy.
+
+Emily:
+And gonna be very-very drunk.
+
 ### 5. Maintenance Docks "Wrenched"
 Becky:
 We gotta take back our repair docks.
@@ -74,6 +100,16 @@ Good opportunity to cut the snake's head.
 
 Emily:
 Let's blow 'em up!
+
+-fighting the boss-
+
+Emily:
+You ugly bastards gonna pay for messing with us!
+
+-winning the fight-
+
+Emily:
+Dommy mommy is here, it's time to die!
 
 ### Outro
 As alien paladin fell down to the ground, the weird sensation went through our hero's head.
@@ -118,7 +154,7 @@ This dam is crucial for energy supplies.
 We must protect it.
 
 Emily:
-No problem, I like to kick alien's asses!
+No problem, I like to kick alien asses!
 
 ### 5. Underground base "Moles"
 Becky:
@@ -127,6 +163,10 @@ We could use it for our operations, but we must clear it first.
 
 Emily:
 Lets kick the alien scum out!
+
+-entering base-
+Emily:
+Time for eviction!
 
 ### 6. Mines "Cannary in the Cage"
 Becky:
@@ -143,6 +183,19 @@ Lets show them!
 
 Emily:
 Don't ask twice!
+
+-fighting boss-
+
+Becky:
+Oops! this chunky guy looks angry!
+
+Emily:
+Let's find out how tough he is...
+
+-winning the fight-
+
+Emily:
+Another one bites my fist!
 
 ### Outro
 The hideous terrifying beast was slain and was lying on the floor.
@@ -164,6 +217,14 @@ This city should fall!
 Becky:
 Okay, let's storm the alien stronghold!
 
+-opening the gate-
+
+Emily:
+Open sesame!
+
+Becky:
+That was a very tortured reference!
+
 ### 2. Market Square "Gone Shopping"
 Becky:
 Looks like they are gathering forces there.
@@ -179,6 +240,11 @@ Like a temple or something.
 Emily:
 Well, alien gods won't help them now!
 
+-standing in the middle of altar room-
+
+Emily:
+Forgive me lord for I have kicked your ass!
+
 ### 4. (Bonus) Lake "Fresh Water"
 Becky:
 There must be something interesting under the lake.
@@ -188,6 +254,14 @@ Like Nessy or what?
 
 Becky:
 You watched too much Scooby Doo.
+
+-fighting the monster-
+
+Becky:
+What even is that thing?
+
+Emily:
+Well, gonna be a carcass in few minutes!
 
 ### 5. Park "Sakura Fall"
 Becky:
@@ -212,12 +286,30 @@ Hey, if we'll do our job properly, there's a chance for peaceful times in future
 Becky:
 Yeah, I hope.
 
-### 6. City Hall "Take Me to Yuor Leader"
+### 6. City Hall "Take Me to Your Leader"
 Becky:
 Okay, seems like there's alien commander hiding in the castle.
 
 Emily:
 Let's storm it!
+
+-fighting boss-
+
+Emily:
+Knock-knock!
+Who's here?
+Your death on the wings of fury!
+
+-winning the fight-
+
+Emily:
+Eat my shorts!
+
+Becky:
+Wow, this was awful!
+
+Emily:
+Glad you've appreciated it!
 
 ### Outro
 Enemy chief was defeated.
@@ -291,7 +383,7 @@ No problem!
 ### 3. Storage "Boxed"
 Becky:
 Hey, guess what?
-We're out of coffe at HQ now!
+We're out of coffee at HQ now!
 
 Emily:
 And I'm out of clue where I am now!
@@ -304,6 +396,18 @@ What a nightmare!
 
 Emily:
 Yeah, you tell me!
+
+-closer to level end-
+
+Becky:
+Hey, guess what?
+Coffee machine is back online!
+
+Emily:
+So, it would make you a happy girl?
+
+Becky:
+Yeah, a lots of happy!
 
 ### 4. Engine bay "Full Throttle"
 Becky:
@@ -319,6 +423,30 @@ Go wreck it!
 Emily:
 Right!
 
+-destroying the engine-
+
+Emily:
+You're offline!
+And you'll be dead!
+
+Becky:
+Not a catchy phrase, try again.
+
+Emily:
+It's revenge time, nerds!
+
+Becky:
+Okay, it's better, but just a little.
+
+Emily:
+Looks I can't satisfy you?
+
+Becky:
+Of course not, I'm a very feisty girl!
+
+Emily:
+Oh my god, all those ennuendoes!
+
 ### 5. Factory Area "Making Weapons"
 Emily:
 Okay, I think I'm going in circles.
@@ -330,6 +458,12 @@ Looks like they're making something there.
 
 Emily:
 Let's stop the production then!
+
+-destroying factory-
+
+Emily:
+What's that?
+Oh, yeah, the vengeance!
 
 ### 6. Throne Room "Her Majesty"
 Emily:
@@ -363,6 +497,26 @@ Well, we're gonna break a lot of stuff anyways!
 Emily:
 Danm right, let's dance!
 
+-fighting boss-
+
+Emily:
+You're one hell of ugly duckling!
+Let's see if you make it out alive...
+
+-winning fight-
+
+Emily:
+Feel this?
+It's a sweet taste of victory!
+
+Becky:
+Yeah, we've made it!
+No more evil aliens!
+
+Emily:
+You said it!
+Now, let's go home, I need a shower and a glass of Jack...
+
 ### Outro
 Alien queen was as dead as a soul of corporate worker.
 Strange sensation went through the air.
@@ -372,7 +526,7 @@ Emily pack her stuff and gone back home.
 
 No more war.
 I guess our girls could watch the sakura fall in peace after all.
-Rebuilding the Earth would be a long process, but the hope is in the air this spring.
+Rebuilding the Earth would be a long process, but the hope is in the air this spring...
 
 
 
