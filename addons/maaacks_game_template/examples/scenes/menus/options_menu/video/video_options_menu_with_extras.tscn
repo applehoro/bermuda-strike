@@ -6,13 +6,12 @@
 
 [node name="Video" instance=ExtResource("1_nrerc")]
 
-[node name="AAControl" parent="VBoxContainer" index="2" instance=ExtResource("2_boedx")]
+[node name="ViewportScaleControl" parent="VBoxContainer" index="2" instance=ExtResource("2_vkwcm")]
 layout_mode = 2
-option_name = "AA"
+option_name = "Viewport Scale"
 option_section = 3
-key = "Aa"
+key = "ViewportScale"
 section = "VideoSettings"
-default_value = true
 
 [node name="VSyncControl" parent="VBoxContainer" index="3" instance=ExtResource("2_boedx")]
 layout_mode = 2
@@ -22,35 +21,34 @@ key = "VSync"
 section = "VideoSettings"
 default_value = true
 
-[node name="RenderDistanceControl" parent="VBoxContainer" index="4" instance=ExtResource("2_vkwcm")]
+[node name="AAControl" parent="VBoxContainer" index="4" instance=ExtResource("2_boedx")]
 layout_mode = 2
-option_name = "RenderDistance"
+option_name = "AA"
+option_section = 3
+key = "Aa"
+section = "VideoSettings"
+default_value = true
+
+[node name="RenderDistanceControl" parent="VBoxContainer" index="5" instance=ExtResource("2_vkwcm")]
+layout_mode = 2
+option_name = "Render Distance"
 option_section = 3
 key = "RenderDistance"
 section = "VideoSettings"
 
-[node name="FOVControl" parent="VBoxContainer" index="5" instance=ExtResource("2_vkwcm")]
+[node name="FOVControl" parent="VBoxContainer" index="6" instance=ExtResource("2_vkwcm")]
 layout_mode = 2
 option_name = "FOV"
 option_section = 3
 key = "Fov"
 section = "VideoSettings"
 
-[node name="SmokeTrailsControl" parent="VBoxContainer" index="6" instance=ExtResource("2_boedx")]
+[node name="ViewBobControl" parent="VBoxContainer" index="7" instance=ExtResource("2_vkwcm")]
 layout_mode = 2
-option_name = "Smoke Trails"
+option_name = "View Bob"
 option_section = 3
-key = "SmokeTrails"
+key = "ViewBob"
 section = "VideoSettings"
-default_value = true
-
-[node name="WaterEffectsControl" parent="VBoxContainer" index="7" instance=ExtResource("2_boedx")]
-layout_mode = 2
-option_name = "Water Effects"
-option_section = 3
-key = "WaterEffects"
-section = "VideoSettings"
-default_value = true
 
 [node name="OutlineControl" parent="VBoxContainer" index="8" instance=ExtResource("2_boedx")]
 layout_mode = 2
@@ -60,7 +58,23 @@ key = "Outline"
 section = "VideoSettings"
 default_value = true
 
-[node name="LensFlareControl" parent="VBoxContainer" index="9" instance=ExtResource("2_boedx")]
+[node name="SmokeTrailsControl" parent="VBoxContainer" index="9" instance=ExtResource("2_boedx")]
+layout_mode = 2
+option_name = "Smoke Trails"
+option_section = 3
+key = "SmokeTrails"
+section = "VideoSettings"
+default_value = true
+
+[node name="WaterEffectsControl" parent="VBoxContainer" index="10" instance=ExtResource("2_boedx")]
+layout_mode = 2
+option_name = "Water Effects"
+option_section = 3
+key = "WaterEffects"
+section = "VideoSettings"
+default_value = true
+
+[node name="LensFlareControl" parent="VBoxContainer" index="11" instance=ExtResource("2_boedx")]
 layout_mode = 2
 option_name = "Lens Flare"
 option_section = 3
@@ -68,7 +82,7 @@ key = "LensFlare"
 section = "VideoSettings"
 default_value = true
 
-[node name="SpecialEffectsControl" parent="VBoxContainer" index="10" instance=ExtResource("2_boedx")]
+[node name="SpecialEffectsControl" parent="VBoxContainer" index="12" instance=ExtResource("2_boedx")]
 layout_mode = 2
 option_name = "Special Effects"
 option_section = 3
@@ -76,20 +90,14 @@ key = "SpecialEffects"
 section = "VideoSettings"
 default_value = true
 
-[node name="ViewBobControl" parent="VBoxContainer" index="11" instance=ExtResource("2_vkwcm")]
-layout_mode = 2
-option_name = "ViewBob"
-option_section = 3
-key = "ViewBob"
-section = "VideoSettings"
-
-[connection signal="setting_changed" from="VBoxContainer/AAControl" to="." method="_on_aa_control_setting_changed"]
+[connection signal="setting_changed" from="VBoxContainer/ViewportScaleControl" to="." method="_on_render_distance_control_setting_changed"]
 [connection signal="setting_changed" from="VBoxContainer/VSyncControl" to="." method="_on_v_sync_control_setting_changed"]
+[connection signal="setting_changed" from="VBoxContainer/AAControl" to="." method="_on_aa_control_setting_changed"]
 [connection signal="setting_changed" from="VBoxContainer/RenderDistanceControl" to="." method="_on_render_distance_control_setting_changed"]
 [connection signal="setting_changed" from="VBoxContainer/FOVControl" to="." method="_on_fov_control_setting_changed"]
+[connection signal="setting_changed" from="VBoxContainer/ViewBobControl" to="." method="_on_view_bob_control_setting_changed"]
+[connection signal="setting_changed" from="VBoxContainer/OutlineControl" to="." method="_on_outline_control_setting_changed"]
 [connection signal="setting_changed" from="VBoxContainer/SmokeTrailsControl" to="." method="_on_smoke_trails_control_setting_changed"]
 [connection signal="setting_changed" from="VBoxContainer/WaterEffectsControl" to="." method="_on_water_effects_control_setting_changed"]
-[connection signal="setting_changed" from="VBoxContainer/OutlineControl" to="." method="_on_outline_control_setting_changed"]
 [connection signal="setting_changed" from="VBoxContainer/LensFlareControl" to="." method="_on_lens_flare_control_setting_changed"]
 [connection signal="setting_changed" from="VBoxContainer/SpecialEffectsControl" to="." method="_on_special_effects_control_setting_changed"]
-[connection signal="setting_changed" from="VBoxContainer/ViewBobControl" to="." method="_on_view_bob_control_setting_changed"]

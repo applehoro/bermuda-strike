@@ -27,6 +27,7 @@ var settings = {
 	"lens_flare": true,
 	"special_effects": true,
 	"view_bob": 1.0,
+	"viewport_scale": 1.0,
 	
 	"auto_aim": true,
 };
@@ -73,21 +74,23 @@ func raycast_3d_any( from, to, exclude = [], mask = 0xFFFFFFFF ):
 # settings
 func update_settings():
 	settings = {
-		"mouse_sensitivity": Config.get_config( "InputSettings", "MouseSensitivity" )*0.01,
+		"mouse_sensitivity": Config.get_config( "InputSettings", "MouseSensitivity", 0.6 )*0.01,
 		
-		"vsync": Config.get_config( "VideoSettings", "VSync" ),
-		"aa": Config.get_config( "VideoSettings", "Aa" ),
-		"render_distance": 2000.0 + Config.get_config( "VideoSettings", "RenderDistance" )*8000.0,
-		"fov": 60.0 + Config.get_config( "VideoSettings", "Fov" )*20.0,
-		"smoke_trails": Config.get_config( "VideoSettings", "SmokeTrails" ),
-		"water_effects": Config.get_config( "VideoSettings", "WaterEffects" ),
-		"outline": Config.get_config( "VideoSettings", "Outline" ),
-		"lens_flare": Config.get_config( "VideoSettings", "LensFlare" ),
-		"special_effects": Config.get_config( "VideoSettings", "SpecialEffects" ),
-		"view_bob": Config.get_config( "VideoSettings", "ViewBob" ),
+		"vsync": Config.get_config( "VideoSettings", "VSync", true ),
+		"aa": Config.get_config( "VideoSettings", "Aa", true ),
+		"render_distance": 2000.0 + Config.get_config( "VideoSettings", "RenderDistance", 0.1 )*8000.0,
+		"fov": 60.0 + Config.get_config( "VideoSettings", "Fov", 0.15 )*20.0,
+		"smoke_trails": Config.get_config( "VideoSettings", "SmokeTrails", true ),
+		"water_effects": Config.get_config( "VideoSettings", "WaterEffects", true ),
+		"outline": Config.get_config( "VideoSettings", "Outline", true ),
+		"lens_flare": Config.get_config( "VideoSettings", "LensFlare", true ),
+		"special_effects": Config.get_config( "VideoSettings", "SpecialEffects", true ),
+		"view_bob": Config.get_config( "VideoSettings", "ViewBob", 0.5 ),
+		"viewport_scale": Config.get_config( "VideoSettings", "ViewportScale", 1.0 ),
 		
-		"auto_aim": Config.get_config( "GameSettings", "AutoAim" ),
+		"auto_aim": Config.get_config( "GameSettings", "AutoAim", false ),
 	};
+	
 	
 	if( settings[ "aa" ] ):
 		get_viewport().screen_space_aa = Viewport.SCREEN_SPACE_AA_FXAA;
@@ -98,6 +101,8 @@ func update_settings():
 		DisplayServer.window_set_vsync_mode( DisplayServer.VSYNC_ENABLED );
 	else:
 		DisplayServer.window_set_vsync_mode( DisplayServer.VSYNC_DISABLED );
+	
+	get_window().scaling_3d_scale = 0.25 + settings[ "viewport_scale" ]*0.75;
 	
 	on_update_settings.emit();
 

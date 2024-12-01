@@ -21,15 +21,15 @@ func activate():
 			var r = Global.raycast_3d_body( global_position, obj.global_position );
 			if( r ):
 				if( r[ "collider" ] == obj ):
-					
 					var fo = max( radius - dist, 0.0 )/radius;
-					if( obj.has_method( "damage" ) ):
-						var d = randf_range( damage.x, damage.y )*fo;
-						obj.damage( d );
 					
 					if( obj.has_method( "push" ) ):
 						var offset = obj.global_position - global_position;
 						obj.push( offset*push*fo );
+					
+					if( obj.has_method( "damage" ) ):
+						var d = randf_range( damage.x, damage.y )*fo;
+						obj.damage( d );
 	
 	for i in range( pow( radius, 1.5 ) ):
 		var p = Vector3( randf_range( 0.0, radius ), 0.0, 0.0 );

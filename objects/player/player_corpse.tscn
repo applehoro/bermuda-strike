@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://bm76bkloi36aq"]
+[gd_scene load_steps=9 format=3 uid="uid://bm76bkloi36aq"]
 
 [ext_resource type="Script" path="res://script/player/player_corpse.gd" id="1_ggb58"]
 [ext_resource type="Shader" path="res://shaders/outline_2.gdshader" id="1_xi7rh"]
+[ext_resource type="Texture2D" uid="uid://bru2q7gtsaxo2" path="res://textures/gui/damage_overlay.png" id="3_jpfyj"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_iiwga"]
 
@@ -17,6 +18,11 @@ shader_parameter/smoothing_max = 0.1
 material = SubResource("ShaderMaterial_hmu8i")
 flip_faces = true
 size = Vector2(2, 2)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_d4pve"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_klpyw"]
+blend_mode = 3
 
 [node name="player_corpse" type="RigidBody3D"]
 center_of_mass_mode = 1
@@ -40,3 +46,32 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.01)
 cast_shadow = 0
 extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_7kk3e")
+
+[node name="gui" type="CanvasLayer" parent="."]
+
+[node name="damage_overlay_mix" type="TextureRect" parent="gui"]
+modulate = Color(1, 0, 0.0166664, 1)
+material = SubResource("CanvasItemMaterial_d4pve")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 3.0
+offset_bottom = 3.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_jpfyj")
+expand_mode = 1
+
+[node name="damage_overlay_mult" type="TextureRect" parent="gui"]
+modulate = Color(1, 0.69, 0.695167, 1)
+material = SubResource("CanvasItemMaterial_klpyw")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 3.0
+offset_bottom = 3.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_jpfyj")
+expand_mode = 1
+flip_h = true
