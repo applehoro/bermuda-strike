@@ -64,14 +64,14 @@ func _physics_process(delta: float) -> void:
 func check_player():
 	if( Global.node_player != null ):
 		var offset = Global.player_pos - global_position;
-		player_dist = global_position.distance_to( Global.node_player.global_position );
+		player_dist = global_position.distance_to( Global.player_pos );
 		player_yaw_angle = $yaw.global_basis.z.signed_angle_to( -offset, $yaw.global_basis.y );
 		player_pitch_angle = $yaw/pitch.global_basis.z.signed_angle_to( -offset, $yaw/pitch.global_basis.x );
 		
 		if( player_dist < 120.0 && abs( player_yaw_angle ) < PI/2.0 && abs( player_pitch_angle ) < PI/2.0 ):
 			for xi in range( -1, 1 ):
 				for yi in range( -1, 1 ):
-					var p = Global.node_player.global_position + $yaw/pitch.global_basis.x*xi + $yaw/pitch.global_basis.y*yi;
+					var p = Global.player_pos + $yaw/pitch.global_basis.x*xi + $yaw/pitch.global_basis.y*yi;
 					var r = Global.raycast_3d_body( global_position, p, [ self, Global.node_player ] );
 					if( !r ):
 						saw_player = true;
@@ -148,19 +148,19 @@ func ai_state_update( delta ):
 			set_ai_state( "chase" );
 	
 	elif( ai_state == "chase" ):
-		slow_look_at_pos( Global.node_player.global_position, delta*2.0 );
-		var offset = Global.node_player.global_position - global_position;
-		player_dist = global_position.distance_to( Global.node_player.global_position );
+		slow_look_at_pos( Global.player_pos, delta*2.0 );
+		var offset = Global.player_pos - global_position;
+		player_dist = global_position.distance_to( Global.player_pos );
 		player_yaw_angle = $yaw.global_basis.z.signed_angle_to( -offset, $yaw.global_basis.y );
 		player_pitch_angle = $yaw/pitch.global_basis.z.signed_angle_to( -offset, $yaw/pitch.global_basis.x );
 		if( player_dist > 4.0 ):
 			motion -= $yaw/pitch.global_basis.z.rotated( Vector3.UP, deg_to_rad( move_offset*40.0 ) )*move_vel*delta;
 	
 	elif( ai_state == "dodge" ):
-		slow_look_at_pos( Global.node_player.global_position, delta/1.5 );
+		slow_look_at_pos( Global.player_pos, delta/1.5 );
 	
 	elif( ai_state == "block" ):
-		slow_look_at_pos( Global.node_player.global_position, delta/3.0 );
+		slow_look_at_pos( Global.player_pos, delta/3.0 );
 
 func set_ai_state( s ):
 	ai_state = s;

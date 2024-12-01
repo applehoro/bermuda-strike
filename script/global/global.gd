@@ -37,8 +37,27 @@ signal on_update_settings();
 @export_flags_3d_physics var water_layer = 0b00000000_00000000_00000000_00000010;
 @export_flags_3d_physics var all_layers = 0b00000000_00000000_00000000_00000011;
 
+var messages = [];
+
 func _ready() -> void:
 	update_settings();
+
+func message( t ):
+	messages.push_back( { "text": t, "time": 5.0 } );
+	while( messages.size() > 4 ):
+		messages.pop_front();
+
+func get_messages():
+	var r = [ "", "", "", "" ];
+	for i in range( messages.size() ):
+		r[ i ] = messages[ i ][ "text" ];
+	return r;
+
+func _process(delta: float) -> void:
+	if( messages.size() > 0 ):
+		messages[ 0 ][ "time" ] -= delta;
+		if( messages[ 0 ][ "time" ] <= 0.0 ):
+			messages.pop_front();
 
 # raycasting
 func raycast_3d_body( from, to, exclude = [], mask = 0xFFFFFFFF ):

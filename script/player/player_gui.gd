@@ -9,6 +9,13 @@ var target_pos = Vector2();
 var has_target = false;
 var _had_target = false;
 
+@onready var node_messages = [
+	$messages/message_1,
+	$messages/message_2,
+	$messages/message_3,
+	$messages/message_4,
+];
+
 func _ready() -> void:
 	update_settings();
 	Global.connect( "on_update_settings", self.update_settings );
@@ -65,6 +72,10 @@ func _process(_delta: float) -> void:
 	
 	var h = ( 1.0 - Inventory.health/Inventory.max_health )*0.5 + Inventory.damage_cd;
 	$damage_overlay.modulate.a = h;
+	
+	var m = Global.get_messages();
+	for i in range( 4 ):
+		node_messages[ i ].text = m[ i ];
 
 func update_settings():
 	$lens_flare.visible = Global.settings[ "lens_flare" ];

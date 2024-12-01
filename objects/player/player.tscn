@@ -760,6 +760,7 @@ far = 2400.0
 
 [node name="radar_mark" parent="gui/radar/viewport/yaw" instance=ExtResource("17_c4aug")]
 pixel_size = 0.0075
+texture = null
 
 [node name="mask" type="Sprite2D" parent="gui/radar"]
 clip_children = 1
@@ -810,7 +811,7 @@ expand_mode = 3
 stretch_mode = 5
 
 [node name="damage_overlay" type="TextureRect" parent="gui"]
-modulate = Color(1, 0, 0.0166664, 1)
+modulate = Color(1, 0, 0.0156863, 0)
 material = SubResource("CanvasItemMaterial_em7ty")
 anchors_preset = 15
 anchor_right = 1.0
@@ -821,6 +822,68 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("11_4yvd5")
 expand_mode = 1
+
+[node name="messages" type="Node2D" parent="gui"]
+position = Vector2(185, 18)
+
+[node name="message_1" type="Label" parent="gui/messages"]
+offset_right = 800.0
+offset_bottom = 25.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 4
+theme_override_constants/shadow_offset_y = 4
+theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("6_dx3k2")
+theme_override_font_sizes/font_size = 24
+
+[node name="message_2" type="Label" parent="gui/messages"]
+offset_top = 32.0
+offset_right = 800.0
+offset_bottom = 57.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 4
+theme_override_constants/shadow_offset_y = 4
+theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("6_dx3k2")
+theme_override_font_sizes/font_size = 24
+
+[node name="message_3" type="Label" parent="gui/messages"]
+offset_top = 64.0
+offset_right = 800.0
+offset_bottom = 89.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 4
+theme_override_constants/shadow_offset_y = 4
+theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("6_dx3k2")
+theme_override_font_sizes/font_size = 24
+
+[node name="message_4" type="Label" parent="gui/messages"]
+offset_top = 96.0
+offset_right = 800.0
+offset_bottom = 121.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 4
+theme_override_constants/shadow_offset_y = 4
+theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("6_dx3k2")
+theme_override_font_sizes/font_size = 24
 
 [node name="ambience" type="Node" parent="."]
 script = ExtResource("22_n2e57")

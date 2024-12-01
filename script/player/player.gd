@@ -60,6 +60,8 @@ func _ready() -> void:
 	update_settings();
 	Global.connect( "on_update_settings", self.update_settings );
 	Inventory.connect( "on_death", self.die );
+	
+	Global.message( "Started!" );
 
 func update_settings():
 	$yaw/pitch/camera/outline.visible = Global.settings[ "outline" ];

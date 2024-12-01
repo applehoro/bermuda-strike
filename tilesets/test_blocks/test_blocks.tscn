@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://ldvsp5b3lkrt"]
+
+[ext_resource type="PackedScene" uid="uid://csydxfrieo5lr" path="res://tilesets/test_blocks/test_blocks.gltf" id="1_chud8"]
+
+[node name="test_blocks" instance=ExtResource("1_chud8")]
