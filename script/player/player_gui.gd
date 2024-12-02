@@ -67,7 +67,7 @@ func _process(_delta: float) -> void:
 	_had_target = has_target;
 	
 	$radar/viewport/yaw.global_position = get_parent().global_position;
-	$radar/viewport/yaw.global_rotation = get_parent().get_node( "yaw" ).global_rotation;
+	$radar/viewport/yaw.global_rotation = get_parent().global_rotation;
 	$radar/directions.rotation = $radar/viewport/yaw.global_rotation.y;
 	
 	var h = ( 1.0 - Inventory.health/Inventory.max_health )*0.5 + Inventory.damage_cd;

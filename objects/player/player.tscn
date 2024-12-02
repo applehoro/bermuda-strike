@@ -28,30 +28,6 @@
 [ext_resource type="AudioStream" uid="uid://btap84wur4656" path="res://sounds/ambience/in_air_glide.wav" id="24_6jp3b"]
 [ext_resource type="AudioStream" uid="uid://de10l3yfwpkfo" path="res://sounds/ambience/in_air_overdrive.wav" id="25_jdkc2"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_75dfv"]
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_l4car"]
-top_radius = 0.0
-bottom_radius = 60.0
-height = 240.0
-radial_segments = 8
-
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_8ba34"]
-points = PackedVector3Array(-60, -120, -3.8147e-06, -42.4276, -120, -42.4276, -42.4276, -120, 42.4158, -48.007, -72.0047, -3.8147e-06, -25.4659, -24.0094, -25.4659, -3.8147e-06, -72.0047, -48.007, -3.8147e-06, -120, -60, -3.8147e-06, -120, 60, -25.4659, -24.0094, 25.4542, -24.0094, 23.9859, -3.8147e-06, -8.49256, 71.9812, -8.49256, -3.8147e-06, 23.9859, -24.0094, 42.4158, -120, -42.4276, 25.4542, -24.0094, -25.4659, 42.4158, -120, 42.4158, 25.4542, -24.0094, 25.4542, -3.8147e-06, 120, -3.8147e-06, 60, -120, -3.8147e-06)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_gdadn"]
-render_priority = 0
-shader = ExtResource("2_hkm1e")
-shader_parameter/outline_color = Color(0, 0, 0, 1)
-shader_parameter/distance_falloff = 0.1
-shader_parameter/smoothing_cutoff = 0.0
-shader_parameter/smoothing_max = 0.1
-
-[sub_resource type="QuadMesh" id="QuadMesh_ce76p"]
-material = SubResource("ShaderMaterial_gdadn")
-flip_faces = true
-size = Vector2(2, 2)
-
 [sub_resource type="Gradient" id="Gradient_my7a2"]
 offsets = PackedFloat32Array(0, 0.0888889, 0.738889, 1)
 colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0.145098, 1, 1, 1, 0.545098, 1, 1, 1, 0)
@@ -80,6 +56,31 @@ color_ramp = SubResource("GradientTexture1D_a2mca")
 
 [sub_resource type="QuadMesh" id="QuadMesh_147q2"]
 material = ExtResource("3_tajs7")
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_l4car"]
+top_radius = 0.0
+bottom_radius = 60.0
+height = 240.0
+radial_segments = 8
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_8ba34"]
+points = PackedVector3Array(-60, -120, -3.8147e-06, -42.4276, -120, -42.4276, -42.4276, -120, 42.4158, -48.007, -72.0047, -3.8147e-06, -25.4659, -24.0094, -25.4659, -3.8147e-06, -72.0047, -48.007, -3.8147e-06, -120, -60, -3.8147e-06, -120, 60, -25.4659, -24.0094, 25.4542, -24.0094, 23.9859, -3.8147e-06, -8.49256, 71.9812, -8.49256, -3.8147e-06, 23.9859, -24.0094, 42.4158, -120, -42.4276, 25.4542, -24.0094, -25.4659, 42.4158, -120, 42.4158, 25.4542, -24.0094, 25.4542, -3.8147e-06, 120, -3.8147e-06, 60, -120, -3.8147e-06)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gdadn"]
+render_priority = 0
+shader = ExtResource("2_hkm1e")
+shader_parameter/outline_color = Color(0, 0, 0, 1)
+shader_parameter/distance_falloff = 0.1
+shader_parameter/smoothing_cutoff = 0.0
+shader_parameter/smoothing_max = 0.1
+
+[sub_resource type="QuadMesh" id="QuadMesh_ce76p"]
+material = SubResource("ShaderMaterial_gdadn")
+flip_faces = true
+size = Vector2(2, 2)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_64c06"]
+radius = 0.75
 
 [sub_resource type="Curve" id="Curve_1mim2"]
 _data = [Vector2(0, 0.415183), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -451,59 +452,7 @@ motion_mode = 1
 wall_min_slide_angle = 0.0349066
 script = ExtResource("1_4t0x4")
 
-[node name="col" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
-shape = SubResource("CapsuleShape3D_75dfv")
-
-[node name="yaw" type="Node3D" parent="."]
-
-[node name="pitch" type="Node3D" parent="yaw"]
-
-[node name="target" type="Node3D" parent="yaw/pitch" groups=["player_target"]]
-script = ExtResource("3_tqfwt")
-
-[node name="area" type="Area3D" parent="yaw/pitch/target"]
-collision_layer = 8
-collision_mask = 8
-monitorable = false
-
-[node name="col_shape" type="MeshInstance3D" parent="yaw/pitch/target/area"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -120)
-visible = false
-mesh = SubResource("CylinderMesh_l4car")
-
-[node name="col" type="CollisionShape3D" parent="yaw/pitch/target/area"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -120)
-shape = SubResource("ConvexPolygonShape3D_8ba34")
-
-[node name="camera" type="Camera3D" parent="yaw/pitch"]
-cull_mask = 1048569
-current = true
-fov = 80.0
-near = 0.005
-
-[node name="outline" type="MeshInstance3D" parent="yaw/pitch/camera"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.01)
-cast_shadow = 0
-extra_cull_margin = 16384.0
-mesh = SubResource("QuadMesh_ce76p")
-
-[node name="weapon_manager" type="Node3D" parent="yaw/pitch"]
-script = ExtResource("3_8crra")
-
-[node name="container" type="SubViewportContainer" parent="yaw/pitch/weapon_manager"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="viewport" type="SubViewport" parent="yaw/pitch/weapon_manager/container"]
-transparent_bg = true
-handle_input_locally = false
-render_target_update_mode = 4
-
-[node name="smoke_trail" type="GPUParticles3D" parent="yaw"]
+[node name="smoke_trail" type="GPUParticles3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0.5)
 emitting = false
 amount = 120
@@ -515,7 +464,63 @@ trail_lifetime = 6.0
 process_material = SubResource("ParticleProcessMaterial_tqoy2")
 draw_pass_1 = SubResource("QuadMesh_147q2")
 
+[node name="pitch" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="target" type="Node3D" parent="pitch" groups=["player_target"]]
+script = ExtResource("3_tqfwt")
+
+[node name="area" type="Area3D" parent="pitch/target"]
+collision_layer = 8
+collision_mask = 8
+monitorable = false
+
+[node name="col_shape" type="MeshInstance3D" parent="pitch/target/area"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -120)
+visible = false
+mesh = SubResource("CylinderMesh_l4car")
+
+[node name="col" type="CollisionShape3D" parent="pitch/target/area"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -120)
+shape = SubResource("ConvexPolygonShape3D_8ba34")
+
+[node name="camera" type="Camera3D" parent="pitch"]
+cull_mask = 1048569
+current = true
+fov = 80.0
+near = 0.005
+
+[node name="outline" type="MeshInstance3D" parent="pitch/camera"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.01)
+cast_shadow = 0
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_ce76p")
+
+[node name="weapon_manager" type="Node3D" parent="pitch"]
+script = ExtResource("3_8crra")
+
+[node name="container" type="SubViewportContainer" parent="pitch/weapon_manager"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="viewport" type="SubViewport" parent="pitch/weapon_manager/container"]
+transparent_bg = true
+handle_input_locally = false
+render_target_update_mode = 4
+
+[node name="col_feet" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+shape = SubResource("SphereShape3D_64c06")
+
+[node name="col_head" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("SphereShape3D_64c06")
+
 [node name="ground_check" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 script = ExtResource("7_p8ui4")
 
 [node name="raycast" type="RayCast3D" parent="ground_check"]

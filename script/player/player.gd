@@ -23,6 +23,7 @@ var hover_vel = 64.0;
 var glide_vel = 180.0;
 var walk_vel = 20.0;
 var sprint_vel = 40.0;
+var crouch_vel = 10.0;
 var gravity_vel = 9.8*4.0;
 var jump_vel = 6.0;
 
@@ -64,9 +65,9 @@ func _ready() -> void:
 	Global.message( "Started!" );
 
 func update_settings():
-	$yaw/pitch/camera/outline.visible = Global.settings[ "outline" ];
-	$yaw/pitch/camera.far = Global.settings[ "render_distance" ];
-	$yaw/pitch/camera.fov = Global.settings[ "fov" ];
+	$pitch/camera/outline.visible = Global.settings[ "outline" ];
+	$pitch/camera.far = Global.settings[ "render_distance" ];
+	$pitch/camera.fov = Global.settings[ "fov" ];
 
 func _exit_tree() -> void:
 	Global.node_player = null;
@@ -92,17 +93,17 @@ func _process( delta: float ) -> void:
 	# camera roll
 	camera_roll *= 1.0 - delta*2.0;
 	camera_roll = clamp( camera_roll, deg_to_rad( -camera_roll_max ), deg_to_rad( camera_roll_max ) );
-	$yaw/pitch/camera.rotation.z = camera_roll*Global.settings[ "view_bob" ];
+	$pitch/camera.rotation.z = camera_roll*Global.settings[ "view_bob" ];
 	
 	# visual effects
-	$yaw/smoke_trail.emitting = motion.length() > 0.5 && Global.settings[ "smoke_trails" ] && !is_underwater && motion_type != MOTION_TYPE_WALK;
+	$smoke_trail.emitting = motion.length() > 0.5 && Global.settings[ "smoke_trails" ] && !is_underwater && motion_type != MOTION_TYPE_WALK;
 	
 	$gui.has_target = false;
 	lock_on_target = null;
-	if( $yaw/pitch/target.has_target ):
-		lock_on_target = $yaw/pitch/target.target;
-		if( !$yaw/pitch/camera.is_position_behind( $yaw/pitch/target.target_pos ) ):
-			var p = $yaw/pitch/camera.unproject_position( $yaw/pitch/target.target_pos );
+	if( $pitch/target.has_target ):
+		lock_on_target = $pitch/target.target;
+		if( !$pitch/camera.is_position_behind( $pitch/target.target_pos ) ):
+			var p = $pitch/camera.unproject_position( $pitch/target.target_pos );
 			$gui.has_target = true;
 			$gui.target_pos = p;
 
@@ -126,6 +127,16 @@ func _physics_process( delta: float ) -> void:
 	var was_on_ground = is_on_ground;
 	is_on_ground = is_on_floor(); # || ( is_on_ground && abs( y_offset ) < 2.0 );
 	var is_colliding = $ground_check.is_colliding;
+	
+	# update collisions
+	if( motion_type == MOTION_TYPE_WALK ):
+		if( Input.is_action_pressed( "crouch" ) ):
+			$col_head.position.y = max( $col_head.position.y - delta*8.0, -0.3 );
+		else:
+			$col_head.position.y = min( $col_head.position.y + delta*8.0, 0.5 );
+	else:
+		$col_head.position.y = min( $col_head.position.y + delta*8.0, 0.5 );
+	$pitch.position.y = $col_head.position.y;
 	
 	# update control
 	var control = Vector3();
@@ -188,9 +199,9 @@ func _physics_process( delta: float ) -> void:
 		
 		# hover motion
 		MOTION_TYPE_HOVER:
-			motion += $yaw.global_basis.x*control.x*delta*hover_vel;
-			motion += $yaw.global_basis.y*control.y*delta*hover_vel;
-			motion += $yaw.global_basis.z*control.z*delta*hover_vel;
+			motion += global_basis.x*control.x*delta*hover_vel;
+			motion += global_basis.y*control.y*delta*hover_vel;
+			motion += global_basis.z*control.z*delta*hover_vel;
 			camera_roll -= control.x*delta*0.3;
 		
 		# glide motion
@@ -200,31 +211,33 @@ func _physics_process( delta: float ) -> void:
 			else:
 				control_glide = lerp( control_glide, 0.5, delta*8.0 );
 			
-			motion -= $yaw/pitch.global_basis.z*control_glide*delta*glide_vel;
-			motion += $yaw/pitch.global_basis.x*control.x*delta*hover_vel;
-			motion -= $yaw/pitch.global_basis.y*control.z*delta*hover_vel;
+			motion -= $pitch.global_basis.z*control_glide*delta*glide_vel;
+			motion += $pitch.global_basis.x*control.x*delta*hover_vel;
+			motion -= $pitch.global_basis.y*control.z*delta*hover_vel;
 			camera_roll -= control.x*delta*0.3;
 		
 		# walk motion
 		MOTION_TYPE_WALK:
 			var vel = walk_vel;
-			if( Input.is_action_pressed( "sprint" ) || sprint_switch ):
+			if( Input.is_action_pressed( "crouch" ) ):
+				vel = crouch_vel;
+			elif( Input.is_action_pressed( "sprint" ) || sprint_switch ):
 				vel = sprint_vel;
 			
-			motion += $yaw.global_basis.x*control.x*delta*vel;
+			motion += global_basis.x*control.x*delta*vel;
 			camera_roll -= control.x*delta*0.12;
 			
 			# swimming
 			if( is_underwater || ( is_over_water && y_offset > -3.0 ) ):
-				motion += $yaw/pitch.global_basis.z*control.z*delta*vel;
+				motion += $pitch.global_basis.z*control.z*delta*vel;
 				if( Input.is_action_pressed( "move_dn" ) ):
-					motion -= $yaw.global_basis.y*vel*delta;
+					motion -= global_basis.y*vel*delta;
 				if( Input.is_action_pressed( "move_up" ) ):
-					motion += $yaw.global_basis.y*vel*delta;
+					motion += global_basis.y*vel*delta;
 			
 			# walking on ground
 			else:
-				motion += $yaw.global_basis.z*control.z*delta*vel;
+				motion += global_basis.z*control.z*delta*vel;
 				if( is_on_ground ):
 					motion.y = max( motion.y, 0.0 );
 				if( Input.is_action_just_pressed( "jump" ) && ( is_on_ground || was_on_ground ) ):
@@ -283,37 +296,37 @@ func damage( d ):
 
 func die():
 	Global.node_player = null;
-	Global.node_player = Spawner.spawn_t( "player_corpse", $yaw/pitch.global_transform );
-	Global.node_player.set_vel( velocity );
-	#Global.node_player.linear_velocity = velocity;
+	var c = Spawner.spawn_t( "player_corpse", $pitch.global_transform );
+	c.set_vel( velocity );
+	Global.node_player = c
 	queue_free();
 
 func set_look( v ):
 	look_pos = v;
 	look_pos.y = clamp( look_pos.y, -PI/2, PI/2 );
-	$yaw.rotation.y = look_pos.x;
-	$yaw/pitch.rotation.x = look_pos.y;
+	rotation.y = look_pos.x;
+	$pitch.rotation.x = look_pos.y;
 
 func look_at_pos( pos ):
 	var offset = pos - global_position;
-	var hz_a = $yaw.global_basis.z.signed_angle_to( -offset, $yaw.global_basis.y );
-	var vt_a = $yaw/pitch.global_basis.z.signed_angle_to( -offset, $yaw/pitch.global_basis.x );
+	var hz_a = global_basis.z.signed_angle_to( -offset, global_basis.y );
+	var vt_a = $pitch.global_basis.z.signed_angle_to( -offset, $pitch.global_basis.x );
 	set_look( look_pos + Vector2( hz_a, vt_a ) );
 
 func slow_look_at_pos( pos, delta ):
 	var offset = pos - global_position;
-	var hz_a = $yaw.global_basis.z.signed_angle_to( -offset, $yaw.global_basis.y );
-	var vt_a = $yaw/pitch.global_basis.z.signed_angle_to( -offset, $yaw/pitch.global_basis.x );
+	var hz_a = global_basis.z.signed_angle_to( -offset, global_basis.y );
+	var vt_a = $pitch.global_basis.z.signed_angle_to( -offset, $pitch.global_basis.x );
 	
 	if( abs( hz_a ) > 0.05 ):
 		look_pos.x = lerp( look_pos.x, look_pos.x + hz_a, delta + abs( hz_a )/10.0 );
-		$yaw.rotation.y = look_pos.x;
+		rotation.y = look_pos.x;
 	else:
-		$yaw.look_at( pos, $yaw.global_basis.y );
+		look_at( pos, global_basis.y );
 	
 	if( abs( vt_a ) > 0.05 ):
 		look_pos.y = lerp( look_pos.y, look_pos.y + vt_a, delta + abs( vt_a )/10.0 );
 		look_pos.y = clamp( look_pos.y, -PI/2, PI/2 );
-		$yaw/pitch.rotation.x = look_pos.y;
+		$pitch.rotation.x = look_pos.y;
 	else:
-		$yaw/pitch.look_at( pos, $yaw.global_basis.y );
+		$pitch.look_at( pos, global_basis.y );
