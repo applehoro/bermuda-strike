@@ -18,13 +18,11 @@ script = ExtResource("1_kgvii")
 [node name="col" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_iwh2r")
 
-[node name="yaw" type="Node3D" parent="."]
+[node name="pitch" type="Node3D" parent="."]
 
-[node name="pitch" type="Node3D" parent="yaw"]
-
-[node name="mesh" type="MeshInstance3D" parent="yaw/pitch"]
+[node name="mesh" type="MeshInstance3D" parent="pitch"]
 mesh = SubResource("SphereMesh_juj8f")
-skeleton = NodePath("../../..")
+skeleton = NodePath("../..")
 
 [node name="radar_mark" parent="." instance=ExtResource("2_aj7tt")]
 modulate = Color(1, 0, 0, 1)
