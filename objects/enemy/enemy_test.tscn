@@ -2,27 +2,31 @@
 
 [ext_resource type="Script" path="res://script/enemy/enemy_test.gd" id="1_kgvii"]
 [ext_resource type="PackedScene" uid="uid://beix2oisbu7m1" path="res://objects/radar/radar_mark.tscn" id="2_aj7tt"]
+[ext_resource type="PackedScene" uid="uid://41nrgge3sntb" path="res://models/enemy/test/test_enemy.gltf" id="2_oxlti"]
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_iwh2r"]
-radius = 0.8
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_lhr3g"]
 
-[sub_resource type="SphereMesh" id="SphereMesh_juj8f"]
-radius = 0.75
-height = 1.5
-
-[node name="enemy_test" type="CharacterBody3D" groups=["enemy"]]
+[node name="enemy_test" type="CharacterBody3D" node_paths=PackedStringArray("node_anim") groups=["enemy"]]
 collision_layer = 9
 collision_mask = 9
+axis_lock_angular_x = true
+axis_lock_angular_z = true
 script = ExtResource("1_kgvii")
+node_anim = NodePath("animation_player")
+max_health = 100.0
+attack_chance = 5
 
 [node name="col" type="CollisionShape3D" parent="."]
-shape = SubResource("SphereShape3D_iwh2r")
+shape = SubResource("CapsuleShape3D_lhr3g")
 
 [node name="pitch" type="Node3D" parent="."]
 
-[node name="mesh" type="MeshInstance3D" parent="pitch"]
-mesh = SubResource("SphereMesh_juj8f")
-skeleton = NodePath("../..")
+[node name="test_enemy" parent="pitch" instance=ExtResource("2_oxlti")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, -1, 0)
+
+[node name="muzzle" type="Node3D" parent="pitch"]
 
 [node name="radar_mark" parent="." instance=ExtResource("2_aj7tt")]
 modulate = Color(1, 0, 0, 1)
+
+[node name="animation_player" type="AnimationPlayer" parent="."]

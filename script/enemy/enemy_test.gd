@@ -1,5 +1,7 @@
 extends CharacterBody3D
 
+@export var node_anim : AnimationPlayer;
+
 @export var max_health = 40.0;
 @onready var health = max_health;
 
@@ -9,6 +11,7 @@ extends CharacterBody3D
 @export var dodge_cooldown = Vector2( 0.3, 0.6 );
 @export var block_cooldown = Vector2( 0.4, 0.7 );
 @export var flinch_cooldown = Vector2( 0.6, 0.7 );
+@export var attack_cooldown = Vector2( 1.2, 1.8 );
 
 @export_category( "Flinch" )
 @export var flinch_chance = 50;
@@ -28,8 +31,12 @@ var block_cd = 0.0;
 @export var block_chance = 15;
 @export var block_delay = Vector2( 8.0, 12.0 );
 @export var block_mul = 0.25;
-
 var is_grounded = true;
+
+@export_category( "Attack" )
+var attack_cd = 0.0;
+@export var attack_chance = 50;
+@export var attack_refire_chance = 70;
 
 @export_category( "Motion" )
 var motion = Vector3();
@@ -51,8 +58,6 @@ var player_yaw_angle = 0.0;
 var player_pitch_angle = 0.0;
 var player_dist = 0.0;
 
-var attack_list = {};
-var attack_cd = 0.0;
 
 func _ready() -> void:
 	look_at_pos( global_position - global_basis.z );
@@ -140,21 +145,16 @@ func slow_look_at_pos( pos, delta ):
 	else:
 		$pitch.look_at( pos, global_basis.y );
 
-func register_attack( id, dist_range: Vector2, cd_range: Vector2, anim_name, chance ):
-	attack_list[ id ] = {
-		"dist_range": dist_range,
-		"cd_range": cd_range,
-		"anim_name": anim_name,
-		"chance": chance,
-	};
-
 func can_attack():
-	return !attack_list.is_empty() && attack_cd <= 0.0;
+	return attack_cd <= 0.0;
 
 func ai_state_cooldown( delta ):
 	ai_state_cd = max( ai_state_cd - delta, 0.0 );
 	if( ai_state_cd <= 0.0 ):
-		if( can_attack() && saw_player && randi()%100 < 50 ):
+		if( ai_state == "attack" && randi()%100 < attack_refire_chance ):
+			set_ai_state( "attack" );
+		
+		elif( can_attack() && saw_player && randi()%100 < attack_chance ):
 			set_ai_state( "attack" );
 		
 		elif( is_targeted() && block_cd <= 0.0 && saw_player && can_block && randi()%100 < dodge_chance ):
@@ -175,19 +175,22 @@ func ai_state_update( delta ):
 			set_ai_state( "chase" );
 	
 	elif( ai_state == "chase" ):
-		slow_look_at_pos( Global.player_pos, delta*2.0 );
 		var offset = Global.player_pos - global_position;
 		player_dist = global_position.distance_to( Global.player_pos );
 		player_yaw_angle = global_basis.z.signed_angle_to( -offset, global_basis.y );
 		player_pitch_angle = $pitch.global_basis.z.signed_angle_to( -offset, $pitch.global_basis.x );
 		if( player_dist > 4.0 ):
-			motion -= $pitch.global_basis.z.rotated( Vector3.UP, deg_to_rad( move_offset*move_offset_angle ) )*move_vel*delta;
+			motion += Vector3( offset.x, 0.0, offset.z ).normalized().rotated( Vector3.UP, deg_to_rad( move_offset*move_offset_angle ) )*move_vel*delta;
+		look_at_pos( global_position - Vector3( motion.x, 0.0, motion.z ) );
 	
 	elif( ai_state == "dodge" ):
 		slow_look_at_pos( Global.player_pos, delta/1.5 );
 	
 	elif( ai_state == "block" ):
 		slow_look_at_pos( Global.player_pos, delta/3.0 );
+	
+	elif( ai_state == "attack" ):
+		attack_update( delta );
 
 func set_ai_state( s ):
 	ai_state = s;
@@ -201,10 +204,9 @@ func set_ai_state( s ):
 			saw_player = true;
 		
 		"attack":
-			var i = randi()%attack_list.keys().size();
-			var id = attack_list.keys()[ i ];
-			attack_cd = randf_range( attack_list[ i ][ "cd_range" ].x, attack_list[ i ][ "cd_range" ].y );
+			attack_cd = randf_range( attack_cooldown.x, attack_cooldown.y );
 			ai_state_cd = attack_cd;
+			on_attack();
 		
 		"block":
 			ai_state_cd = randf_range( block_cooldown.x, block_cooldown.y );
@@ -225,6 +227,19 @@ func set_ai_state( s ):
 			ai_state_cd = randf_range( flinch_cooldown.x, flinch_cooldown.y );
 			saw_player = true;
 
+func on_attack():
+	ai_state_cd = 0.3;
+	look_at_pos( Global.player_pos );
+	$pitch/muzzle.look_at( Global.player_pos );
+	var off = Vector2( deg_to_rad( randf_range( 0, 30 ) ), 0.0 ).rotated( randf_range( 0.0, PI*2.0 ) );
+	$pitch/muzzle.rotate( $pitch/muzzle.global_basis.y, off.x );
+	$pitch/muzzle.rotate( $pitch/muzzle.global_basis.x, off.y );
+	var c = Spawner.spawn_t( "bullet_223", $pitch/muzzle.global_transform );
+	c.add_exclude( self );
+
+func attack_update( delta ):
+	look_at_pos( Global.player_pos );
+
 
 func push( v ):
 	push_vel += v*push_mul;
@@ -242,3 +257,5 @@ func damage( d ):
 
 func die():
 	queue_free();
+
+
