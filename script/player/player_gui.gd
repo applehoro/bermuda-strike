@@ -16,13 +16,19 @@ var _had_target = false;
 	$messages/message_4,
 ];
 
+var damage_a_l = 0.0;
+var damage_a_r = 0.0;
+var damage_a_u = 0.0;
+var damage_a_d = 0.0;
+
 func _ready() -> void:
 	update_settings();
 	Global.connect( "on_update_settings", self.update_settings );
 	get_viewport().connect( "size_changed", self.update_settings );
 	$radar/mask/texture.texture = $radar/viewport.get_texture();
 
-func _process(_delta: float) -> void:
+func _process( delta: float ) -> void:
+	
 	if( ( get_parent().is_over_water || get_parent().is_underwater ) && Global.settings[ "special_effects" ] ):
 		$water_horizon.visible = true;
 		$water_horizon.color.a = ease( max( 1.2 - abs( get_parent().y_offset ), 0.0 ), 0.25 );
@@ -71,7 +77,17 @@ func _process(_delta: float) -> void:
 	$radar/directions.rotation = $radar/viewport/yaw.global_rotation.y;
 	
 	var h = ( 1.0 - Inventory.health/Inventory.max_health )*0.5 + Inventory.damage_cd;
-	$damage_overlay.modulate.a = h;
+	$damage_overlay.modulate.a = ease( h, 2.0 );
+	
+	damage_a_l = max( damage_a_l - delta/0.3, 0.0 );
+	damage_a_r = max( damage_a_r - delta/0.3, 0.0 );
+	damage_a_u = max( damage_a_u - delta/0.3, 0.0 );
+	damage_a_d = max( damage_a_d - delta/0.3, 0.0 );
+	
+	$damage_direction_l.modulate.a = damage_a_l*0.5;
+	$damage_direction_r.modulate.a = damage_a_r*0.5;
+	$damage_direction_u.modulate.a = damage_a_u*0.5;
+	$damage_direction_d.modulate.a = damage_a_d*0.5;
 	
 	var m = Global.get_messages();
 	for i in range( 4 ):
@@ -80,3 +96,18 @@ func _process(_delta: float) -> void:
 func update_settings():
 	$lens_flare.visible = Global.settings[ "lens_flare" ];
 	$crosshair.position = get_viewport().get_visible_rect().size/2.0;
+
+func mark_damage( x : int, y : int ):
+	if( x == 0 && y == 0 ):
+		damage_a_l = 1.0;
+		damage_a_r = 1.0;
+		damage_a_u = 1.0;
+		damage_a_d = 1.0;
+	if( x < 0 ):
+		damage_a_l = 1.0;
+	elif( x > 0 ):
+		damage_a_r = 1.0;
+	if( y < 0 ):
+		damage_a_u = 1.0;
+	elif( y > 0 ):
+		damage_a_d = 1.0;

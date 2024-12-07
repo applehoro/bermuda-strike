@@ -330,3 +330,23 @@ func slow_look_at_pos( pos, delta ):
 		$pitch.rotation.x = look_pos.y;
 	else:
 		$pitch.look_at( pos, global_basis.y );
+
+func mark_damage( pos ):
+	var offset = pos - global_position;
+	var hz_a = global_basis.z.signed_angle_to( -offset, global_basis.y );
+	var vt_a = $pitch.global_basis.z.signed_angle_to( -offset, $pitch.global_basis.x );
+	
+	if( abs( hz_a ) < deg_to_rad( 45 ) && abs( vt_a ) < deg_to_rad( 45 ) ):
+		$gui.mark_damage( 0, 0 );
+	else:
+		var x = 0;
+		var y = 0;
+		if( hz_a <= deg_to_rad( -45 ) ):
+			x = -1;
+		if( hz_a >= deg_to_rad( 45 ) ):
+			x = 1;
+		if( vt_a <= deg_to_rad( -45 ) ):
+			y = -1;
+		if( vt_a >= deg_to_rad( 45 ) ):
+			y = 1;
+		$gui.mark_damage( x, y );

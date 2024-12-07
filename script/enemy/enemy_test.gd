@@ -258,4 +258,6 @@ func damage( d ):
 func die():
 	queue_free();
 
-
+func alarm():
+	saw_player = true;
+	print( "hit!" );

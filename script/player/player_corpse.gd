@@ -19,13 +19,7 @@ func update_settings():
 
 func _process(delta: float) -> void:
 	$gui/damage_overlay_mix.modulate.a = max( $gui/damage_overlay_mix.modulate.a - delta, 0.0 );
+	$gui/darkness.color.a = min( $gui/darkness.color.a + delta/12.0, 1.0 );
 
 func _physics_process(delta: float) -> void:
 	Global.player_pos = global_position;
-	
-	#var ax = global_basis.z.signed_angle_to( -Vector3.UP, global_basis.x );
-	#var ay = global_basis.z.signed_angle_to( -Vector3.UP, global_basis.y );
-	#angular_velocity += global_basis.x*ax*delta*0.1;
-	#angular_velocity += global_basis.y*ay*delta*0.1;
-	#rotate_x( ax*delta*0.01 );
-	#rotate_y( ay*delta*0.01 );

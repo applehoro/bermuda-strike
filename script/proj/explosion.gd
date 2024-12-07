@@ -4,12 +4,12 @@ extends Area3D
 @export var push = 30.0;
 @export var radius = 1.2;
 
+var shot_by_player = false;
+
 func _ready() -> void:
-	#$col.shape.radius = radius;
 	pass;
 
 func _physics_process(delta: float) -> void:
-	#$col.shape.radius = radius;
 	call_deferred( "activate" );
 
 func activate():
@@ -30,6 +30,13 @@ func activate():
 					if( obj.has_method( "damage" ) ):
 						var d = randf_range( damage.x, damage.y )*fo;
 						obj.damage( d );
+					
+					if( obj.has_method( "alarm" ) && shot_by_player ):
+						obj.alarm();
+		
+		if( dist <= radius*4.0 ):
+			if( obj.has_method( "alarm" ) && shot_by_player ):
+				obj.alarm();
 	
 	for i in range( pow( radius, 1.5 ) ):
 		var p = Vector3( randf_range( 0.0, radius ), 0.0, 0.0 );

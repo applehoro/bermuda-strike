@@ -25,11 +25,9 @@ var is_in_pool = false;
 var target = null;
 @export var target_speed = 1.0;
 
+var shot_by_player = false;
+
 func _ready() -> void:
-	#$mesh.scale.z = 0.01;
-	#$mesh.position.z = -$mesh.scale.z*2.0;
-	#$mesh.visible = false;
-	#call_deferred( "setup" );
 	pass;
 
 func add_exclude( obj ):
@@ -59,7 +57,10 @@ func _physics_process(delta: float) -> void:
 		if( obj.has_method( "push" ) ):
 			obj.push( -global_basis.z*push_vel );
 		if( spawn_on_hit != "" ):
-			Spawner.spawn( spawn_on_hit, r[ "position" ], global_rotation );
+			var c = Spawner.spawn( spawn_on_hit, r[ "position" ], global_rotation );
+			c.set( "shot_by_player", shot_by_player );
+		if( shot_by_player && obj.has_method( "alarm" ) ):
+			obj.alarm();
 		Spawner.spawn( "hit_mark", r[ "position" ], Vector3() );
 		die();
 	else:
@@ -92,6 +93,7 @@ func die():
 		set_physics_process( false );
 		visible = false;
 		live = false;
+		shot_by_player = false;
 	else:
 		queue_free();
 
@@ -101,6 +103,7 @@ func setup():
 	set_process( true );
 	set_physics_process( true );
 	visible = false;
+	shot_by_player = false;
 	
 	hit_water = false;
 	var rw = Global.raycast_3d_area( global_position, global_position - global_basis.z*0.05, [], Global.water_layer );

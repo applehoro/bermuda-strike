@@ -325,6 +325,8 @@ func shoot_raycast( ignore_player = true, raycast_num = 1, raycast_spread = 0.0,
 				obj.damage( d );
 			if( obj.has_method( "mark_damage" ) ):
 				obj.mark_damage( r[ "position" ] );
+			if( obj.has_method( "alarm" ) ):
+				obj.alarm();
 			Spawner.spawn( "hit_mark", r[ "position" ], Vector3() );
 			
 			# water splashes
@@ -336,24 +338,20 @@ func shoot_raycast( ignore_player = true, raycast_num = 1, raycast_spread = 0.0,
 
 # handle projectile spawning
 func shoot_projectile( projectile_num = 1, projectile_id = "", projectile_spread = 0.0 ):
-	var t = global_transform; #Global.normalize_transform( node_muzzle.global_transform );
+	var t = global_transform;
 	t.origin -= t.basis.z*0.5;
-	#t = t.looking_at( target_pos, global_basis.x );
 	for i in range( projectile_num ):
-		#var c = Spawner.spawn( projectile_id, node_muzzle.global_position, node_muzzle.global_rotation );
 		var c = Spawner.spawn_t( projectile_id, t );
 		c.add_exclude( Global.node_player );
 		var rot = Vector2( deg_to_rad( randf_range( -spread - projectile_spread, spread + projectile_spread ) ), 0.0 ).rotated( randf_range( 0, PI*2.0 ) );
 		c.global_rotate( t.basis.y.normalized(), rot.x );
 		c.global_rotate( t.basis.x.normalized(), rot.y );
-		#c.global_rotate( t.basis.y.normalized(), randf_range( -deg_to_rad( spread ), deg_to_rad( spread ) ) );
-		#c.global_rotate( t.basis.x.normalized(), randf_range( -deg_to_rad( spread ), deg_to_rad( spread ) ) );
-		#c.global_rotate( t.basis.y.normalized(), randf_range( -deg_to_rad( projectile_spread ), deg_to_rad( projectile_spread ) ) );
-		#c.global_rotate( t.basis.x.normalized(), randf_range( -deg_to_rad( projectile_spread ), deg_to_rad( projectile_spread ) ) );
+		c.set( "shot_by_player", true );
 		if( alt_trigger_mechanic == AltTriggerType.LOCK_ON && alt_trigger ):
 			c.target = Global.node_player.lock_on_target;
 		else:
 			c.target = null;
+		
 
 func on_trigger_pressed():
 	pass;

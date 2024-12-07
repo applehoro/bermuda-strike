@@ -7,6 +7,8 @@ extends Node3D
 @export var explosion_damage = Vector2( 60.0, 120.0 );
 @export var explosion_push = 100.0;
 
+var shot_by_player = false;
+
 func _ready() -> void:
 	global_position -= global_basis.z*0.1;
 	call_deferred( "activate" );
@@ -16,6 +18,7 @@ func activate():
 	e.radius = explosion_radius;
 	e.damage = explosion_damage;
 	e.push = explosion_push;
+	e.set( "shot_by_player", shot_by_player );
 	
 	for i in range( spawn_num ):
 		var c = Spawner.spawn( spawn_id, global_position + Vector3( 0, 0.5, 0 ), Vector3() );

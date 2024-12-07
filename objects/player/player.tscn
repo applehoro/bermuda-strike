@@ -1,4 +1,4 @@
-[gd_scene load_steps=71 format=3 uid="uid://b142sd861jpb0"]
+[gd_scene load_steps=73 format=3 uid="uid://b142sd861jpb0"]
 
 [ext_resource type="Script" path="res://script/player/player.gd" id="1_4t0x4"]
 [ext_resource type="Shader" path="res://shaders/outline_2.gdshader" id="2_hkm1e"]
@@ -24,8 +24,10 @@
 [ext_resource type="Script" path="res://script/radar/map.gd" id="21_kve55"]
 [ext_resource type="Script" path="res://script/player/player_ambience.gd" id="22_n2e57"]
 [ext_resource type="AudioStream" uid="uid://cebtv7kitm163" path="res://sounds/ambience/in_air_walk.wav" id="22_utivl"]
+[ext_resource type="Texture2D" uid="uid://cwrr6girwvpqu" path="res://textures/gui/damage_direction.png" id="23_48ih5"]
 [ext_resource type="AudioStream" uid="uid://t617eyfn3g7g" path="res://sounds/ambience/in_air_hover.wav" id="23_iyd00"]
 [ext_resource type="AudioStream" uid="uid://btap84wur4656" path="res://sounds/ambience/in_air_glide.wav" id="24_6jp3b"]
+[ext_resource type="Texture2D" uid="uid://ctcb7pwfprnlu" path="res://textures/gui/damage_direction_2.png" id="24_kip4p"]
 [ext_resource type="AudioStream" uid="uid://de10l3yfwpkfo" path="res://sounds/ambience/in_air_overdrive.wav" id="25_jdkc2"]
 
 [sub_resource type="Gradient" id="Gradient_my7a2"]
@@ -827,6 +829,52 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("11_4yvd5")
 expand_mode = 1
+
+[node name="damage_direction_l" type="TextureRect" parent="gui"]
+modulate = Color(1, 0, 0.0156863, 0)
+material = SubResource("CanvasItemMaterial_em7ty")
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 160.0
+grow_vertical = 2
+texture = ExtResource("23_48ih5")
+expand_mode = 1
+
+[node name="damage_direction_r" type="TextureRect" parent="gui"]
+modulate = Color(1, 0, 0.0156863, 0)
+material = SubResource("CanvasItemMaterial_em7ty")
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -160.0
+grow_horizontal = 0
+grow_vertical = 2
+texture = ExtResource("23_48ih5")
+expand_mode = 1
+flip_h = true
+
+[node name="damage_direction_u" type="TextureRect" parent="gui"]
+modulate = Color(1, 0, 0.0156863, 0)
+material = SubResource("CanvasItemMaterial_em7ty")
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 160.0
+grow_horizontal = 2
+texture = ExtResource("24_kip4p")
+expand_mode = 1
+
+[node name="damage_direction_d" type="TextureRect" parent="gui"]
+modulate = Color(1, 0, 0.0156863, 0)
+material = SubResource("CanvasItemMaterial_em7ty")
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 560.0
+offset_bottom = 720.0
+grow_horizontal = 2
+texture = ExtResource("24_kip4p")
+expand_mode = 1
+flip_v = true
 
 [node name="messages" type="Node2D" parent="gui"]
 position = Vector2(185, 18)

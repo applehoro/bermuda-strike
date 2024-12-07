@@ -221,7 +221,7 @@ locale/translations=PackedStringArray("res://addons/maaacks_game_template/base/t
 3d_render/layer_2="radar"
 3d_render/layer_3="weapon"
 3d_physics/layer_1="Physics"
-3d_physics/layer_2="Water"
+3d_physics/layer_2="Lelel"
 3d_physics/layer_3="Player"
 3d_physics/layer_4="Enemies"
 
