@@ -68,6 +68,9 @@ var anim_queue_attack_id = 0;
 @export var anim_queue_alt_attack = [ "attack" ];
 var anim_queue_alt_attack_id = 0;
 
+@export_category( "Sound" )
+@export var node_sound: Area3D;
+
 var target_pos = Vector3();
 
 func _ready() -> void:
@@ -216,6 +219,10 @@ func take_ammo( a ):
 func attack():
 	if( take_ammo( ammo_usage_per_attack ) ):
 		shoot();
+		if( node_sound != null ):
+			for obj in node_sound.get_overlapping_bodies():
+				if( obj.has_method( "alarm" ) ):
+					obj.alarm();
 		play_next_attack_anim();
 		spread = min( spread + spread_increase, spread_range_degrees.y );
 		return true;
@@ -224,6 +231,10 @@ func attack():
 func alt_attack():
 	if( take_ammo( ammo_usage_per_alt_attack ) ):
 		alt_shoot();
+		if( node_sound != null ):
+			for obj in node_sound.get_overlapping_bodies():
+				if( obj.has_method( "alarm" ) ):
+					obj.alarm();
 		play_next_alt_attack_anim();
 		spread = min( spread + spread_alt_increase, spread_range_degrees.y );
 		return true;

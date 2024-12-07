@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=4 uid="uid://dh2al0us646sh"]
+[gd_scene load_steps=34 format=4 uid="uid://dh2al0us646sh"]
 
 [ext_resource type="Script" path="res://script/player/weapons/weapon_smg.gd" id="1_5cdj7"]
 [ext_resource type="PackedScene" uid="uid://cfp45cmblmn83" path="res://models/weapons/smg/junk_smg/junk_smg.gltf" id="2_ibhbx"]
@@ -103,6 +103,9 @@ _data = {
 "reload": ExtResource("14_kihnp")
 }
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_0sfom"]
+radius = 160.0
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_hmu8i"]
 render_priority = 0
 shader = ExtResource("15_upn51")
@@ -133,7 +136,7 @@ random_pitch = 1.05
 streams_count = 1
 stream_0/stream = ExtResource("16_d3vgq")
 
-[node name="weapon_smg" type="Node3D" node_paths=PackedStringArray("node_muzzle", "node_anim", "node_anim_add")]
+[node name="weapon_smg" type="Node3D" node_paths=PackedStringArray("node_muzzle", "node_anim", "node_anim_add", "node_sound")]
 script = ExtResource("1_5cdj7")
 trigger_mechanic = 2
 alt_trigger_mechanic = 2
@@ -149,6 +152,7 @@ node_anim = NodePath("junk_smg/AnimationPlayer")
 node_anim_add = NodePath("junk_smg/animation_player_add")
 anim_queue_attack = ["attack_1"]
 anim_queue_alt_attack = ["attack_burst"]
+node_sound = NodePath("sound")
 
 [node name="muzzle" type="Marker3D" parent="."]
 transform = Transform3D(0.415439, 0, 0, 0, 0.415439, -1.81594e-08, 0, 1.81594e-08, 0.415439, 0, 0, -0.2)
@@ -319,6 +323,15 @@ libraries = {
 "": SubResource("AnimationLibrary_xf1rp")
 }
 autoplay = "RESET"
+
+[node name="sound" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 8
+input_ray_pickable = false
+monitorable = false
+
+[node name="col" type="CollisionShape3D" parent="sound"]
+shape = SubResource("SphereShape3D_0sfom")
 
 [node name="camera" type="Camera3D" parent="."]
 cull_mask = 4

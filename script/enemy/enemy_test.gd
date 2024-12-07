@@ -31,7 +31,6 @@ var block_cd = 0.0;
 @export var block_chance = 15;
 @export var block_delay = Vector2( 8.0, 12.0 );
 @export var block_mul = 0.25;
-var is_grounded = true;
 
 @export_category( "Attack" )
 var attack_cd = 0.0;
@@ -39,6 +38,7 @@ var attack_cd = 0.0;
 @export var attack_refire_chance = 70;
 
 @export_category( "Motion" )
+@export var is_grounded = true;
 var motion = Vector3();
 @export var move_vel = 24.0;
 @export var motion_damp = 8.0;
@@ -63,6 +63,10 @@ func _ready() -> void:
 	look_at_pos( global_position - global_basis.z );
 	$radar_mark.visible = true;
 	set_ai_state( ai_state );
+	if( is_grounded ):
+		motion_mode = MOTION_MODE_GROUNDED;
+	else:
+		motion_mode = MOTION_MODE_FLOATING;
 
 func _physics_process(delta: float) -> void:
 	
@@ -180,7 +184,10 @@ func ai_state_update( delta ):
 		player_yaw_angle = global_basis.z.signed_angle_to( -offset, global_basis.y );
 		player_pitch_angle = $pitch.global_basis.z.signed_angle_to( -offset, $pitch.global_basis.x );
 		if( player_dist > 4.0 ):
-			motion += Vector3( offset.x, 0.0, offset.z ).normalized().rotated( Vector3.UP, deg_to_rad( move_offset*move_offset_angle ) )*move_vel*delta;
+			if( is_grounded ):
+				motion += Vector3( offset.x, 0.0, offset.z ).normalized().rotated( Vector3.UP, deg_to_rad( move_offset*move_offset_angle ) )*move_vel*delta;
+			else:
+				motion += offset.normalized().rotated( Vector3.UP, deg_to_rad( move_offset*move_offset_angle ) )*move_vel*delta;
 		look_at_pos( global_position - Vector3( motion.x, 0.0, motion.z ) );
 	
 	elif( ai_state == "dodge" ):
@@ -217,7 +224,7 @@ func set_ai_state( s ):
 			dodge_cd = randf_range( dodge_delay.x, dodge_delay.y );
 			
 			var dir = global_basis.x;
-			if( randi()%100 > 75 ):
+			if( randi()%100 > 75 && !is_grounded ):
 				dir = global_basis.y;
 			if( randi()%100 > 50 ):
 				dir *= -1.0;

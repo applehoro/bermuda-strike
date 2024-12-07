@@ -1,7 +1,8 @@
-[gd_scene load_steps=16 format=3 uid="uid://dwt5w44fpecds"]
+[gd_scene load_steps=17 format=3 uid="uid://dwt5w44fpecds"]
 
 [ext_resource type="PackedScene" uid="uid://byvydukidk6i2" path="res://addons/maaacks_game_template/examples/scenes/menus/main_menu/main_menu.tscn" id="1_wxu68"]
 [ext_resource type="Script" path="res://addons/maaacks_game_template/examples/scenes/menus/main_menu/main_menu_with_animations.gd" id="2_8i147"]
+[ext_resource type="FontFile" uid="uid://bxed4lgv8rto8" path="res://fonts/COASBL__.TTF" id="3_1upjf"]
 
 [sub_resource type="Animation" id="1"]
 resource_name = "Intro"
@@ -368,13 +369,15 @@ modulate = Color(1, 1, 1, 0)
 modulate = Color(1, 1, 1, 0)
 
 [node name="TitleLabel" parent="MenuContainer/TitleMargin/TitleContainer" index="0"]
-text = "Jet Girls"
+theme_override_fonts/font = ExtResource("3_1upjf")
+text = "Bermuda Strike"
 
 [node name="SubTitleContainer" parent="MenuContainer/SubTitleMargin" index="0"]
 modulate = Color(1, 1, 1, 0)
 
 [node name="SubTitleLabel" parent="MenuContainer/SubTitleMargin/SubTitleContainer" index="0"]
-text = "An areial jet-powered boomer-shooter"
+theme_override_fonts/font = ExtResource("3_1upjf")
+text = "An areial jet-powered shooter"
 
 [node name="MenuButtonsContainer" parent="MenuContainer/MenuButtonsMargin" index="0"]
 modulate = Color(1, 1, 1, 0)
