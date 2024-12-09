@@ -90,7 +90,6 @@ func _physics_process( delta: float ) -> void:
 	spread = max( spread - spread_decrease*delta, spread_range_degrees.x );
 	
 	# handle input
-	#trigger = Input.is_action_pressed( "attack" );
 	if( Input.is_action_just_pressed( "attack" ) ):
 		on_trigger_pressed();
 		trigger = true;
@@ -98,21 +97,12 @@ func _physics_process( delta: float ) -> void:
 		on_trigger_released();
 		trigger = false;
 	
-	#alt_trigger = Input.is_action_pressed( "alt_attack" );
 	if( Input.is_action_just_pressed( "alt_attack" ) ):
 		on_alt_trigger_pressed();
 		alt_trigger = true;
 	elif( Input.is_action_just_released( "alt_attack" ) ):
 		on_alt_trigger_released();
 		alt_trigger = false;
-	
-	# targetting
-	#target_pos = global_position - global_basis.z*240.0;
-	#if( Global.node_player.is_lock_on || Global.settings[ "auto_aim" ] ):
-		#for obj in get_tree().get_nodes_in_group( "player_target" ):
-			#if( obj.has_target ):
-				#target_pos = obj.target_pos;
-	#node_muzzle.look_at( target_pos, global_basis.x );
 	
 	# cooldown
 	if( cd > 0.0 ):
@@ -256,10 +246,15 @@ func reload():
 			if( node_anim_add.has_animation( anim_name_reload ) ):
 				node_anim_add.play( anim_name_reload );
 		cd = node_anim.get_current_animation_length() + 0.1;
-		#trigger = false;
+	elif( !Inventory.cw_can_magazine_reload() ):
+		play_anim( "empty" );
+		trigger = false;
+		alt_trigger = false;
 
 func play_anim( a ):
-	node_anim.play( a );
+	if( node_anim != null ):
+		if( node_anim.has_animation( a ) ):
+			node_anim.play( a );
 	if( node_anim_add != null ):
 		if( node_anim_add.has_animation( a ) ):
 			node_anim_add.play( a );
