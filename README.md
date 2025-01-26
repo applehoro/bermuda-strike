@@ -1,3 +1,5 @@
+# For now, this project is in frozen state. Don't know if I will continue on it, so...
+
 # Bermuda Strike
 
 An areial jet-powered shooter game made in Godot Engine.
